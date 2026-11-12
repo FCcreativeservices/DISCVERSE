@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DISCVERSE — Discover Your Colors</title>
+<meta name="description" content="Discover Your Colors. Connect Beyond Them. A playful DISC-inspired team activity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1f2347;--muted:#565b80;--line:#e6e8f5;--bg:#fff9f3;--card:#fff;
+  --D:#EF5350;--I:#FFCA28;--S:#66BB6A;--C:#42A5F5;
+  --shadow:0 12px 34px rgba(52,46,110,.12);--shadow-s:0 4px 14px rgba(52,46,110,.10);
+  --display:'Fredoka','Trebuchet MS','Arial Rounded MT Bold',system-ui,sans-serif;
+  --body:'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--body);color:var(--ink);background:
+  radial-gradient(900px 600px at 8% -5%,#ffe3e0 0%,transparent 60%),
+  radial-gradient(800px 600px at 100% 0%,#fff3c4 0%,transparent 55%),
+  radial-gradient(900px 700px at 0% 100%,#dff3e0 0%,transparent 55%),
+  radial-gradient(900px 700px at 100% 100%,#dcedff 0%,transparent 55%),var(--bg);
+  min-height:100vh;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display);margin:0;line-height:1.1;letter-spacing:.2px}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:4px solid #5b4bff;outline-offset:3px;border-radius:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#bg,#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#bg{z-index:0}#fx{z-index:60}
+
+/* top bar */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 18px;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;border:0;background:none;padding:4px 6px;font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:1px}
+.dots{display:flex;gap:3px}.dots i{width:12px;height:12px;border-radius:50%;display:block}
+.nav{display:flex;gap:6px}
+.link{border:0;background:none;padding:8px 12px;border-radius:999px;font-weight:700;color:var(--muted)}
+.link:hover{background:#f0f1fb;color:var(--ink)}
+
+/* screens */
+main{position:relative;z-index:1}
+.screen{display:none;min-height:100vh;padding:88px 18px 56px}
+.screen.active{display:block;animation:screenIn .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes screenIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+.wrap{max-width:1040px;margin:0 auto}
+.center{text-align:center}
+.fine{font-size:.86rem;color:var(--muted)}
+.foot{max-width:640px;margin:40px auto 0;text-align:center;font-size:.82rem;color:var(--muted)}
+
+/* buttons */
+.btn{position:relative;overflow:hidden;border:0;border-radius:999px;padding:16px 34px;font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:1px;color:#fff;background:linear-gradient(120deg,#EF5350,#f58a3a 30%,#e6a800 55%,#43a047 78%,#1e88e5);background-size:220% 100%;box-shadow:0 10px 24px rgba(239,83,80,.35);transition:transform .2s,box-shadow .2s,background-position .6s;text-shadow:0 1px 2px rgba(0,0,0,.28)}
+.btn:hover{transform:translateY(-3px) scale(1.03);background-position:100% 0;box-shadow:0 16px 30px rgba(66,165,245,.32)}
+.btn:active{transform:scale(.97)}
+.btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.2s infinite}
+@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line);box-shadow:var(--shadow-s);text-shadow:none;font-size:1rem;padding:13px 24px}
+.btn.ghost::after{display:none}
+.btn.ghost:hover{border-color:#c9cdee;background:#fafaff}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.sm{font-size:1rem;padding:12px 22px}
+
+/* hero */
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 150px);text-align:center}
+.eyebrow{font-family:var(--display);font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-size:.95rem}
+.hero h1{font-size:clamp(2.3rem,7.2vw,5rem);margin:12px 0 10px;font-weight:700;text-transform:uppercase}
+.rainbow{background:linear-gradient(90deg,#D93B38,#E09A00,#2F9E44,#1E7FD6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-size:clamp(1.05rem,2.2vw,1.35rem);max-width:640px;color:var(--muted)}
+.cast{display:flex;justify-content:center;align-items:flex-end;gap:clamp(0px,1.5vw,18px);flex-wrap:wrap;margin:18px 0 6px;width:100%}
+.cast .c{width:clamp(130px,21vw,210px);position:relative}
+.cast .c .tag{display:block;text-align:center;font-family:var(--display);font-weight:700;margin-top:-4px}
+.tagline{font-family:var(--display);font-weight:600;font-size:1.25rem;margin-top:8px}
+.hero .meta{margin-top:14px;color:var(--muted);font-weight:600}
+.hero .btn{margin-top:22px;font-size:1.4rem;padding:19px 52px}
+
+/* mascots */
+.mascot{display:block;width:100%;height:auto;overflow:visible}
+.mascot .pupil{animation:look 5s ease-in-out infinite}
+@keyframes look{0%,100%{transform:translate(0,0)}30%{transform:translate(3px,-1px)}60%{transform:translate(-3px,1px)}}
+.c.m-D,.m-D-wrap{animation:heroic 3.4s ease-in-out infinite}
+@keyframes heroic{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1.5deg)}}
+.m-D .arm-up{transform-origin:128px 152px;animation:fist 2.2s ease-in-out infinite}
+@keyframes fist{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(10deg)}}
+.m-D .cape-w{transform-origin:76px 150px;animation:cape 2s ease-in-out infinite}
+@keyframes cape{0%,100%{transform:skewY(0)}50%{transform:skewY(4deg) scaleX(1.04)}}
+.m-I-wrap{animation:jump 1.5s cubic-bezier(.3,.7,.4,1) infinite}
+@keyframes jump{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(2px) scale(1.05,.94)}45%{transform:translateY(-26px) scale(.97,1.04)}75%{transform:translateY(0) scale(1.04,.96)}}
+.m-I .wave{transform-origin:126px 156px;animation:wave .8s ease-in-out infinite alternate}
+@keyframes wave{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.m-S-wrap{animation:sway 4s ease-in-out infinite;transform-origin:50% 95%}
+@keyframes sway{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+.m-S .sprout{transform-origin:100px 40px;animation:sprout 3s ease-in-out infinite}
+@keyframes sprout{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+.m-S .heart{transform-origin:160px 60px;animation:heartf 2.4s ease-in-out infinite}
+@keyframes heartf{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.12)}}
+.m-S .steam{animation:steam 2.6s ease-in-out infinite;opacity:.0}
+@keyframes steam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.7}100%{opacity:0;transform:translateY(-8px)}}
+.m-C-wrap{animation:tilt 4.2s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes tilt{0%,100%{transform:rotate(0)}30%{transform:rotate(-5deg)}60%{transform:rotate(4deg)}}
+.m-C .glasses{animation:adjust 4.2s ease-in-out infinite;transform-origin:100px 96px}
+@keyframes adjust{0%,55%,100%{transform:translateY(0)}65%{transform:translateY(-4px) rotate(-2deg)}75%{transform:translateY(0)}}
+.m-C .pencil{transform-origin:146px 160px;animation:pencil 1.6s ease-in-out infinite}
+@keyframes pencil{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
+.idle{animation:idle 3.2s ease-in-out infinite}
+@keyframes idle{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.015)}}
+
+/* name step */
+.card{background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:clamp(20px,4vw,40px)}
+.narrow{max-width:560px;margin:8vh auto 0;text-align:center}
+.narrow h2{font-size:clamp(1.8rem,5vw,2.6rem)}
+.narrow .mini{width:130px;margin:0 auto 6px}
+.input{width:100%;margin:20px 0 6px;padding:16px 20px;border-radius:18px;border:3px solid var(--line);font:inherit;font-size:1.2rem;font-weight:700;text-align:center;color:var(--ink);background:#fff}
+.input:focus{border-color:#8a7bff;outline:none;box-shadow:0 0 0 5px rgba(138,123,255,.25)}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+
+/* quiz */
+.qwrap{max-width:860px;margin:0 auto}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.bar{flex:1;height:16px;background:#fff;border-radius:99px;box-shadow:inset 0 2px 5px rgba(0,0,0,.08);overflow:hidden;border:2px solid #fff}
+.bar>i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#EF5350,#FFCA28,#66BB6A,#42A5F5);transition:width .6s cubic-bezier(.2,.8,.2,1);position:relative}
+.bar>i::after{content:"";position:absolute;right:3px;top:3px;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.85)}
+.plabel{font-weight:800;color:var(--muted);min-width:92px;text-align:right;font-size:.95rem}
+.qcard{position:relative}
+.qcard.swap{animation:slide .45s cubic-bezier(.2,.8,.2,1)}
+.qcard.swap.rev{animation-name:slideRev}
+@keyframes slide{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes slideRev{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+.qhead{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.qnum{font-family:var(--display);font-weight:700;font-size:clamp(3rem,9vw,5rem);line-height:.9;background:linear-gradient(135deg,#EF5350,#FFB300 35%,#43A047 65%,#1E88E5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.qof{font-family:var(--display);color:var(--muted);font-weight:600;font-size:1.2rem;align-self:flex-end;margin-bottom:6px}
+.theme{margin-left:auto;background:#f1f2fc;color:#444a78;font-weight:800;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;padding:7px 14px;border-radius:99px}
+.qtext{font-family:var(--display);font-weight:500;font-size:clamp(1.3rem,3.2vw,1.85rem);line-height:1.3;margin:6px 0 22px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;gap:14px;align-items:flex-start;text-align:left;padding:16px 18px;border-radius:20px;border:3px solid var(--line);background:#fff;font-weight:700;font-size:1.02rem;line-height:1.4;transition:transform .18s,border-color .18s,box-shadow .18s,background .18s;position:relative}
+.opt:hover{transform:translateY(-4px) rotate(-.4deg);border-color:#bdb4ff;box-shadow:0 10px 22px rgba(90,75,255,.16)}
+.opt .letter{flex:0 0 34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;background:#eef0fb;color:#444a78;transition:.2s}
+.opt.sel{border-color:#6c5cff;background:linear-gradient(135deg,#f4f1ff,#eef7ff);box-shadow:0 10px 24px rgba(108,92,255,.22);animation:pop .35s}
+.opt.sel .letter{background:#6c5cff;color:#fff}
+@keyframes pop{0%{transform:scale(.97)}60%{transform:scale(1.025)}100%{transform:scale(1)}}
+.qnav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px}
+.buddy{position:fixed;right:max(10px,2vw);bottom:10px;z-index:10;display:flex;align-items:flex-end;gap:6px;pointer-events:none}
+.bubble{background:#fff;border-radius:18px 18px 4px 18px;padding:10px 14px;font-weight:800;font-size:.92rem;box-shadow:var(--shadow-s);max-width:190px;animation:bub .5s}
+@keyframes bub{from{opacity:0;transform:scale(.8) translateY(10px)}to{opacity:1;transform:none}}
+.buddy .bm{width:92px}
+@media(max-width:700px){.buddy .bm{width:64px}.bubble{font-size:.8rem;max-width:140px}.screen{padding-bottom:110px}}
+
+/* reveal */
+.reveal-wrap{max-width:720px;margin:0 auto;text-align:center}
+.rev-title{font-size:clamp(2rem,6vw,3.4rem);text-transform:uppercase;min-height:1.2em}
+.stage{position:relative;width:min(420px,86vw);margin:10px auto 0;aspect-ratio:400/430}
+.stage svg.streams{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .5s}
+.stage.on svg.streams{opacity:1}
+.stage.done svg.streams{opacity:0}
+.streams path{fill:none;stroke-width:9;stroke-linecap:round;stroke-dasharray:3 17;animation:flow .8s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-20}}
+#revAvatar{position:absolute;left:18%;right:18%;top:8%}
+.stage.done #revAvatar{animation:idle 3s ease-in-out infinite}
+.rev-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px auto 0;max-width:560px}
+.rs{background:#fff;border-radius:18px;padding:10px 6px;box-shadow:var(--shadow-s);border-bottom:6px solid var(--k)}
+.rs b{display:block;font-family:var(--display);font-size:1.7rem}
+.rs span{font-weight:800;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.rev-actions{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.pop-in{animation:popIn .7s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes popIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+
+/* results */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:6px 4px 10px;margin:0 auto 18px;max-width:1040px;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:#fff;border-radius:99px;padding:10px 18px;font-family:var(--display);font-weight:600;font-size:1rem;color:var(--muted);box-shadow:var(--shadow-s);transition:.2s;white-space:nowrap}
+.tab:hover{transform:translateY(-2px)}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.panel[hidden]{display:none}
+.panel{animation:screenIn .5s}
+.pt{font-size:clamp(1.8rem,5vw,3rem);text-transform:uppercase}
+.lead{font-size:1.15rem;color:var(--muted);margin-top:8px}
+.dna-grid{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:28px;align-items:center;margin-top:20px}
+@media(max-width:820px){.dna-grid{grid-template-columns:1fr}}
+.dna-av{background:radial-gradient(circle at 50% 40%,#fff,#f3f1ff 70%);border-radius:36px;padding:18px 36px 12px;box-shadow:var(--shadow);position:relative}
+.dna-av .idle{width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:99px;font-weight:800;background:var(--bgc,#f1f2fc);color:var(--tc,var(--ink));border:2px solid var(--bc,transparent)}
+.chip i{width:12px;height:12px;border-radius:50%;background:var(--k,#999);display:block}
+.note{background:#fff8e1;border:2px solid #ffe082;border-radius:16px;padding:12px 16px;font-size:.93rem;margin:12px 0}
+.stack{display:flex;height:34px;border-radius:99px;overflow:hidden;box-shadow:inset 0 2px 5px rgba(0,0,0,.12);margin:12px 0 16px;border:3px solid #fff}
+.stack span{display:block;height:100%;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.brow{display:grid;grid-template-columns:96px 1fr 56px;gap:10px;align-items:center;margin:8px 0;font-weight:800}
+.brow .t{height:16px;background:#eef0fa;border-radius:99px;overflow:hidden}
+.brow .t i{display:block;height:100%;border-radius:99px;width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.brow b{font-family:var(--display);font-size:1.3rem;text-align:right}
+.brow small{display:block;font-weight:700;color:var(--muted);font-size:.72rem;margin-top:-2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:20px}
+.sec{background:#fff;border-radius:24px;padding:22px 24px;box-shadow:var(--shadow-s);border-top:7px solid var(--k,#6c5cff);transition:transform .2s}
+.sec:hover{transform:translateY(-3px)}
+.sec h3{font-size:1.25rem;margin-bottom:8px}
+.sec ul{margin:0;padding-left:1.1em}.sec li{margin:5px 0}
+.sec.wide{grid-column:1/-1}
+.hero-prof{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:center}
+@media(max-width:640px){.hero-prof{grid-template-columns:1fr;text-align:center}.hero-prof .mw{width:170px;margin:auto}}
+.cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.pick .lbl{font-weight:800;color:var(--muted);margin-right:4px}
+.pk{display:inline-flex;align-items:center;gap:8px;border:3px solid var(--line);background:#fff;border-radius:99px;padding:6px 16px 6px 8px;font-weight:800;transition:.2s}
+.pk .pd{width:26px;height:26px;border-radius:50%;background:var(--k);display:grid;place-items:center;color:#fff;font-family:var(--display);font-size:.9rem}
+.pk:hover{transform:translateY(-2px)}
+.pk[aria-pressed="true"]{border-color:var(--k);background:var(--soft);box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.duo{display:flex;justify-content:center;align-items:flex-end;gap:clamp(6px,5vw,60px);margin:10px 0 0;position:relative}
+.duo .dc{width:clamp(120px,24vw,200px);position:relative}
+.duo .dc.l{animation:leanR 2.8s ease-in-out infinite}
+.duo .dc.r{animation:leanL 2.8s ease-in-out infinite}
+.duo .dc.r svg{transform:scaleX(-1)}
+@keyframes leanR{0%,100%{transform:translateX(0) rotate(0)}50%{transform:translateX(12px) rotate(4deg)}}
+@keyframes leanL{0%,100%{transform:translateX(0) rotate(0)}50%{transform:translateX(-12px) rotate(-4deg)}}
+.say{position:absolute;top:-6px;left:50%;transform:translateX(-50%);background:#fff;border-radius:16px;padding:6px 12px;font-weight:800;font-size:.82rem;box-shadow:var(--shadow-s);white-space:nowrap;animation:bub .6s both}
+.sparkles{position:absolute;left:50%;top:30%;width:60px;height:60px;transform:translateX(-50%);pointer-events:none}
+.sparkles i{position:absolute;width:14px;height:14px;background:var(--c);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:spark 2.2s ease-in-out infinite;opacity:0}
+.sparkles i:nth-child(1){left:0;top:20px;animation-delay:0s}.sparkles i:nth-child(2){left:24px;top:0;animation-delay:.6s}.sparkles i:nth-child(3){left:44px;top:24px;animation-delay:1.2s}
+@keyframes spark{0%{opacity:0;transform:scale(.3) translateY(10px)}40%{opacity:1;transform:scale(1.2)}100%{opacity:0;transform:scale(.5) translateY(-22px)}}
+.cmp-title{font-size:clamp(1.4rem,4vw,2.2rem);text-align:center;text-transform:uppercase;margin:10px 0 0}
+.tip{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.tip b.n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--k);color:#fff;display:grid;place-items:center;font-family:var(--display)}
+.dial{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.dial span{padding:5px 12px;border-radius:99px;font-weight:800;font-size:.88rem}
+.up span{background:#e3f6e5;color:#1b5e20}.down span{background:#ffe9e7;color:#8e1b1b}
+.say-box{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.say-box{grid-template-columns:1fr}}
+.sb{border-radius:20px;padding:16px 18px;font-weight:700}
+.sb small{display:block;text-transform:uppercase;letter-spacing:1px;font-size:.74rem;margin-bottom:6px}
+.sb.no{background:#fff0ef;border:2px dashed #f2a5a2}.sb.yes{background:#eaf8ec;border:2px solid #9ad7a0}
+.mission{max-width:620px;margin:20px auto 0;text-align:center}
+.chal{margin:20px auto;background:linear-gradient(135deg,#fff,#f6f3ff);border-radius:28px;padding:30px 26px;box-shadow:var(--shadow);border:3px solid var(--k);animation:flip .6s cubic-bezier(.2,1.2,.4,1)}
+@keyframes flip{from{opacity:0;transform:rotateX(60deg) scale(.9)}to{opacity:1;transform:none}}
+.chal .badge{display:inline-block;background:var(--ink);color:#fff;padding:5px 14px;border-radius:99px;font-weight:800;font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.chal p{font-family:var(--display);font-weight:500;font-size:clamp(1.2rem,3vw,1.6rem);line-height:1.35}
+.cardprev{max-width:460px;margin:18px auto;border-radius:24px;box-shadow:var(--shadow);overflow:hidden;background:#fff;min-height:200px;display:grid;place-items:center}
+.cardprev img{display:block;width:100%;height:auto}
+
+/* dialogs */
+dialog{border:0;border-radius:30px;padding:0;width:min(900px,94vw);max-height:90vh;box-shadow:0 30px 80px rgba(20,16,70,.35);color:var(--ink);background:#fff}
+dialog::backdrop{background:rgba(31,35,71,.55);backdrop-filter:blur(5px)}
+dialog[open]{animation:screenIn .4s}
+.dbody{padding:clamp(20px,4vw,36px);overflow:auto;max-height:90vh}
+.dclose{position:absolute;top:12px;right:12px;width:42px;height:42px;border-radius:50%;border:0;background:#f1f2fc;font-size:1.3rem;font-weight:800}
+.dclose:hover{background:#e3e5fa}
+.exp{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:center;margin-top:14px}
+@media(max-width:640px){.exp{grid-template-columns:1fr}.exp .mw{width:160px;margin:auto}}
+.how p{margin:10px 0}.how h3{margin-top:18px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .steam{opacity:.5!important}
+}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<header class="topbar">
+  <button class="brand" data-act="home" aria-label="DISCVERSE home"><span class="dots" aria-hidden="true"><i style="background:#EF5350"></i><i style="background:#FFCA28"></i><i style="background:#66BB6A"></i><i style="background:#42A5F5"></i></span>DISCVERSE</button>
+  <nav class="nav" aria-label="Main">
+    <button class="link" data-act="explore">Explore all colors</button>
+    <button class="link" data-act="how">How it works</button>
+  </nav>
+</header>
+
+<main>
+  <!-- LANDING -->
+  <section id="landing" class="screen active" aria-labelledby="heroTitle">
+    <div class="wrap hero">
+      <div class="eyebrow">Discover Your Colors. Connect Beyond Them.</div>
+      <h1 id="heroTitle" data-focus tabindex="-1">What color is<br><span class="rainbow">your personality?</span></h1>
+      <p class="sub">Discover what drives you, how you connect, and what makes your teamwork unique.</p>
+      <div class="cast" id="cast" aria-label="The four DISCVERSE characters: Red, Yellow, Green and Blue"></div>
+      <p class="tagline">Four colors. Different strengths. One amazing team.</p>
+      <button class="btn" data-act="start">START QUIZ</button>
+      <p class="meta">15 questions · Approximately 5–7 minutes · No right or wrong answers</p>
+      <p class="fine" style="margin-top:10px;max-width:560px">A fun, DISC-inspired reflection activity, not an official or validated assessment. Everything stays in your browser.</p>
+    </div>
+  </section>
+
+  <!-- NAME -->
+  <section id="nameStep" class="screen" aria-labelledby="nameTitle">
+    <div class="narrow card">
+      <div class="mini" id="nameMini"></div>
+      <h2 id="nameTitle" data-focus tabindex="-1">What should we call you?</h2>
+      <p class="lead" style="font-size:1rem">Optional. Your name or nickname appears on your results and color card. No account needed.</p>
+      <label class="sr" for="nameInput">First name or nickname (optional)</label>
+      <input id="nameInput" class="input" type="text" maxlength="24" autocomplete="off" placeholder="First name or nickname">
+      <div class="row">
+        <button class="btn sm" data-act="nameGo">LET'S GO</button>
+        <button class="btn ghost" data-act="nameSkip">Skip</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="screen" aria-labelledby="qText">
+    <div class="qwrap">
+      <div class="prog">
+        <div class="bar" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0" id="barA"><i id="barI"></i></div>
+        <div class="plabel" id="plabel" aria-live="polite">Question 1 of 15</div>
+      </div>
+      <div class="card qcard" id="qcard">
+        <div class="qhead"><span class="qnum" id="qNum" aria-hidden="true">01</span><span class="qof" aria-hidden="true">/ 15</span><span class="theme" id="qTheme"></span></div>
+        <h2 class="qtext" id="qText" data-focus tabindex="-1"></h2>
+        <div class="opts" id="opts" role="radiogroup" aria-labelledby="qText"></div>
+        <p class="fine" style="margin-top:14px">Choose the answer that feels most natural. Tip: press 1–4 to select, ← → to move.</p>
+        <div class="qnav">
+          <button class="btn ghost" data-act="back" id="btnBack">← Back</button>
+          <button class="btn sm" data-act="next" id="btnNext" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+    <div class="buddy" aria-hidden="true"><div class="bubble" id="bubble"></div><div class="bm" id="buddyM"></div></div>
+  </section>
+
+  <!-- REVEAL -->
+  <section id="reveal" class="screen" aria-labelledby="revTitle">
+    <div class="reveal-wrap">
+      <h2 class="rev-title" id="revTitle" data-focus tabindex="-1" aria-live="polite">Mixing your colors…</h2>
+      <div class="stage" id="stage">
+        <svg class="streams" viewBox="0 0 400 430" aria-hidden="true">
+          <path d="M8 24 C100 40 130 170 186 215" stroke="#EF5350" style="animation-delay:0s"/>
+          <path d="M392 24 C300 40 270 170 214 215" stroke="#FFCA28" style="animation-delay:-.2s"/>
+          <path d="M8 410 C100 394 130 290 186 245" stroke="#66BB6A" style="animation-delay:-.4s"/>
+          <path d="M392 410 C300 394 270 290 214 245" stroke="#42A5F5" style="animation-delay:-.6s"/>
+        </svg>
+        <div id="revAvatar" aria-hidden="true"></div>
+      </div>
+      <div class="rev-stats" id="revStats"></div>
+      <div class="rev-actions">
+        <button class="btn" data-act="toResults" id="revCta" hidden>SEE MY COLOR DNA</button>
+        <button class="btn ghost" data-act="skipReveal" id="revSkip">Skip animation</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="screen" aria-label="Your results">
+    <div class="wrap">
+      <div class="tabs" role="tablist" aria-label="Result sections" id="tabs">
+        <button class="tab" role="tab" id="tab-dna" data-tab="dna" aria-controls="panel-dna">Color DNA</button>
+        <button class="tab" role="tab" id="tab-profile" data-tab="profile" aria-controls="panel-profile">My Profile</button>
+        <button class="tab" role="tab" id="tab-talk" data-tab="talk" aria-controls="panel-talk">Talk to Another Color</button>
+        <button class="tab" role="tab" id="tab-mission" data-tab="mission" aria-controls="panel-mission">Team Mission</button>
+        <button class="tab" role="tab" id="tab-card" data-tab="card" aria-controls="panel-card">My Color Card</button>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-dna" aria-labelledby="tab-dna" tabindex="-1"></div>
+      <div class="panel" role="tabpanel" id="panel-profile" aria-labelledby="tab-profile" tabindex="-1" hidden></div>
+      <div class="panel" role="tabpanel" id="panel-talk" aria-labelledby="tab-talk" tabindex="-1" hidden></div>
+      <div class="panel" role="tabpanel" id="panel-mission" aria-labelledby="tab-mission" tabindex="-1" hidden></div>
+      <div class="panel" role="tabpanel" id="panel-card" aria-labelledby="tab-card" tabindex="-1" hidden></div>
+      <div class="row" style="margin-top:34px"><button class="btn ghost" data-act="retake">↺ Retake quiz</button><button class="btn ghost" data-act="explore">Explore all colors</button><button class="btn ghost" data-act="how">How your results work</button></div>
+    </div>
+  </section>
+
+  <p class="foot">DISCVERSE is an original, DISC-inspired reflection activity. It is not an official, licensed, or scientifically validated assessment, and it doesn't diagnose or predict anything. Your answers are processed locally in your browser and are never collected, transmitted, or stored on a server.</p>
+</main>
+
+<dialog id="dlgExplore" aria-labelledby="exTitle"><button class="dclose" data-act="closeDlg" aria-label="Close">✕</button><div class="dbody" id="exBody"></div></dialog>
+<dialog id="dlgHow" aria-labelledby="howTitle"><button class="dclose" data-act="closeDlg" aria-label="Close">✕</button>
+<div class="dbody how">
+  <h2 id="howTitle">How your results work</h2>
+  <h3>The quiz</h3>
+  <p>You answer 15 workplace scenarios. Every question has four answers, one for each style: Dominance (Red), Influence (Yellow), Steadiness (Green) and Conscientiousness (Blue). Answer order is shuffled so position never hints at a style, and no answer is better than another.</p>
+  <h3>The scoring</h3>
+  <p>Each answer you choose gives one point to the style it reflects. Your percentages are your points divided by 15, rounded so the four numbers add up to exactly 100%. Ties are decided on the underlying points, not the rounded percentages. If your top styles tie, DISCVERSE says so and lets you explore each one instead of picking a winner. The scoring matrix is the <code>QUESTIONS</code> list at the top of the script, so it is easy to review and edit.</p>
+  <h3>What it is, and what it isn't</h3>
+  <p>These percentages show how your answers were distributed in this activity. They are not psychometric scores, clinical results, or probabilities, and they can change from day to day, role to role, and mood to mood. Most people flex across all four colors. Use the results as a conversation starter, and read the person, not the label.</p>
+  <h3>The communication guides</h3>
+  <p>The "Talk to Another Color" tips use a simple four-style framework based on the widely used DISC approach, with a color shorthand. They are habits to try, not rules, and no pairing is better or worse than another.</p>
+  <h3>Privacy</h3>
+  <p>Everything happens in your browser. Nothing is sent anywhere, and nothing is saved when you close the page. Your PNGs are generated on your device.</p>
+</div></dialog>
+
+<script>
+"use strict";
+/* =====================================================================
+   DATA — edit here to review or adjust the content and scoring.
+   Each answer is [text, style]. One point goes to that style.
+   D = Dominance (Red) · I = Influence (Yellow) · S = Steadiness (Green) · C = Conscientiousness (Blue)
+   ===================================================================== */
+const DIMS = ['D','I','S','C'];
+const META = {
+  D:{key:'red',   name:'Red',   word:'Dominance',         base:'#EF5350',mid:'#D32F2F',light:'#FF8A80',dark:'#B71C1C',text:'#C62828',soft:'#FDECEA'},
+  I:{key:'yellow',name:'Yellow',word:'Influence',         base:'#FFCA28',mid:'#F9A825',light:'#FFE082',dark:'#C98A00',text:'#8A6100',soft:'#FFF6D6'},
+  S:{key:'green', name:'Green', word:'Steadiness',        base:'#66BB6A',mid:'#43A047',light:'#A5D6A7',dark:'#2E7D32',text:'#2E7D32',soft:'#E8F6E9'},
+  C:{key:'blue',  name:'Blue',  word:'Conscientiousness', base:'#42A5F5',mid:'#1E88E5',light:'#90CAF9',dark:'#1565C0',text:'#1565C0',soft:'#E4F2FE'}
+};
+const QUESTIONS = [
+ {theme:'Decision-making', q:'Your team is approaching a deadline, and someone discovers an issue that could affect the quality of the final result. What is your natural first response?', o:[
+  ['Decide quickly what to cut or change, assign owners, and keep the team moving.','D'],
+  ['Pull everyone together, keep spirits up, and brainstorm a creative way through.','I'],
+  ['Check in with the team, make sure no one is overwhelmed, and agree on a steady plan.','S'],
+  ['Look closely at the issue to understand exactly what it affects before deciding anything.','C']]},
+ {theme:'Conflict', q:'Two teammates disagree openly in a meeting and the conversation gets tense. What are you most likely to do?', o:[
+  ['Step in, name the core issue, and push for a decision.','D'],
+  ['Lighten the mood and help people find common ground through conversation.','I'],
+  ['Stay calm, listen to each side, and look for a solution that leaves everyone feeling respected.','S'],
+  ['Ask for the facts and the criteria so the disagreement can be settled on evidence.','C']]},
+ {theme:'Communication', q:'You need to share an important update with a group. How do you prefer to do it?', o:[
+  ['Keep it short: the outcome, what is needed, and by when.','D'],
+  ['Tell the story with energy and invite reactions in the moment.','I'],
+  ['Share it in a personal, reassuring way and leave time for questions and concerns.','S'],
+  ['Send a clear written summary with the details and supporting information.','C']]},
+ {theme:'Motivation', q:'Which kind of project would give you the most energy right now?', o:[
+  ['A tough challenge with a clear target, where results are easy to see.','D'],
+  ['A lively, collaborative launch where you can inspire others and share the spotlight.','I'],
+  ['A long-term effort where you can support people and build something that lasts.','S'],
+  ['A complex problem where you can design a high-quality, well-built solution.','C']]},
+ {theme:'Leadership', q:'You are asked to lead a brand-new initiative. What do you tend to do in the first week?', o:[
+  ['Set the direction and the first milestones, then get people started.','D'],
+  ['Meet with everyone, build excitement, and get people talking about the vision.','I'],
+  ['Learn how each person likes to work and make sure everyone feels included before moving.','S'],
+  ['Define the scope, standards, and roles, and write a detailed plan.','C']]},
+ {theme:'Collaboration', q:'On a group project, which role do you naturally drift into?', o:[
+  ['The one who keeps progress moving and makes the call when things stall.','D'],
+  ['The connector who keeps energy high and brings people together.','I'],
+  ['The dependable teammate who helps others and keeps things running smoothly.','S'],
+  ['The quality guardian who checks details and sharpens the work.','C']]},
+ {theme:'Stress', q:'When pressure stays high for several days in a row, which is closest to how you tend to react?', o:[
+  ['I become more direct and impatient, and I want to cut through whatever is in the way.','D'],
+  ['I look for conversations and lighter moments, and I may spread myself across too many things.','I'],
+  ['I keep my worries to myself and quietly keep going so I do not worry anyone else.','S'],
+  ['I retreat into the details and double-check everything, sometimes more than needed.','C']]},
+ {theme:'Adaptability', q:'A major change to the plan is announced with very little notice. What is your first instinct?', o:[
+  ['Treat it as a new challenge and figure out how to take the lead on it.','D'],
+  ['See the opportunity, share ideas, and get others on board.','I'],
+  ['Take a moment to understand how it affects people, then adjust step by step.','S'],
+  ['Ask for the reasoning and the details, then carefully rework the plan.','C']]},
+ {theme:'Problem-solving', q:'You face a problem nobody on your team has solved before. How do you start?', o:[
+  ['Pick the most promising option, try it, and adjust fast.','D'],
+  ['Brainstorm out loud with others and test some bold ideas.','I'],
+  ['Draw on what has worked before and involve the people who will be affected.','S'],
+  ['Research it, break it into parts, and compare the options systematically.','C']]},
+ {theme:'Feedback', q:'Which kind of feedback helps you most?', o:[
+  ['Direct and brief: what worked, what did not, and what to do next.','D'],
+  ['Encouraging and personal, with appreciation for what I brought.','I'],
+  ['Gentle and private, with a supportive tone and time to absorb it.','S'],
+  ['Specific and evidence-based, tied to clear standards.','C']]},
+ {theme:'Risk', q:'A new opportunity promises a big upside, but there are plenty of unknowns. What do you do?', o:[
+  ['Go for it. Some risk is worth it to move first.','D'],
+  ['Get excited and tell others to see who wants to jump in with me.','I'],
+  ['Hold back until I know the team is comfortable and there is a safety net.','S'],
+  ['Analyze the risks and want a clear mitigation plan before committing.','C']]},
+ {theme:'Planning', q:'How do you usually plan your week?', o:[
+  ['Focus on the top few priorities and leave room to pivot.','D'],
+  ['Keep it flexible, guided by the people I will see and what feels inspiring.','I'],
+  ['Follow a steady routine so my commitments to others are reliably met.','S'],
+  ['Build a detailed schedule with checklists and buffers.','C']]},
+ {theme:'Relationships', q:'At a team event, how do you naturally spend your time?', o:[
+  ['Talking about goals, projects, and what is coming next.','D'],
+  ['Meeting as many people as I can and starting new conversations.','I'],
+  ['Having a few deeper one-on-one conversations with people I trust.','S'],
+  ['Observing first, then joining conversations about topics I know well.','C']]},
+ {theme:'Priorities', q:'Which of these matters most to you in a good workday?', o:[
+  ['Making real progress on something that matters.','D'],
+  ['Feeling connected to people and enjoying the work together.','I'],
+  ['Feeling that the team is stable, supported, and treated fairly.','S'],
+  ['Knowing the work was done accurately and well.','C']]},
+ {theme:'The unexpected', q:'Something goes wrong right before an important client presentation. What do you do first?', o:[
+  ['Take charge, make the call on a workaround, and delegate the pieces.','D'],
+  ['Stay upbeat, improvise, and reassure the room with confidence.','I'],
+  ['Stay calm, support the people most affected, and keep the team together.','S'],
+  ['Quickly diagnose what failed and fix it properly before moving on.','C']]}
+];
+
+const PROFILES = {
+ D:{headline:'YOUR DOMINANT COLOR IS RED!',sub:"You're the one who turns ideas into action.",tagline:'Turns ideas into action',
+  traits:['Decisive','Direct','Results-focused','Challenge-driven'],
+  chips:['Decisive','Driven','Courageous'],
+  strengths:['Decisive when things are uncertain','A strong drive for results','Comfortable taking the lead','Courage to challenge the status quo'],
+  motivates:'You may feel most energized by clear goals, real challenges, autonomy, and results you can point to. Visible progress often keeps you engaged.',
+  comm:'You might naturally prefer short, direct conversations that start with the bottom line. You may value people who are clear about what they need and by when.',
+  pressure:'When stakes rise, you may become more blunt, impatient, or controlling. That is often energy looking for a way forward. A short pause to check in with others can help you channel it.',
+  growth:['Ask for others\' views before locking in a decision.','Share the "why" along with the "what".','Celebrate the people behind the results.'],
+  env:'You may thrive with real ownership, room to make calls, ambitious goals, and teammates who give straight feedback.',
+  interp:'you tend to move toward goals quickly and clearly'},
+ I:{headline:'YOUR DOMINANT COLOR IS YELLOW!',sub:"You're the one who brings people and possibilities together.",tagline:'Brings energy and connection',
+  traits:['Enthusiastic','Sociable','Optimistic','Persuasive'],
+  chips:['Optimistic','Persuasive','Connector'],
+  strengths:['Contagious optimism','Easy rapport with new people','Creative idea generation','Inspiring, persuasive storytelling'],
+  motivates:'You may feel most energized by collaboration, variety, recognition, and the freedom to share ideas. Moments where people light up together can be especially rewarding.',
+  comm:'You might naturally prefer lively, conversational exchanges that start with the big picture. You may value people who listen, react, and appreciate your ideas.',
+  pressure:'Under pressure, you may talk more, take on too much, or steer away from hard conversations to keep the mood up. Details can slip when energy is spread thin.',
+  growth:['Capture agreements in writing with owners and dates.','Leave space for quieter voices before moving on.','Follow through on the details after the spark.'],
+  env:'You may thrive in a team with variety, flexibility, regular appreciation, and plenty of chances to talk ideas through.',
+  interp:'you tend to connect with people and spark enthusiasm'},
+ S:{headline:'YOUR DOMINANT COLOR IS GREEN!',sub:"You're the heart that keeps the team steady.",tagline:'Keeps the team steady',
+  traits:['Supportive','Patient','Reliable','Team-oriented'],
+  chips:['Patient','Dependable','Empathetic'],
+  strengths:['Patient, attentive listening','Dependable follow-through','Genuine empathy for teammates','A calm presence in turbulent moments'],
+  motivates:'You may feel most energized by stability, trust, sincere appreciation, and meaningful relationships. Knowing your work helps people can mean a lot to you.',
+  comm:'You might naturally prefer calm, personal, thoughtful conversations with time to process. You may value sincerity and people who do not rush you.',
+  pressure:'When things get tense, you may keep concerns private, agree on the surface, or resist sudden change. You might quietly stretch yourself to keep everyone comfortable.',
+  growth:['Voice concerns early, even gently.','Practice saying "not yet" or "no" when you need to.','Try small changes before they are forced on you.'],
+  env:'You may thrive where expectations are clear, relationships are trusting, and change comes with time and a step-by-step plan.',
+  interp:'you tend to build trust and keep things steady'},
+ C:{headline:'YOUR DOMINANT COLOR IS BLUE!',sub:"You're the one who makes good ideas great.",tagline:'Makes good ideas great',
+  traits:['Analytical','Detail-oriented','Organized','Quality-focused'],
+  chips:['Analytical','Precise','Thoughtful'],
+  strengths:['Sharp analytical thinking','High standards for quality','Careful planning and organization','Thoughtful, evidence-based questions'],
+  motivates:'You may feel most energized by accuracy, expertise, clear standards, and time to think things through. Work that is done really well can be its own reward.',
+  comm:'You might naturally prefer precise, logical conversations, often with the details in writing. You may value facts, clear definitions, and time to review.',
+  pressure:'Under pressure, you may over-analyze, withdraw, or get more critical. It is often the same carefulness turned up too high. Agreeing on "good enough" can help.',
+  growth:['Set a "good enough" standard and a decision date.','Share your reasoning early, not just your conclusions.','Start with what is working before the critique.'],
+  env:'You may thrive with clear processes, quiet time to focus, respect for expertise, and room to get things right.',
+  interp:'you tend to think things through and care about quality'}
+};
+const HIDDEN = {
+ DI:'Your Yellow side may help you bring people along, adding warmth and storytelling to your drive.',
+ DS:'Your Green side may add patience and listening, helping your goals land with people who need time to adjust.',
+ DC:'Your Blue side may add rigor, helping you pair fast moves with sound analysis.',
+ ID:'Your Red side may add focus and follow-through, turning your big ideas into finished results.',
+ IS:'Your Green side may add steadiness and empathy, helping you listen as well as you inspire.',
+ IC:'Your Blue side may add structure and precision, grounding your enthusiasm with evidence.',
+ SD:'Your Red side may give you the push to speak up and make the call when your team needs clarity.',
+ SI:'Your Yellow side may help you express appreciation out loud and bring warmth into new circles.',
+ SC:'Your Blue side may add careful planning, making your reliability even more consistent.',
+ CD:'Your Red side may help you commit to a decision once the key facts are in.',
+ CI:'Your Yellow side may help you share your insights in a way that engages and brings others along.',
+ CS:'Your Green side may add patience and empathy, making your feedback easier to hear.'
+};
+const HIDDEN_NONE = "Your answers focused strongly on one style, so a secondary style did not clearly show up. You can still borrow from the other colors on purpose. Try 'Explore all colors' for ideas.";
+
+/* What each style listens for (the same whoever is talking to them) */
+const TARGET = {
+ D:{need:'The bottom line, options, a clear owner, and visible progress.',up:['Speed','Directness','Options'],down:['Detail','Small talk','Hedging'],
+    avoid:['Long preambles before the point','Piles of detail nobody asked for','Vague, hedged answers']},
+ I:{need:'Rapport first, the big picture, a story, and visible credit.',up:['Warmth','Enthusiasm','The big picture'],down:['Data dumps','Criticism in public'],
+    avoid:['Dumping data before building rapport','Criticizing ideas in public','Overlooking their contributions']},
+ S:{need:'Time to adjust, a step-by-step plan, reassurance, and sincerity.',up:['Patience','Sincerity','Step-by-step plans'],down:['Pressure','Surprises','Intensity'],
+    avoid:['Springing sudden changes','Pushing for an instant answer','Turning up the intensity']},
+ C:{need:'Data, documentation, time to review, and clear standards.',up:['Accuracy','Data','Written follow-up'],down:['Exaggeration','Rushing','Vagueness'],
+    avoid:['Exaggerating or overselling','Rushing them to sign off','Staying vague on specifics']}
+};
+/* Pair cards: [be careful of your pull, your first move, in common, where you may differ, great team, instead of, try saying] — key = YOU+THEM */
+const PAIRS = {
+ DD:["You both want the bottom line and control. Two Reds can turn a disagreement into a contest. Name the shared goal first, then pick one owner.","Lead with the outcome, then the detail if asked. Give two or three options with your recommendation.","You both value speed, clear goals, and getting results.","Mostly who leads. With two strong drivers, a disagreement can quietly become a contest.","Shared drive plus clearly split ownership can move mountains.","I'll handle it my way.","We both want this done. I'll own the client side and you own delivery. Can we check in on Friday?"],
+ DI:["You go straight to the point and skip the relationship. Under stress you get blunt. A Yellow hears that as rejection, and fears being ignored or losing standing.","Open with the relationship and the vision. Put the details in writing afterward so nothing is lost.","You are both energetic, forward-looking, and comfortable taking the lead.","You want the bottom line, while Yellow wants connection and the story first.","Your drive plus their energy gets people excited and moving at the same time.","Skip the intro. What do you need?","Great energy on this. Here's the outcome I'm after, and I'd love your take on how to get people behind it."],
+ DS:["Your speed and force feel like pressure and sudden change. A Green may go quiet and agree without committing. Silence is not a yes.","Explain the why and how it affects their people. Ask directly for concerns.","You both care about getting things done, one quickly and one reliably.","Pace and change. You move fast, while Green wants time to adjust and to know people are looked after.","You create momentum and Green makes it stick, keeping people on board along the way.","We're doing this now. Just go with it.","Here's where I think we should go and why. How would it land with your team, and what would make the timing easier?"],
+ DC:["You move fast, lead with the bottom line, and get blunt under stress. A Blue hears speed as sloppiness. Rushing them to sign off backfires.","Send an agenda and the data ahead of time. Be precise: exact steps, root cause, dates. Give them time to think and answer in writing.","You both focus on results and competence, and neither of you is swayed by fluff.","Speed versus accuracy. You want to decide now, while Blue wants to get it right first.","You decide and they check, which means fast progress with fewer mistakes.","We need to move faster. Let's just make a decision.","Let's identify the key risks, agree on what information we need, and set a time to make the decision."],
+ ID:["Your stories, warmth and big ideas sound like long preambles to a Red. Overpromising and light detail get checked fast, and a Red remembers.","Lead with the outcome, then the detail if asked. Be brief, confident, and specific about dates and owners.","You are both outgoing, bold, and happy to act on an idea.","You tell the story, while Red wants the headline. Your detail level and pace may differ.","Your vision plus their push turns ideas into action.","Let me tell you the whole backstory first...","Bottom line: I'd like to launch by the 15th. I see three options and my pick is B. Can you back it?"],
+ II:["Two Yellows make a lot of energy and ideas, and details fall through. Agreements stay verbal and get lost. Write down who does what by when.","Open with the relationship and the vision. Put the details in writing afterward so nothing is lost.","You both love ideas, people, and good energy.","Mostly follow-through. With two big-picture thinkers, the small stuff can drift.","Creativity and momentum, and a simple shared tracker keeps nothing from getting lost.","Let's just wing it. We'll remember.","Love it. Before we leave the call, let's write down who does what by when."],
+ IS:["Your enthusiasm and fast pivots feel like sudden change to a Green. Don't spring an idea as a decision, and don't leave the agreement verbal.","Explain the why and how it affects their people. Give a clear, paced plan with support built in.","You are both warm, people-oriented, and care how the team feels.","You like fast pivots and the spotlight, while Green prefers steady, quiet, and predictable.","You lift the team and they sustain it, a lasting kind of energy.","Let's change everything. It'll be amazing!","I have a new idea and I'm excited, but nothing is decided. Here's the plan in steps, and I'd value your read on how it affects the team."],
+ IC:["You talk big picture, stay light on specifics, and may overpromise. A Blue distrusts exaggeration. Bring the specifics before the story.","Send an agenda and the data ahead of time. Be precise: exact steps, root cause, dates.","You are both curious and care about doing good work, in different ways.","You lead with vision and enthusiasm, while Blue leads with data and precision.","Your vision plus their rigor makes ideas both inspiring and sound.","Trust me, this is going to be huge.","Here's the idea, and here are the numbers and sources behind it. What would you want to verify before we commit?"],
+ SD:["Your patience and wish to keep the peace can sound like hedging. A Red needs a clear answer. Say what you recommend, and say no when you mean no. Don't agree and then not commit.","Lead with the outcome, then the detail if asked. Don't take it personally when they push.","You are both reliable and focused on getting things done.","You weigh how people will feel, while Red wants a straight answer and fast.","You steady the team and they drive it, which makes for a strong, balanced engine.","Maybe, we could possibly consider it, if everyone is fine with it...","My recommendation is option 2. I have one concern about timing, and I'd like us to settle it today."],
+ SI:["You keep concerns to yourself and agree without committing. A Yellow reads your quiet as a yes, then is surprised later. Say the concern out loud, warmly.","Open with the relationship and the vision. Use stories and customer examples, not spreadsheets.","You are both warm, supportive, and relationship-centered.","You are reserved and prefer steady change, while Yellow is expressive and spontaneous.","Your reliability plus their energy makes a team people want to be on.","Sure, that sounds fine. (while feeling uneasy)","I love the energy here. I have one worry about the timeline. Can I share it so we keep the spirit and fix it?"],
+ SS:["Two Greens can both avoid conflict, so decisions stall and problems go unsaid. Ask each other directly for concerns.","Explain the why and how it affects their people. Ask directly for concerns; silence is not agreement.","You both value harmony, loyalty, and a calm working rhythm.","Mostly what goes unsaid. Two peacekeepers may avoid the hard conversation.","Deep trust and stability, especially once honest concerns are welcome.","Whatever works for you.","I'd like to hear any concerns, even small ones. Mine is the timeline. What's yours?"],
+ SC:["You soften bad news and say it should be fine. A Blue hears vague and distrusts it. Give the actual number, date or root cause.","Be precise: exact steps, root cause, dates. Give them time to think and answer in writing.","You are both thoughtful, careful, and steady.","You reassure in general terms, while Blue wants exact specifics.","Your care plus their quality builds work that is both humane and excellent.","It should be fine. Don't worry about it.","Here's the actual status: 80% done, the open piece is the API review, due Thursday. Here's my plan if it slips."],
+ CD:["Your thoroughness sounds slow to a Red, and under stress you over-analyze and withdraw. Lead with the conclusion, then offer the data if they ask.","Lead with the outcome. Give two or three options with your recommendation.","You are both results-minded and comfortable working independently.","You want to be thorough, while Red wants a decision and momentum.","Your rigor behind their drive means fast decisions that hold up.","I need more time to analyze everything before I can say anything.","My recommendation is option B. Two risks matter most, and I can share the data if useful. I'll confirm by Thursday."],
+ CI:["You lead with data and may criticize an idea in the moment. A Yellow needs rapport first, and criticism in public hurts. Start with what's good, then follow up in writing.","Open with the relationship and the vision. Put the details in writing afterward.","You both care about good ideas and are curious about how things work.","You critique with data, while Yellow wants appreciation and connection first.","Your rigor polishes their ideas until they shine.","That won't work. The numbers don't support it.","I like the direction and the energy. Can I send a few details after the meeting so we make it even stronger?"],
+ CS:["Your precision and questions can come across as criticism or doubt. A Green needs reassurance and time. Say what's working before what's wrong, and keep surprises out of it.","Explain the why and how it affects their people. Give a clear, paced plan.","You are both careful, dependable, and committed to doing things properly.","Your precise questions can sound like doubt, while Green needs reassurance and time.","Your quality bar plus their steady support makes excellent, sustainable work.","Why did this go wrong? Where is the error?","The core is working well. There's one thing I'd like to adjust. Can we walk through a steady plan together?"],
+ CC:["Two Blues can go deep on detail and slow every decision, and both get critical under stress. Agree on the standard and a decision date.","Send an agenda and the data ahead of time. Be precise: exact steps, root cause, dates.","You both value accuracy, preparation, and high standards.","Mostly depth and timing. Two careful thinkers can analyze for a very long time.","Exceptional quality, as long as you agree on when 'done' is.","I need to look at every detail first.","Let's agree on the standard we'll use and set a decision date of Friday so we don't over-analyze."]
+};
+const SAYS = {D:"Let's get to it!",I:"I've got an idea!",S:"Take your time.",C:"Let me check the details."};
+const CHAL_GENERAL = [
+ "Ask a {P} teammate how they prefer to receive feedback, then try it once this week.",
+ "Share one strength you admire in how {P} colleagues work.",
+ "Ask someone with a different style how they approach an unexpected deadline.",
+ "Find one communication habit, such as a meeting format or message style, that could improve how you and a {P} teammate work together.",
+ "Swap one 'how I like to work' tip with a colleague who has a different style.",
+ "Next time you disagree with someone, restate their point before sharing yours.",
+ "Ask a colleague what a great handoff looks like for them.",
+ "Thank someone for a specific way their style helped the team this month."
+];
+const CHAL_PARTNER = {
+ D:["Open your next message to a Red teammate with the bottom line, then add detail only if they ask.","Ask a Red teammate which decision they would like to own on your next shared project."],
+ I:["Start your next chat with a Yellow teammate with something that is going well, then move to the topic.","Ask a Yellow teammate for the big-picture idea behind a current project."],
+ S:["Give a Green teammate an early heads-up about an upcoming change, and ask what would make it smoother.","Ask a Green teammate what good support looks like for them."],
+ C:["Send a Blue teammate the agenda and key information before your next meeting.","Ask a Blue teammate what 'done well' means for a current task."]
+};
+const CHAL_SELF = {
+ D:"Practice a ten-second pause before you share your opinion in your next conversation.",
+ I:"In your next meeting, capture one action item with an owner and a date.",
+ S:"Share one small concern out loud this week, kindly and early.",
+ C:"In one conversation, offer your recommendation first and your supporting data second."
+};
+const BUDDY = ["Nice start! Go with your gut.","You're doing great!","Every choice reveals a little more.","No right or wrong answers here.","Your colors are coming together!","Halfway there, keep going!","Trust your first instinct.","Almost two thirds done!","Every style brings something special.","You're on a roll!","So close, keep it up!","Your Color DNA is taking shape!","Just a few more!","Two to go. You've got this!","Last one! Ready to meet your colors?"];
+
+/* =====================================================================
+   HELPERS
+   ===================================================================== */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; };
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const ease = t => 1 - Math.pow(1-t, 3);
+let UID = 0;
+
+/* =====================================================================
+   MASCOTS (original SVG characters)
+   ===================================================================== */
+function eyeOpen(cx, cy, rx=14, ry=16, lx=0, ly=0){
+  return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#fff" stroke="#3b2a2a" stroke-width="2.5"/>
+  <g class="pupil"><circle cx="${cx+lx}" cy="${cy+2+ly}" r="${rx*0.66}" fill="#2b1a1a"/><circle cx="${cx+lx+3}" cy="${cy-2+ly}" r="3.4" fill="#fff"/><circle cx="${cx+lx-3}" cy="${cy+6+ly}" r="1.7" fill="#fff"/></g>`;
+}
+function gradDef(id, k){
+  const m = META[k];
+  return `<defs><radialGradient id="g${id}" cx="35%" cy="28%" r="82%"><stop offset="0" stop-color="${m.light}"/><stop offset=".5" stop-color="${m.base}"/><stop offset="1" stop-color="${m.mid}"/></radialGradient></defs>`;
+}
+const ART = {
+ D:(id)=>`<ellipse cx="100" cy="210" rx="56" ry="7" fill="rgba(40,30,90,.14)"/>
+  <g class="cape-w"><path d="M72 146 Q40 156 8 142 Q18 186 58 199 Q90 184 88 150Z" fill="#C62828" stroke="#7F1D1D" stroke-width="3.5" stroke-linejoin="round"/><path d="M30 160 Q46 170 60 190" stroke="#E57373" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/></g>
+  <ellipse cx="78" cy="200" rx="17" ry="9" fill="#795548" stroke="#3E2723" stroke-width="3.5"/><ellipse cx="122" cy="200" rx="17" ry="9" fill="#795548" stroke="#3E2723" stroke-width="3.5"/>
+  <ellipse cx="100" cy="168" rx="34" ry="30" fill="url(#g${id})" stroke="#9B1C1C" stroke-width="3.5"/>
+  <circle cx="70" cy="168" r="11" fill="url(#g${id})" stroke="#9B1C1C" stroke-width="3.5"/>
+  <g class="arm-up"><path d="M128 152 L158 100" stroke="#9B1C1C" stroke-width="23" stroke-linecap="round"/><path d="M128 152 L158 100" stroke="#EF5350" stroke-width="16" stroke-linecap="round"/><circle cx="160" cy="92" r="14" fill="url(#g${id})" stroke="#9B1C1C" stroke-width="3.5"/><path d="M152 93 Q160 99 168 93" fill="none" stroke="#9B1C1C" stroke-width="2.5" stroke-linecap="round"/></g>
+  <ellipse cx="100" cy="95" rx="66" ry="62" fill="url(#g${id})" stroke="#9B1C1C" stroke-width="3.5"/>
+  <path d="M56 78 L92 88" stroke="#5B1111" stroke-width="6.5" stroke-linecap="round"/><path d="M144 78 L108 88" stroke="#5B1111" stroke-width="6.5" stroke-linecap="round"/>
+  ${eyeOpen(78,100,14,16,1,0)}${eyeOpen(122,100,14,16,1,0)}
+  <path d="M86 122 Q100 142 114 122 Q100 117 86 122Z" fill="#5B1111" stroke="#5B1111" stroke-width="2" stroke-linejoin="round"/><ellipse cx="100" cy="131" rx="7" ry="3.5" fill="#FF8A80"/>
+  <ellipse cx="66" cy="58" rx="19" ry="9" transform="rotate(-28 66 58)" fill="#fff" opacity=".42"/>`,
+ I:(id)=>`<ellipse cx="100" cy="210" rx="56" ry="7" fill="rgba(40,30,90,.14)"/>
+  <ellipse cx="80" cy="200" rx="16" ry="9" fill="url(#g${id})" stroke="#C98A00" stroke-width="3.5"/>
+  <g transform="rotate(-28 128 190)"><ellipse cx="130" cy="192" rx="16" ry="9" fill="url(#g${id})" stroke="#C98A00" stroke-width="3.5"/></g>
+  <ellipse cx="100" cy="168" rx="34" ry="30" fill="url(#g${id})" stroke="#C98A00" stroke-width="3.5"/>
+  <path d="M100 152 l4.6 9.6 10.4 1.3 -7.7 7.2 2 10.3 -9.3 -5.1 -9.3 5.1 2 -10.3 -7.7 -7.2 10.4 -1.3z" fill="#fff" stroke="#C98A00" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M74 162 L38 150" stroke="#C98A00" stroke-width="22" stroke-linecap="round"/><path d="M74 162 L38 150" stroke="#FFCA28" stroke-width="15" stroke-linecap="round"/><circle cx="34" cy="148" r="10" fill="url(#g${id})" stroke="#C98A00" stroke-width="3.5"/>
+  <g class="wave"><path d="M126 156 L160 116" stroke="#C98A00" stroke-width="22" stroke-linecap="round"/><path d="M126 156 L160 116" stroke="#FFCA28" stroke-width="15" stroke-linecap="round"/><circle cx="165" cy="110" r="11" fill="url(#g${id})" stroke="#C98A00" stroke-width="3.5"/></g>
+  <ellipse cx="100" cy="95" rx="66" ry="62" fill="url(#g${id})" stroke="#C98A00" stroke-width="3.5"/>
+  <path d="M38 92 Q34 22 100 22 Q166 22 162 92" fill="none" stroke="#1565C0" stroke-width="13" stroke-linecap="round"/><path d="M38 92 Q34 22 100 22 Q166 22 162 92" fill="none" stroke="#ECEFF1" stroke-width="6" stroke-linecap="round"/>
+  <rect x="20" y="70" width="28" height="50" rx="14" fill="#ECEFF1" stroke="#1565C0" stroke-width="4.5"/><rect x="152" y="70" width="28" height="50" rx="14" fill="#ECEFF1" stroke="#1565C0" stroke-width="4.5"/><rect x="26" y="82" width="12" height="26" rx="6" fill="#1565C0" opacity=".85"/><rect x="162" y="82" width="12" height="26" rx="6" fill="#1565C0" opacity=".85"/>
+  <path d="M60 96 Q75 76 90 96" fill="none" stroke="#5A3A00" stroke-width="5.5" stroke-linecap="round"/><path d="M110 96 Q125 76 140 96" fill="none" stroke="#5A3A00" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M76 110 Q100 146 124 110 Q100 104 76 110Z" fill="#6B1F1F" stroke="#6B1F1F" stroke-width="2" stroke-linejoin="round"/><ellipse cx="100" cy="127" rx="10" ry="5" fill="#FF8A80"/>
+  <ellipse cx="60" cy="114" rx="9" ry="5.5" fill="#FF8F3F" opacity=".55"/><ellipse cx="140" cy="114" rx="9" ry="5.5" fill="#FF8F3F" opacity=".55"/>
+  <ellipse cx="68" cy="52" rx="19" ry="8" transform="rotate(-28 68 52)" fill="#fff" opacity=".5"/>`,
+ S:(id)=>`<ellipse cx="100" cy="210" rx="62" ry="7" fill="rgba(40,30,90,.14)"/>
+  <ellipse cx="66" cy="197" rx="23" ry="13" fill="url(#g${id})" stroke="#2E7D32" stroke-width="3.5"/><ellipse cx="134" cy="197" rx="23" ry="13" fill="url(#g${id})" stroke="#2E7D32" stroke-width="3.5"/>
+  <ellipse cx="100" cy="166" rx="42" ry="32" fill="url(#g${id})" stroke="#2E7D32" stroke-width="3.5"/>
+  <ellipse cx="100" cy="98" rx="68" ry="60" fill="url(#g${id})" stroke="#2E7D32" stroke-width="3.5"/>
+  <g class="sprout"><path d="M100 40 L101 28" stroke="#2E7D32" stroke-width="4" stroke-linecap="round"/><path d="M100 30 Q96 6 66 10 Q68 34 100 30Z" fill="#43A047" stroke="#1B5E20" stroke-width="3" stroke-linejoin="round"/><path d="M102 30 Q108 2 140 8 Q138 36 102 30Z" fill="#66BB6A" stroke="#1B5E20" stroke-width="3" stroke-linejoin="round"/></g>
+  <rect x="84" y="148" width="32" height="30" rx="7" fill="#fff" stroke="#2E7D32" stroke-width="3.5"/><path d="M116 156 Q128 158 118 171" fill="none" stroke="#2E7D32" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M100 173 L91 164 Q86 157 93 155 Q98 154 100 159 Q102 154 107 155 Q114 157 109 164Z" fill="#66BB6A" stroke="#2E7D32" stroke-width="1.8" stroke-linejoin="round"/>
+  <path class="steam" d="M94 142 Q90 134 96 130" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path class="steam" style="animation-delay:.9s" d="M106 142 Q102 134 108 130" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="80" cy="166" r="10.5" fill="url(#g${id})" stroke="#2E7D32" stroke-width="3.5"/><circle cx="120" cy="166" r="10.5" fill="url(#g${id})" stroke="#2E7D32" stroke-width="3.5"/>
+  <path d="M60 96 Q74 80 88 96" fill="none" stroke="#1B5E20" stroke-width="5.5" stroke-linecap="round"/><path d="M112 96 Q126 80 140 96" fill="none" stroke="#1B5E20" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M86 114 Q100 128 114 114" fill="none" stroke="#1B5E20" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="58" cy="110" rx="10" ry="6" fill="#F48FB1" opacity=".5"/><ellipse cx="142" cy="110" rx="10" ry="6" fill="#F48FB1" opacity=".5"/>
+  <ellipse cx="66" cy="58" rx="20" ry="9" transform="rotate(-28 66 58)" fill="#fff" opacity=".42"/>
+  <g class="heart"><path d="M162 70 C147 57 151 43 162 50 C173 43 177 57 162 70Z" fill="#66BB6A" stroke="#2E7D32" stroke-width="3" stroke-linejoin="round"/></g>`,
+ C:(id)=>`<ellipse cx="100" cy="210" rx="56" ry="7" fill="rgba(40,30,90,.14)"/>
+  <rect x="70" y="184" width="22" height="24" rx="9" fill="#1E5FA8" stroke="#0D3B78" stroke-width="3.5"/><rect x="108" y="184" width="22" height="24" rx="9" fill="#1E5FA8" stroke="#0D3B78" stroke-width="3.5"/>
+  <ellipse cx="100" cy="166" rx="33" ry="28" fill="url(#g${id})" stroke="#0D47A1" stroke-width="3.5"/>
+  <g transform="rotate(-6 110 170)"><rect x="82" y="146" width="58" height="48" rx="8" fill="#BBDEFB" stroke="#0D47A1" stroke-width="3.5"/><path d="M99 171 l8 8 17 -19" fill="none" stroke="#1565C0" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="80" cy="172" r="10" fill="url(#g${id})" stroke="#0D47A1" stroke-width="3.5"/>
+  <g class="pencil"><g transform="rotate(30 154 128)"><rect x="149" y="96" width="11" height="44" rx="2" fill="#FFCA28" stroke="#B8860B" stroke-width="2.5"/><path d="M149 96 L154.5 82 L160 96Z" fill="#FFCCBC" stroke="#B8860B" stroke-width="2.5" stroke-linejoin="round"/><rect x="149" y="138" width="11" height="6" rx="2" fill="#F48FB1" stroke="#B8860B" stroke-width="2"/></g><circle cx="146" cy="160" r="10" fill="url(#g${id})" stroke="#0D47A1" stroke-width="3.5"/></g>
+  <ellipse cx="100" cy="94" rx="66" ry="62" fill="url(#g${id})" stroke="#0D47A1" stroke-width="3.5"/>
+  <g class="glasses"><path d="M48 92 L36 88 M152 92 L164 88" stroke="#17407D" stroke-width="5" stroke-linecap="round"/><circle cx="74" cy="98" r="27" fill="#fff" fill-opacity=".9" stroke="#17407D" stroke-width="5.5"/><circle cx="126" cy="98" r="27" fill="#fff" fill-opacity=".9" stroke="#17407D" stroke-width="5.5"/><path d="M99 96 L101 96" stroke="#17407D" stroke-width="6" stroke-linecap="round"/>
+  <g class="pupil"><circle cx="76" cy="100" r="12" fill="#10213f"/><circle cx="80" cy="95" r="4" fill="#fff"/><circle cx="72" cy="106" r="1.8" fill="#fff"/><circle cx="128" cy="100" r="12" fill="#10213f"/><circle cx="132" cy="95" r="4" fill="#fff"/><circle cx="124" cy="106" r="1.8" fill="#fff"/></g></g>
+  <path d="M90 134 Q100 142 110 134" fill="none" stroke="#0D3B78" stroke-width="4.5" stroke-linecap="round"/>
+  <ellipse cx="66" cy="54" rx="19" ry="8" transform="rotate(-28 66 54)" fill="#fff" opacity=".42"/>`
+};
+function mascot(k, extra=''){
+  const id = ++UID;
+  return `<svg class="mascot m-${k} ${extra}" viewBox="0 0 200 220" aria-hidden="true" focusable="false">${gradDef(id,k)}${ART[k](id)}</svg>`;
+}
+function mascotWrap(k){ return `<div class="m-${k}-wrap">${mascot(k)}</div>`; }
+
+/* =====================================================================
+   SCORING
+   ===================================================================== */
+const S = {name:'', order:[], answers:[], q:0, res:null, focus:null, src:null, dst:null, tab:'dna', chal:null, dir:1, revealTimer:null, revealDone:false};
+
+function tally(){
+  const c = {D:0,I:0,S:0,C:0};
+  S.answers.forEach((a,qi)=>{ if (a!==null) c[QUESTIONS[qi].o[a][1]]++; });
+  return c;
+}
+/* Largest-remainder rounding: guarantees the four percentages add up to exactly 100. */
+function percents(counts){
+  const total = DIMS.reduce((s,d)=>s+counts[d],0) || 1;
+  const raw = DIMS.map(d=>({d, v:counts[d]/total*100}));
+  raw.forEach(r=>{ r.f=Math.floor(r.v); r.r=r.v-r.f; });
+  let left = 100 - raw.reduce((s,r)=>s+r.f,0);
+  [...raw].sort((a,b)=>b.r-a.r || DIMS.indexOf(a.d)-DIMS.indexOf(b.d)).forEach(r=>{ if(left>0){ r.f++; left--; } });
+  const out = {}; raw.forEach(r=>out[r.d]=r.f);
+  return out;
+}
+function analyze(){
+  const counts = tally();
+  const pct = percents(counts);
+  const ranked = [...DIMS].sort((a,b)=>counts[b]-counts[a] || DIMS.indexOf(a)-DIMS.indexOf(b));
+  const topScore = counts[ranked[0]];
+  const top = ranked.filter(d=>counts[d]===topScore);
+  const rest = ranked.filter(d=>!top.includes(d));
+  const sScore = rest.length ? counts[rest[0]] : 0;
+  const sec = sScore>0 ? rest.filter(d=>counts[d]===sScore) : [];
+  return {counts,pct,ranked,top,sec};
+}
+function secondaryOf(focus){
+  const r = S.res;
+  const others = r.ranked.filter(d=>d!==focus);
+  const sc = r.counts[others[0]];
+  if (sc===0) return {dim:null,tied:[]};
+  return {dim:others[0], tied:others.filter(d=>r.counts[d]===sc)};
+}
+const names = ds => ds.map(d=>META[d].name).join(' & ');
+const label = (ds, tiedWord=true) => ds.length>1 && tiedWord ? `${names(ds)} (tied)` : names(ds);
+
+/* =====================================================================
+   COLOR DNA AVATAR (area-accurate fill)
+   ===================================================================== */
+const SHAPES = [[100,95,66,62],[100,168,34,30],[78,200,16,9],[122,200,16,9],[66,168,11,9],[134,168,11,9]];
+const AREA = (()=>{
+  const y0 = 33, y1 = 209, step = 0.25, ys = [], cum = [];
+  let total = 0;
+  for (let y=y1; y>=y0; y-=step){
+    const iv = [];
+    SHAPES.forEach(([cx,cy,rx,ry])=>{ const t=(y-cy)/ry; if(Math.abs(t)<1){ const h=rx*Math.sqrt(1-t*t); iv.push([cx-h,cx+h]); } });
+    iv.sort((a,b)=>a[0]-b[0]);
+    let w=0, end=-1e9;
+    iv.forEach(([a,b])=>{ if(a>end){ w+=b-a; end=b; } else if(b>end){ w+=b-end; end=b; } });
+    total += w*step; ys.push(y); cum.push(total);
+  }
+  return {ys,cum,total};
+})();
+/* y position (viewBox units) where the silhouette fill from the bottom reaches `frac` (0..1) of its area */
+function yAt(frac){
+  if (frac<=0) return AREA.ys[0];
+  if (frac>=1) return AREA.ys[AREA.ys.length-1];
+  const target = frac*AREA.total;
+  let lo=0, hi=AREA.cum.length-1;
+  while(lo<hi){ const m=(lo+hi)>>1; if(AREA.cum[m]<target) lo=m+1; else hi=m; }
+  return AREA.ys[lo];
+}
+function dnaSVG(pct, p, dom, opt={}){
+  const id = ++UID;
+  const order = [...DIMS].sort((a,b)=>pct[b]-pct[a] || DIMS.indexOf(a)-DIMS.indexOf(b));
+  const filled = Math.max(0,Math.min(1,p))*100;
+  let start = 0, rects = '', lines = '';
+  order.forEach(d=>{
+    const end = start + pct[d];
+    const top = Math.min(end, filled);
+    if (top > start){
+      const yTop = yAt(top/100), yBot = yAt(start/100);
+      rects += `<rect x="0" y="${yTop.toFixed(2)}" width="200" height="${(yBot-yTop+0.6).toFixed(2)}" fill="${META[d].base}"/>`;
+      if (start>0) lines += `<line x1="0" x2="200" y1="${yBot.toFixed(2)}" y2="${yBot.toFixed(2)}" stroke="#fff" stroke-width="1.6" opacity=".75"/>`;
+    }
+    start = end;
+  });
+  const ol = '#2f2b57';
+  const shapes = SHAPES.map(([cx,cy,rx,ry])=>`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"`);
+  let back = '', front = '';
+  if (dom==='D') back = `<path d="M72 146 Q40 156 8 142 Q18 186 58 199 Q90 184 88 150Z" fill="${filled>=100?META.D.mid:'#cfd5ea'}" stroke="${ol}" stroke-width="4" stroke-linejoin="round"/>`;
+  if (dom==='S') front += `<path d="M100 36 L101 24" stroke="${ol}" stroke-width="4" stroke-linecap="round"/><path d="M100 28 Q96 4 66 8 Q68 32 100 28Z" fill="#43A047" stroke="${ol}" stroke-width="3.5" stroke-linejoin="round"/><path d="M102 28 Q108 0 140 6 Q138 34 102 28Z" fill="#66BB6A" stroke="${ol}" stroke-width="3.5" stroke-linejoin="round"/>`;
+  if (dom==='I') front += `<path d="M38 92 Q34 22 100 22 Q166 22 162 92" fill="none" stroke="#1565C0" stroke-width="13" stroke-linecap="round"/><path d="M38 92 Q34 22 100 22 Q166 22 162 92" fill="none" stroke="#ECEFF1" stroke-width="6" stroke-linecap="round"/><rect x="20" y="70" width="28" height="50" rx="14" fill="#ECEFF1" stroke="#1565C0" stroke-width="4.5"/><rect x="152" y="70" width="28" height="50" rx="14" fill="#ECEFF1" stroke="#1565C0" stroke-width="4.5"/>`;
+  const glasses = dom==='C' ? `<circle cx="77" cy="100" r="23" fill="#fff" fill-opacity=".25" stroke="#17407D" stroke-width="5"/><circle cx="123" cy="100" r="23" fill="#fff" fill-opacity=".25" stroke="#17407D" stroke-width="5"/><path d="M99 98 L101 98" stroke="#17407D" stroke-width="5" stroke-linecap="round"/><path d="M54 96 L40 92 M146 96 L160 92" stroke="#17407D" stroke-width="5" stroke-linecap="round"/>` : '';
+  const happy = filled>=100;
+  const face = `${eyeOpen(79,100,12.5,14.5,0,0)}${eyeOpen(121,100,12.5,14.5,0,0)}
+    ${happy ? `<path d="M84 121 Q100 140 116 121 Q100 116 84 121Z" fill="#4a1b1b" stroke="#4a1b1b" stroke-width="2" stroke-linejoin="round"/><ellipse cx="100" cy="130" rx="7" ry="3.5" fill="#FF8A80"/>` : `<path d="M88 122 Q100 130 112 122" fill="none" stroke="#4a1b1b" stroke-width="4.5" stroke-linecap="round"/>`}
+    <ellipse cx="62" cy="116" rx="9" ry="5.5" fill="#F48FB1" opacity=".5"/><ellipse cx="138" cy="116" rx="9" ry="5.5" fill="#F48FB1" opacity=".5"/>`;
+  const xmlns = opt.standalone ? ' xmlns="http://www.w3.org/2000/svg" width="200" height="220"' : '';
+  return `<svg${xmlns} class="mascot" viewBox="0 0 200 220" ${opt.standalone?'':'aria-hidden="true" focusable="false"'}>
+  <defs><clipPath id="c${id}">${shapes.map(s=>s+'/>').join('')}</clipPath>
+  <linearGradient id="sh${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient></defs>
+  <ellipse cx="100" cy="213" rx="58" ry="6" fill="rgba(40,30,90,.14)"/>
+  ${back}
+  <g fill="#E4E8F5" stroke="${ol}" stroke-width="7" stroke-linejoin="round">${shapes.map(s=>s+'/>').join('')}</g>
+  <g clip-path="url(#c${id})"><rect x="0" y="0" width="200" height="220" fill="#E4E8F5"/>${rects}${lines}<rect x="0" y="0" width="200" height="220" fill="url(#sh${id})"/></g>
+  ${front}${glasses}${face}
+  <ellipse cx="68" cy="56" rx="19" ry="8.5" transform="rotate(-28 68 56)" fill="#fff" opacity=".5"/>
+  </svg>`;
+}
+
+/* =====================================================================
+   BACKGROUND PARTICLES + CONFETTI
+   ===================================================================== */
+const bg = $('#bg'), bctx = bg.getContext('2d'); let dots = [];
+function sizeCanvas(c){ c.width = innerWidth; c.height = innerHeight; }
+function initBg(){
+  sizeCanvas(bg);
+  const n = Math.min(46, Math.round(innerWidth/30));
+  dots = Array.from({length:n},()=>({x:Math.random()*bg.width,y:Math.random()*bg.height,r:3+Math.random()*9,vx:(Math.random()-.5)*.3,vy:-.15-Math.random()*.35,c:META[pick(DIMS)].base,a:.18+Math.random()*.25,ph:Math.random()*6}));
+}
+function drawBg(t){
+  bctx.clearRect(0,0,bg.width,bg.height);
+  dots.forEach(d=>{
+    if(!reduce){ d.x += d.vx + Math.sin(t/1800+d.ph)*.15; d.y += d.vy; if(d.y<-20){ d.y=bg.height+20; d.x=Math.random()*bg.width; } }
+    bctx.globalAlpha = d.a; bctx.fillStyle = d.c; bctx.beginPath(); bctx.arc(d.x,d.y,d.r,0,Math.PI*2); bctx.fill();
+  });
+  bctx.globalAlpha = 1;
+  if(!reduce && !document.hidden) requestAnimationFrame(drawBg);
+}
+const fx = $('#fx'), fctx = fx.getContext('2d'); let parts = [], fxRun = false;
+function burst(x,y,n=26,spread=1){
+  if (reduce) return;
+  for(let i=0;i<n;i++) parts.push({x,y,vx:(Math.random()-.5)*9*spread,vy:-Math.random()*9-2,g:.3,s:4+Math.random()*6,c:META[pick(DIMS)].base,life:70+Math.random()*50,rot:Math.random()*6,vr:(Math.random()-.5)*.4,sq:Math.random()>.5});
+  if(!fxRun){ fxRun=true; sizeCanvas(fx); requestAnimationFrame(fxLoop); }
+}
+function fxLoop(){
+  fctx.clearRect(0,0,fx.width,fx.height);
+  parts = parts.filter(p=>p.life>0);
+  parts.forEach(p=>{
+    p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.vx*=.99; p.rot+=p.vr; p.life--;
+    fctx.save(); fctx.globalAlpha=Math.min(1,p.life/30); fctx.translate(p.x,p.y); fctx.rotate(p.rot); fctx.fillStyle=p.c;
+    if(p.sq) fctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6); else { fctx.beginPath(); fctx.arc(0,0,p.s/2,0,Math.PI*2); fctx.fill(); }
+    fctx.restore();
+  });
+  if(parts.length) requestAnimationFrame(fxLoop); else { fxRun=false; fctx.clearRect(0,0,fx.width,fx.height); }
+}
+addEventListener('resize',()=>{ initBg(); if(reduce) drawBg(0); });
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden && !reduce) requestAnimationFrame(drawBg); });
+
+/* =====================================================================
+   NAVIGATION
+   ===================================================================== */
+function show(id){
+  $$('.screen').forEach(s=>s.classList.toggle('active', s.id===id));
+  window.scrollTo(0,0);
+  const f = $(`#${id} [data-focus]`); if(f) f.focus({preventScroll:true});
+}
+function renderLanding(){
+  $('#cast').innerHTML = DIMS.map(d=>`<div class="c"><div class="m-${d}-wrap">${mascot(d)}</div><span class="tag" style="color:${META[d].text}">${META[d].name} · ${d}</span></div>`).join('');
+  $('#nameMini').innerHTML = mascotWrap('I');
+}
+
+/* ---------- Quiz ---------- */
+function startQuiz(){
+  S.order = QUESTIONS.map(()=>shuffle([0,1,2,3]));
+  S.answers = Array(QUESTIONS.length).fill(null);
+  S.q = 0; S.res = null; S.dir = 1;
+  renderQ(); show('quiz');
+}
+function renderQ(){
+  const q = QUESTIONS[S.q], sel = S.answers[S.q], n = QUESTIONS.length;
+  $('#qNum').textContent = String(S.q+1).padStart(2,'0');
+  $('#qTheme').textContent = q.theme;
+  $('#qText').textContent = q.q;
+  $('#opts').innerHTML = S.order[S.q].map((oi,pos)=>`<button type="button" role="radio" aria-checked="${sel===oi}" class="opt${sel===oi?' sel':''}" data-oi="${oi}"><span class="letter" aria-hidden="true">${'ABCD'[pos]}</span><span>${esc(q.o[oi][0])}</span></button>`).join('');
+  const done = S.answers.filter(a=>a!==null).length;
+  $('#barI').style.width = (done/n*100)+'%';
+  $('#barA').setAttribute('aria-valuenow', done);
+  $('#plabel').textContent = `Question ${S.q+1} of ${n}`;
+  $('#btnBack').style.visibility = S.q===0 ? 'hidden' : 'visible';
+  const nx = $('#btnNext'); nx.disabled = sel===null; nx.textContent = S.q===n-1 ? 'See my colors ✨' : 'Next →';
+  $('#bubble').textContent = BUDDY[S.q] || '';
+  $('#buddyM').innerHTML = mascot(DIMS[S.q%4]);
+  const card = $('#qcard'); card.classList.remove('swap','rev'); void card.offsetWidth; card.classList.add('swap'); if(S.dir<0) card.classList.add('rev');
+  $('#qText').focus({preventScroll:true});
+}
+function choose(oi, el){
+  S.answers[S.q] = oi;
+  $$('#opts .opt').forEach(b=>{ const on = +b.dataset.oi===oi; b.classList.toggle('sel',on); b.setAttribute('aria-checked',on); });
+  $('#btnNext').disabled = false;
+  const done = S.answers.filter(a=>a!==null).length;
+  $('#barI').style.width = (done/QUESTIONS.length*100)+'%'; $('#barA').setAttribute('aria-valuenow', done);
+  if (el){ const r = el.getBoundingClientRect(); burst(r.left+36, r.top+r.height/2, 10, .5); }
+}
+function nextQ(){
+  if (S.answers[S.q]===null) return;
+  if (S.q < QUESTIONS.length-1){ S.q++; S.dir=1; renderQ(); }
+  else finishQuiz();
+}
+function backQ(){ if(S.q>0){ S.q--; S.dir=-1; renderQ(); } }
+
+function finishQuiz(){
+  S.res = analyze();
+  S.focus = S.res.top[0];
+  S.src = S.focus;
+  S.dst = {D:'C',C:'D',I:'S',S:'I'}[S.focus];
+  S.chal = null; S.tab = 'dna';
+  show('reveal'); startReveal();
+}
+
+/* ---------- Reveal ---------- */
+function startReveal(){
+  clearTimeout(S.revealTimer); S.revealDone = false;
+  const r = S.res, stage = $('#stage');
+  stage.classList.remove('on','done');
+  $('#revTitle').textContent = 'Mixing your colors…';
+  $('#revCta').hidden = true; $('#revSkip').hidden = false;
+  $('#revStats').innerHTML = DIMS.map(d=>`<div class="rs" style="--k:${META[d].base}"><b id="rc${d}">0%</b><span>${META[d].name}</span></div>`).join('');
+  $('#revAvatar').innerHTML = dnaSVG(r.pct, 0, S.focus);
+  if (reduce){ finishReveal(true); return; }
+  const T0 = performance.now(), STREAM = 700, FILL0 = 1500, FILL = 3400;
+  (function tick(now){
+    if (S.revealDone || !$('#reveal').classList.contains('active')) return;
+    const t = now - T0;
+    if (t > STREAM) stage.classList.add('on');
+    const p = t<FILL0 ? 0 : Math.min(1, (t-FILL0)/FILL);
+    const e = ease(p);
+    $('#revAvatar').innerHTML = dnaSVG(r.pct, e, S.focus);
+    DIMS.forEach(d=>{ $('#rc'+d).textContent = Math.round(r.pct[d]*e)+'%'; });
+    if (p>=1) finishReveal(false); else requestAnimationFrame(tick);
+  })(T0);
+}
+function finishReveal(instant){
+  if (S.revealDone) return; S.revealDone = true;
+  const r = S.res, stage = $('#stage');
+  $('#revAvatar').innerHTML = dnaSVG(r.pct, 1, S.focus);
+  DIMS.forEach(d=>{ $('#rc'+d).textContent = r.pct[d]+'%'; });
+  stage.classList.add('on','done');
+  const t = $('#revTitle'); t.textContent = 'MEET YOUR COLOR DNA!'; t.classList.remove('pop-in'); void t.offsetWidth; t.classList.add('pop-in');
+  $('#revCta').hidden = false; $('#revSkip').hidden = true;
+  if (!instant){ const b = stage.getBoundingClientRect(); burst(b.left+b.width/2, b.top+b.height/2, 70, 1.6); }
+  $('#revCta').focus({preventScroll:true});
+}
+
+/* ---------- Results ---------- */
+function enterResults(){ show('results'); setTab(S.tab||'dna', true); }
+function setTab(t, noScroll){
+  S.tab = t;
+  $$('.tab').forEach(b=>{ const on=b.dataset.tab===t; b.setAttribute('aria-selected',on); b.tabIndex = on?0:-1; });
+  $$('.panel').forEach(p=>p.hidden = p.id!=='panel-'+t);
+  ({dna:renderDNA,profile:renderProfile,talk:renderTalk,mission:renderMission,card:renderCardTab})[t]();
+  if(!noScroll) window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  const act = $('.tab[aria-selected="true"]'); if(act && act.scrollIntoView) act.scrollIntoView({block:'nearest',inline:'center'});
+}
+const who = () => S.name ? esc(S.name) : '';
+const pk = (d, pressed, act) => `<button class="pk" data-act="${act}" data-d="${d}" aria-pressed="${pressed}" style="--k:${META[d].base};--soft:${META[d].soft}"><span class="pd" aria-hidden="true">${d}</span>${META[d].name}</button>`;
+
+function interpretation(){
+  const r = S.res, f = S.focus, P = PROFILES[f];
+  const greet = S.name ? `${esc(S.name)}, ` : '';
+  if (r.top.length>1){
+    return `${greet}your top styles are tied: ${names(r.top)}. Instead of picking one, think of yourself as flexing between them. ${r.top.map(d=>`With ${META[d].name}, ${PROFILES[d].interp}`).join('; ')}.`;
+  }
+  const sec = secondaryOf(f);
+  let s = `${greet}your answers leaned most toward ${META[f].name} (${r.pct[f]}%), which suggests ${P.interp}.`;
+  if (sec.dim) s += ` ${META[sec.dim].name} (${r.pct[sec.dim]}%) looks like your next strongest voice${sec.tied.length>1?`, tied with ${names(sec.tied.filter(d=>d!==sec.dim))}`:''}, so ${PROFILES[sec.dim].interp} too.`;
+  return s + ' Remember: this is a snapshot, not a label.';
+}
+function renderDNA(){
+  const r = S.res, f = S.focus, el = $('#panel-dna');
+  const ordered = [...r.ranked];
+  const secLabel = r.sec.length ? label(r.sec) : 'None stood out';
+  const tieNote = (r.top.length>1 || r.sec.length>1) ? `<div class="note"><b>Heads up on ties.</b> Some styles scored the same number of points, so we don't treat the difference as meaningful. Percentages are rounded to total exactly 100%, so tied styles can look 1% apart.</div>` : '';
+  el.innerHTML = `
+  <div class="center"><h2 class="pt">MEET YOUR COLOR DNA${S.name?`, <span class="rainbow">${esc(S.name)}</span>`:''}!</h2><p class="lead">Your avatar is filled with your four colors in proportion to your answers.</p></div>
+  <div class="dna-grid">
+    <div class="dna-av"><div class="idle">${dnaSVG(r.pct,1,f)}</div></div>
+    <div>
+      <div class="chips">
+        <span class="chip" style="--k:${META[f].base};--bgc:${META[f].soft};--tc:${META[f].text};--bc:${META[f].base}"><i></i>Primary: ${esc(label(r.top))}</span>
+        <span class="chip" style="--k:${r.sec[0]?META[r.sec[0]].base:'#bbb'}"><i></i>Secondary: ${esc(secLabel)}</span>
+      </div>
+      <p>${interpretation()}</p>
+      ${tieNote}
+      <div class="stack" role="img" aria-label="${DIMS.map(d=>META[d].name+' '+r.pct[d]+' percent').join(', ')}">${ordered.filter(d=>r.pct[d]>0).map(d=>`<span style="width:${r.pct[d]}%;background:${META[d].base}"></span>`).join('')}</div>
+      ${ordered.map(d=>`<div class="brow"><div style="color:${META[d].text}">${META[d].name}<small>${META[d].word} · ${r.counts[d]}/15</small></div><div class="t"><i data-w="${r.pct[d]}" style="background:${META[d].base}"></i></div><b>${r.pct[d]}%</b></div>`).join('')}
+      <p class="fine" style="margin-top:8px">Relative distribution of your answers in this activity, not a validated score.</p>
+    </div>
+  </div>
+  <div class="cta"><button class="btn" data-act="tab" data-t="profile">MEET YOUR DOMINANT SELF</button><button class="btn ghost" data-act="dlAvatar">⬇ Save avatar as PNG</button></div>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>$$('.brow .t i',el).forEach(i=>i.style.width=i.dataset.w+'%')));
+}
+function renderProfile(){
+  const r = S.res, f = S.focus, P = PROFILES[f], M = META[f], el = $('#panel-profile');
+  const sec = secondaryOf(f);
+  const hidden = sec.dim ? HIDDEN[f+sec.dim] + (sec.tied.length>1 ? ` (${names(sec.tied.filter(d=>d!==sec.dim))} scored the same, so you may see similar gifts there too.)` : '') : HIDDEN_NONE;
+  const picker = r.top.length>1 ? `<div class="pick" role="group" aria-label="Choose which tied style to read"><span class="lbl">Your top styles are tied. Read about:</span>${r.top.map(d=>pk(d,d===f,'setFocus')).join('')}</div>` : '';
+  const sectionsHTML = [
+    ['Your Superpowers',`<ul>${P.strengths.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`],
+    ['What Motivates You',`<p>${esc(P.motivates)}</p>`],
+    ['Your Communication Style',`<p>${esc(P.comm)}</p>`],
+    ['Under Pressure',`<p>${esc(P.pressure)}</p>`],
+    ['Your Growth Opportunities',`<ul>${P.growth.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`],
+    ['Your Ideal Team Environment',`<p>${esc(P.env)}</p>`],
+  ].map(([h,b])=>`<div class="sec" style="--k:${M.base}"><h3 style="color:${M.text}">${h}</h3>${b}</div>`).join('');
+  el.innerHTML = `
+  ${picker}
+  <div class="card hero-prof" style="border-top:8px solid ${M.base}">
+    <div class="mw">${mascotWrap(f)}</div>
+    <div><h2 class="pt" style="color:${M.text}">${P.headline}</h2><p class="lead" style="color:var(--ink);font-weight:700">${P.sub}</p>
+    <div class="chips">${P.traits.map(t=>`<span class="chip" style="--bgc:${M.soft};--tc:${M.text}">${t}</span>`).join('')}</div></div>
+  </div>
+  <div class="grid">${sectionsHTML}
+    <div class="sec wide" style="--k:${sec.dim?META[sec.dim].base:M.base}"><h3>Your Hidden Strength</h3><p>${esc(hidden)}</p></div>
+  </div>
+  <div class="cta"><button class="btn" data-act="tab" data-t="talk">TALK TO ANOTHER COLOR</button><button class="btn ghost" data-act="tab" data-t="dna">← Back to Color DNA</button></div>
+  <p class="fine" style="margin-top:14px">These are tendencies, not rules. Most people flex across all four colors depending on the situation.</p>`;
+}
+function renderTalk(){
+  const s = S.src, t = S.dst, el = $('#panel-talk');
+  const P = PAIRS[s+t], T = TARGET[t], MS = META[s], MT = META[t];
+  const [pull, first, common, differ, team, instead, say] = P;
+  const same = s===t;
+  const head = same ? `I'M ${MS.name.toUpperCase()}. HOW DO I CONNECT WITH ANOTHER ${MT.name.toUpperCase()}?` : `I'M ${MS.name.toUpperCase()}. HOW DO I CONNECT WITH ${MT.name.toUpperCase()}?`;
+  el.innerHTML = `
+  <div class="center"><h2 class="pt">TALK TO ANOTHER COLOR</h2><p class="lead">Different styles. Better conversations.</p></div>
+  <div class="pick" role="group" aria-label="Who are you?"><span class="lbl">I'm</span>${DIMS.map(d=>pk(d,d===s,'setSrc')).join('')}</div>
+  <div class="pick" role="group" aria-label="Who do you want to talk to?"><span class="lbl">Connect with</span>${DIMS.map(d=>pk(d,d===t,'setDst')).join('')}</div>
+  <div class="card" style="margin-top:8px">
+    <h3 class="cmp-title">${head}</h3>
+    <div class="duo"><div class="dc l"><div class="say" style="color:${MS.text}">${esc(SAYS[s])}</div>${mascot(s)}</div>
+      <div class="sparkles" aria-hidden="true" style="--c:${MS.base}"><i></i><i style="--c:${MT.base};background:${MT.base}"></i><i></i></div>
+      <div class="dc r"><div class="say" style="color:${MT.text}">${esc(SAYS[t])}</div>${mascot(t)}</div></div>
+  </div>
+  <div class="grid">
+    <div class="sec" style="--k:${MS.base}"><h3>What You Have in Common</h3><p>${esc(common)}</p></div>
+    <div class="sec" style="--k:${MT.base}"><h3>Where You May See Things Differently</h3><p>${esc(differ)}</p></div>
+    <div class="sec wide" style="--k:#6c5cff"><h3>How to Communicate Better</h3>
+      <div class="tip"><b class="n" style="--k:${MS.base}">1</b><div><b>Your first move.</b> ${esc(first)}</div></div>
+      <div class="tip"><b class="n" style="--k:${MT.base}">2</b><div><b>What ${MT.name} listens for.</b> ${esc(T.need)}</div></div>
+      <div class="tip"><b class="n" style="--k:#6c5cff">3</b><div><b>Dial up</b><div class="dial up">${T.up.map(x=>`<span>${esc(x)}</span>`).join('')}</div></div></div>
+    </div>
+    <div class="sec" style="--k:#ef5350"><h3>What to Avoid</h3><ul>${T.avoid.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><div class="dial down" aria-label="Dial down">${T.down.map(x=>`<span>↓ ${esc(x)}</span>`).join('')}</div></div>
+    <div class="sec" style="--k:${MS.base}"><h3>Be Careful of Your Pull</h3><p>${esc(pull)}</p></div>
+    <div class="sec wide" style="--k:#66BB6A"><h3>How You Make a Great Team</h3><p>${esc(team)}</p></div>
+    <div class="sec wide" style="--k:#FFCA28"><h3>Try Saying This</h3><p style="margin-bottom:10px">${MS.name} speaking to ${MT.name}:</p>
+      <div class="say-box"><div class="sb no"><small>Instead of</small>“${esc(instead)}”</div><div class="sb yes"><small>Try</small>“${esc(say)}”</div></div></div>
+  </div>
+  <div class="cta"><button class="btn" data-act="tab" data-t="mission">GET A TEAM MISSION</button><button class="btn ghost" data-act="tab" data-t="profile">← Back to my profile</button></div>
+  <p class="fine" style="margin-top:14px">Habits to try, not rules. No pairing is better or worse than another. Read the person, not the label.</p>`;
+}
+function newChallenge(){
+  const s=S.src, t=S.dst, Pn = META[t].name + '-style';
+  const pool = [
+    ...CHAL_GENERAL.map(x=>x.replace(/\{P\}/g, Pn)),
+    ...CHAL_PARTNER[t], CHAL_SELF[s]
+  ];
+  let c, tries = 0; do { c = pick(pool); tries++; } while (c===S.chal && tries<12);
+  S.chal = c;
+}
+function renderMission(){
+  const s=S.src, t=S.dst, el=$('#panel-mission');
+  if(!S.chal) newChallenge();
+  el.innerHTML = `
+  <div class="center"><h2 class="pt">YOUR NEXT MISSION: CONNECT!</h2><p class="lead">A small, low-pressure experiment for ${META[s].name} and ${META[t].name}. Nobody has to share anything personal.</p></div>
+  <div class="pick" style="justify-content:center" role="group" aria-label="Partner color"><span class="lbl">Mission partner</span>${DIMS.map(d=>pk(d,d===t,'setDst')).join('')}</div>
+  <div class="mission">
+    <div class="duo" style="margin-bottom:-6px"><div class="dc l" style="width:clamp(90px,20vw,140px)">${mascot(s)}</div><div class="dc r" style="width:clamp(90px,20vw,140px)">${mascot(t)}</div></div>
+    <div class="chal" id="chal" style="--k:${META[t].base}"><span class="badge">Mission card</span><p>${esc(S.chal)}</p></div>
+    <button class="btn" data-act="newChal">GET A NEW CHALLENGE</button>
+    <div class="cta" style="justify-content:center"><button class="btn ghost" data-act="tab" data-t="card">Create my color card →</button></div>
+  </div>`;
+}
+function renderCardTab(){
+  const el = $('#panel-card');
+  el.innerHTML = `<div class="center"><h2 class="pt">YOUR COLOR CARD</h2><p class="lead">Ready to share at your next team meeting.</p></div>
+  <div class="cardprev" id="cardPrev"><span class="fine">Painting your card…</span></div>
+  <div class="row"><button class="btn" data-act="dlCard">DOWNLOAD MY COLOR CARD</button><button class="btn ghost" data-act="dlAvatar">⬇ Avatar only</button></div>
+  <div class="row"><button class="btn ghost" data-act="tab" data-t="talk">← Back to conversations</button></div>`;
+  drawCard().then(c=>{ const p=$('#cardPrev'); if(p && S.tab==='card'){ p.innerHTML=''; const img=new Image(); img.alt=`Color card${S.name?' for '+S.name:''}: ${DIMS.map(d=>META[d].name+' '+S.res.pct[d]+'%').join(', ')}`; img.src=c.toDataURL('image/png'); p.appendChild(img); } }).catch(()=>{ const p=$('#cardPrev'); if(p) p.innerHTML='<span class="fine">Preview unavailable, but the download button still works.</span>'; });
+}
+
+/* =====================================================================
+   PNG GENERATION (canvas, fully local)
+   ===================================================================== */
+function svgToImage(svg){
+  return new Promise((res,rej)=>{
+    const blob = new Blob([svg],{type:'image/svg+xml;charset=utf-8'}), url = URL.createObjectURL(blob), img = new Image();
+    img.onload = ()=>{ URL.revokeObjectURL(url); res(img); };
+    img.onerror = ()=>{ URL.revokeObjectURL(url); rej(new Error('svg')); };
+    img.src = url;
+  });
+}
+function rr(x,X,y,w,h,r){ x.beginPath(); x.moveTo(X+r,y); x.arcTo(X+w,y,X+w,y+h,r); x.arcTo(X+w,y+h,X,y+h,r); x.arcTo(X,y+h,X,y,r); x.arcTo(X,y,X+w,y,r); x.closePath(); }
+async function loadFonts(){
+  try{ await Promise.race([Promise.all([document.fonts.load('700 60px Fredoka'),document.fonts.load('500 30px Fredoka'),document.fonts.load('800 24px Nunito')]), new Promise(r=>setTimeout(r,1500))]); }catch(e){}
+}
+async function drawCard(){
+  await loadFonts();
+  const r = S.res, f = S.focus, P = PROFILES[f], W=1080, H=1350;
+  const c = document.createElement('canvas'); c.width=W; c.height=H; const x = c.getContext('2d');
+  const DF = '"Fredoka","Trebuchet MS","Arial Rounded MT Bold",sans-serif', BF = '"Nunito","Segoe UI",Arial,sans-serif';
+  let g = x.createLinearGradient(0,0,W,H); g.addColorStop(0,'#FFF1E6'); g.addColorStop(.5,'#F6F3FF'); g.addColorStop(1,'#E6F3FF'); x.fillStyle=g; x.fillRect(0,0,W,H);
+  [[0,0,'D'],[W,0,'I'],[0,H,'S'],[W,H,'C']].forEach(([cx,cy,d])=>{ const rg=x.createRadialGradient(cx,cy,0,cx,cy,460); rg.addColorStop(0,META[d].base+'cc'); rg.addColorStop(1,META[d].base+'00'); x.fillStyle=rg; x.fillRect(0,0,W,H); });
+  x.save(); x.shadowColor='rgba(40,30,110,.25)'; x.shadowBlur=50; x.shadowOffsetY=20; x.fillStyle='#fff'; rr(x,60,60,W-120,H-120,56); x.fill(); x.restore();
+  x.textAlign='center'; x.textBaseline='alphabetic';
+  // brand
+  const cols = DIMS.map(d=>META[d].base); cols.forEach((col,i)=>{ x.fillStyle=col; x.beginPath(); x.arc(W/2-84+i*56,128,13,0,Math.PI*2); x.fill(); });
+  x.fillStyle='#1f2347'; x.font=`700 46px ${DF}`; x.fillText('DISCVERSE',W/2,208);
+  x.fillStyle='#565b80'; x.font=`700 24px ${BF}`; x.fillText('Discover Your Colors. Connect Beyond Them.',W/2,246);
+  // title
+  const nm = S.name ? S.name : ''; x.fillStyle='#1f2347'; x.font=`700 62px ${DF}`;
+  let title = nm ? `${nm}'s Color DNA` : 'My Color DNA'; while (x.measureText(title).width > W-200 && x.font.indexOf('px')>0){ const sz = parseInt(x.font.match(/(\d+)px/)[1])-4; x.font=`700 ${sz}px ${DF}`; if(sz<30) break; }
+  x.fillText(title, W/2, 328);
+  // avatar
+  try{
+    const img = await svgToImage(dnaSVG(r.pct,1,f,{standalone:true}));
+    const aw=470, ah=aw*1.1; x.drawImage(img, (W-aw)/2, 350, aw, ah);
+  }catch(e){}
+  // chips
+  const secTxt = r.sec.length ? label(r.sec) : 'None stood out';
+  const pills = [['PRIMARY', label(r.top), META[f].base],['SECONDARY', secTxt, r.sec[0]?META[r.sec[0]].base:'#b9bed6']];
+  pills.forEach((p,i)=>{
+    const pw=420, px = i===0 ? W/2-pw-14 : W/2+14, py=898;
+    x.fillStyle=p[2]+'33'; rr(x,px,py,pw,84,42); x.fill(); x.lineWidth=4; x.strokeStyle=p[2]; x.stroke();
+    x.fillStyle='#565b80'; x.font=`800 18px ${BF}`; x.fillText(p[0],px+pw/2,py+30);
+    x.fillStyle='#1f2347'; let fs=32; x.font=`700 ${fs}px ${DF}`; while(x.measureText(p[1]).width>pw-30 && fs>18){ fs-=2; x.font=`700 ${fs}px ${DF}`; } x.fillText(p[1],px+pw/2,py+66);
+  });
+  // stacked bar
+  const bx=120, bw=W-240, by=1010, bh=40; x.save(); rr(x,bx,by,bw,bh,20); x.clip();
+  let cx0 = bx; [...r.ranked].forEach(d=>{ const w = bw*r.pct[d]/100; x.fillStyle=META[d].base; x.fillRect(cx0,by,w+1,bh); cx0+=w; }); x.restore();
+  // labels
+  DIMS.forEach((d,i)=>{ const colw=bw/4, lx=bx+colw*i+colw/2; x.fillStyle=META[d].base; x.beginPath(); x.arc(lx-62,1092,10,0,Math.PI*2); x.fill(); x.fillStyle='#1f2347'; x.textAlign='left'; x.font=`700 30px ${DF}`; x.fillText(`${META[d].name} ${r.pct[d]}%`,lx-44,1102); x.textAlign='center'; });
+  // strengths
+  P.chips.forEach((s,i)=>{ const pw=270, gap=18, tot=pw*3+gap*2, px=(W-tot)/2+i*(pw+gap), py=1140; x.fillStyle=META[f].soft; rr(x,px,py,pw,58,29); x.fill(); x.fillStyle=META[f].text; x.font=`800 25px ${BF}`; x.fillText('★ '+s,px+pw/2,py+38); });
+  // tagline
+  x.fillStyle='#1f2347'; x.font=`600 38px ${DF}`; x.fillText(`“${P.tagline}”`,W/2,1252);
+  x.fillStyle='#7a7fa3'; x.font=`700 18px ${BF}`; x.fillText('A fun, DISC-inspired reflection, not a validated assessment',W/2,1292);
+  return c;
+}
+function saveCanvas(c, name){
+  c.toBlob(b=>{ if(!b) return; const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),3000); },'image/png');
+}
+const fileTag = () => S.name ? '-' + S.name.replace(/[^\w-]+/g,'').slice(0,20) : '';
+async function downloadCard(){ const c = await drawCard(); saveCanvas(c, `discverse-color-card${fileTag()}.png`); }
+async function downloadAvatar(){
+  await loadFonts();
+  const W=800,H=900, c=document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,'#FFF1E6'); g.addColorStop(1,'#E6F3FF'); x.fillStyle=g; x.fillRect(0,0,W,H);
+  try{ const img = await svgToImage(dnaSVG(S.res.pct,1,S.focus,{standalone:true})); x.drawImage(img,70,40,660,726); }catch(e){}
+  x.textAlign='center'; x.fillStyle='#1f2347'; x.font='700 40px "Fredoka","Trebuchet MS",sans-serif';
+  x.fillText(DIMS.map(d=>`${META[d].name} ${S.res.pct[d]}%`).join('  ·  ').slice(0,60), W/2, 830);
+  x.fillStyle='#7a7fa3'; x.font='700 22px "Nunito",Arial,sans-serif'; x.fillText('DISCVERSE · Discover Your Colors. Connect Beyond Them.', W/2, 872);
+  saveCanvas(c, `discverse-color-dna${fileTag()}.png`);
+}
+
+/* =====================================================================
+   DIALOGS
+   ===================================================================== */
+let exSel = 'D';
+function renderExplore(){
+  const d = exSel, P = PROFILES[d], M = META[d];
+  $('#exBody').innerHTML = `<h2 id="exTitle">Explore all colors</h2><p class="lead" style="margin-bottom:6px">Four colors. Different strengths. No color is better than another. Each one makes the team stronger.</p>
+  <div class="pick" role="group" aria-label="Choose a color">${DIMS.map(x=>pk(x,x===d,'exPick')).join('')}</div>
+  <div class="exp"><div class="mw">${mascotWrap(d)}</div>
+   <div><h3 style="color:${M.text};font-size:1.7rem">${M.name} · ${d} · ${M.word}</h3>
+   <div class="chips">${P.traits.map(t=>`<span class="chip" style="--bgc:${M.soft};--tc:${M.text}">${t}</span>`).join('')}</div>
+   <p><b>Superpowers.</b> ${P.strengths.map(esc).join(' · ')}</p>
+   <p style="margin-top:8px"><b>Motivates.</b> ${esc(P.motivates)}</p>
+   <p style="margin-top:8px"><b>Talks like.</b> ${esc(P.comm)}</p>
+   <p style="margin-top:8px"><b>Thrives in.</b> ${esc(P.env)}</p></div></div>`;
+}
+function openDlg(id){ const d=$(id); if(d.showModal) d.showModal(); else d.setAttribute('open',''); }
+
+/* =====================================================================
+   EVENTS
+   ===================================================================== */
+function resetAll(){ S.res=null; S.answers=[]; S.q=0; S.chal=null; S.tab='dna'; $('#nameInput').value=''; S.name=''; clearTimeout(S.revealTimer); S.revealDone=true; }
+document.addEventListener('click', e=>{
+  const opt = e.target.closest('.opt'); if (opt){ choose(+opt.dataset.oi, opt); return; }
+  const tab = e.target.closest('.tab'); if (tab){ setTab(tab.dataset.tab); return; }
+  const b = e.target.closest('[data-act]'); if(!b) return;
+  const a = b.dataset.act;
+  switch(a){
+    case 'home': resetAll(); show('landing'); break;
+    case 'start': show('nameStep'); setTimeout(()=>$('#nameInput').focus(),60); break;
+    case 'nameGo': S.name = $('#nameInput').value.trim().slice(0,24); startQuiz(); break;
+    case 'nameSkip': S.name=''; startQuiz(); break;
+    case 'next': nextQ(); break;
+    case 'back': backQ(); break;
+    case 'skipReveal': finishReveal(true); break;
+    case 'toResults': enterResults(); break;
+    case 'tab': setTab(b.dataset.t); break;
+    case 'setFocus': S.focus=b.dataset.d; renderProfile(); break;
+    case 'setSrc': S.src=b.dataset.d; S.chal=null; renderTalk(); break;
+    case 'setDst': S.dst=b.dataset.d; S.chal=null; (S.tab==='mission'?renderMission:renderTalk)(); break;
+    case 'newChal': newChallenge(); renderMission(); { const c=$('#chal'); if(c){ const r=c.getBoundingClientRect(); burst(r.left+r.width/2,r.top+40,18,.8); } } break;
+    case 'dlCard': downloadCard(); break;
+    case 'dlAvatar': downloadAvatar(); break;
+    case 'retake': resetAll(); show('landing'); break;
+    case 'explore': renderExplore(); openDlg('#dlgExplore'); break;
+    case 'exPick': exSel=b.dataset.d; renderExplore(); break;
+    case 'how': openDlg('#dlgHow'); break;
+    case 'closeDlg': b.closest('dialog').close(); break;
+  }
+});
+$('#nameInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); S.name=e.target.value.trim().slice(0,24); startQuiz(); } });
+document.addEventListener('keydown', e=>{
+  if (!$('#quiz').classList.contains('active') || e.target.matches('input,textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (/^[1-4]$/.test(e.key)){ const o = $$('#opts .opt')[+e.key-1]; if(o) choose(+o.dataset.oi, o); }
+  else if (e.key==='ArrowRight'){ if(!$('#btnNext').disabled) nextQ(); }
+  else if (e.key==='ArrowLeft'){ backQ(); }
+});
+$('#tabs').addEventListener('keydown', e=>{
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
+  const t = $$('.tab'), i = t.findIndex(b=>b.getAttribute('aria-selected')==='true');
+  let n = e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:e.key==='Home'?0:t.length-1; n=(n+t.length)%t.length;
+  setTab(t[n].dataset.tab, true); t[n].focus(); e.preventDefault();
+});
+$$('dialog').forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));
+
+/* init */
+renderLanding(); initBg(); requestAnimationFrame(drawBg);
+</script>
+</body>
+</html>
