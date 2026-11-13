@@ -261,7 +261,7 @@ svg.mascot{height:auto}
 .opt.is-least .otxt{color:#5E6378}
 .opt.is-least .otag{color:#5E6378}
 .qstatus{margin-top:12px;font-size:.85rem;color:#5B5E70;min-height:1.2em}.qstatus.ok{color:#256B29;font-weight:600}
-.qkeys{margin-top:6px;font-size:.78rem;color:#8B8FA3}
+.qkeys{margin-top:6px;font-size:.78rem;color:#5B5E70}
 @media(hover:none){.qkeys{display:none}}
 @media(max-width:620px){.opt{flex-direction:column;align-items:stretch;gap:12px;padding:14px}.opt .oact{display:grid;grid-template-columns:1fr 1fr}.mk{justify-content:center}}
 /* ---- calculation details ---- */
@@ -274,6 +274,26 @@ details.raw th,details.raw td{padding:6px 8px;text-align:right;border-bottom:1px
 details.raw th:first-child{text-align:left}
 details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
 @media (prefers-reduced-motion:reduce){.opt,.mk{transition:none}}
+
+.qcard[hidden],.qnav[hidden],.partintro[hidden],.coach[hidden]{display:none}
+.partintro{margin-top:30px}.partintro .lead{margin:12px 0 26px;max-width:60ch}
+.qpart{margin:0 0 6px;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}.qpart b{color:var(--ink)}
+.opt.single{width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;appearance:none}
+.opt.single .otick{flex:0 0 auto;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid #CFC8BB;color:transparent;font-size:.8rem;font-weight:800}
+.opt.single:hover{border-color:var(--ink)}
+.opt.single[aria-checked="true"] .otick{background:var(--ink);border-color:var(--ink);color:#fff}
+.dist{margin:18px 0 0;padding:0;border:0;min-width:0}.dist[hidden]{display:none}
+.dist legend{padding:0;margin-bottom:8px;font-weight:700;font-size:.95rem;color:var(--ink)}
+.distopts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dopt{font:inherit;font-size:.9rem;font-weight:600;line-height:1.3;padding:11px 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink2);cursor:pointer;text-align:center}
+.dopt:hover{border-color:var(--ink)}
+.dopt.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.pr.cnt{grid-template-columns:12px 84px 1fr 64px}
+.guide{display:grid;gap:14px}.guide .pane h3{margin-top:0}
+.subh{font-size:1.25rem}
+@media(max-width:620px){.opt.single{flex-direction:row;align-items:center;gap:12px;padding:14px}.distopts{grid-template-columns:1fr}.pr.cnt{grid-template-columns:12px 1fr 64px}.pr.cnt .t{grid-column:1/-1;grid-row:2}}
+@media (prefers-reduced-motion:reduce){.dopt{transition:none}}
+
 .dna{align-items:start}
 
 .mission{margin:22px 0 26px;padding:20px 22px;border:1.5px solid var(--ink);border-radius:16px;background:#fff}
@@ -319,7 +339,7 @@ details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;ma
       <p class="sub">Discover what drives you, how you connect, and what makes your teamwork unique.</p>
       <div class="cast" id="cast" role="group" aria-label="The four DISCVERSE characters"></div>
       <button class="btn lg" data-act="start">Start quiz →</button>
-      <p class="meta">15 questions · Approximately 5–7 minutes · No right or wrong answers</p>
+      <p class="meta">30 questions in three short parts · Approximately 10–12 minutes · No right or wrong answers</p>
       <p class="fine" style="margin-top:10px;max-width:520px">Four colors. Different strengths. One amazing team. A reflection activity inspired by DISC, not an official assessment.</p>
     </div>
   </section>
@@ -337,16 +357,19 @@ details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;ma
 
   <section id="quiz" class="screen" aria-labelledby="qText">
     <div class="qwrap">
-      <div class="qtop"><span class="qcount" id="qCount" aria-live="polite"></span><span class="qtheme" id="qTheme"></span></div>
-      <div class="pbar" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0" id="barA"><i id="barI"></i></div>
+      <p class="qpart" id="qPart" aria-live="polite"></p>
+      <div class="qtop"><span class="qcount" id="qCount"></span><span class="qtheme" id="qTheme"></span></div>
+      <div class="pbar" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0" id="barA"><i id="barI"></i></div>
       <div class="qcard" id="qcard">
         <h2 class="qtext" id="qText" data-focus tabindex="-1"></h2>
-        <p class="qhelp" id="qHelp">Choose the response that is <b>most like you</b> and a different one that is <b>least like you</b>. There are no right answers.</p>
+        <p class="qhelp" id="qHelp"></p>
         <div class="opts" id="opts" role="group" aria-labelledby="qText" aria-describedby="qHelp"></div>
+        <fieldset class="dist" id="distBox" hidden><legend id="distLegend">Compared with your first instinct, this approach feels:</legend><div class="distopts" id="distOpts" role="radiogroup" aria-labelledby="distLegend"></div></fieldset>
         <p class="qstatus" id="qStatus" role="status" aria-live="polite"></p>
-        <p class="qkeys" aria-hidden="true">Keyboard: 1–4 = most like me · Shift + 1–4 = least like me</p>
+        <p class="qkeys" id="qKeys" aria-hidden="true"></p>
       </div>
       <div class="qnav"><button class="linkbtn" data-act="back" id="btnBack">← Back</button><button class="btn" data-act="next" id="btnNext" disabled>Continue</button></div>
+      <div class="partintro" id="partIntro" hidden><p class="eyebrow" id="piEye"></p><h2 class="qtext" id="piTitle" tabindex="-1"></h2><p class="lead" id="piText"></p><div class="qnav"><button class="linkbtn" data-act="back">← Back</button><button class="btn" data-act="partGo" id="piGo"></button></div></div>
       <div class="coach" aria-hidden="true"><div class="cm" id="coachM"></div><p id="coachT"></p></div>
     </div>
   </section>
@@ -377,19 +400,22 @@ details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;ma
 <dialog id="dlgHow" aria-labelledby="howTitle"><button class="dclose" data-act="closeDlg" aria-label="Close">✕</button>
 <div class="dbody how">
   <h2 id="howTitle">How your results work</h2>
-  <h3>The quiz</h3>
-  <p>You answer 15 workplace scenarios. In each one you choose the response that is <b>most like you</b> and a different response that is <b>least like you</b>. Each scenario has one response for each of the four styles, shown in a shuffled order, and no response is meant to be better than another.</p>
-  <h3>The scoring</h3>
+  <h3>The quiz: three parts</h3>
+  <p>The quiz has 30 questions in three parts, each reported separately.</p>
+  <ul><li><b>Part 1, Natural response (15 questions).</b> In each workplace scenario you choose the response that is <b>most like you</b> and a different response that is <b>least like you</b>, based on your first instinct. Each scenario has one response for each of the four styles, shown in a shuffled order, and no response is meant to be better than another. Only Part 1 produces your Color DNA percentages.</li>
+  <li><b>Part 2, Adapted behavior (8 questions).</b> You choose the approach you typically take, even when your first instinct would be different, and say how close that approach is to your first instinct. Results are counts, not percentages, and they are never added to Part 1.</li>
+  <li><b>Part 3, Communication preferences (7 questions).</b> You choose what you appreciate most from colleagues. The options describe kinds of communication, not colors.</li></ul>
+<h3>The scoring (Part 1)</h3>
   <ul><li><b>Net score.</b> For each style: the number of times you marked it “most” minus the number of times you marked it “least”. Net scores run from −15 to +15 and always add up to 0.</li>
   <li><b>Chart percentages.</b> Only for drawing the ring, we add 15 to each net score so nothing is negative, then divide by 60. A perfectly even profile is 25% each and one style can reach at most 50%. Nothing is amplified, boosted, or forced, and rounding keeps the four numbers at exactly 100%.</li>
   <li><b>Labels.</b> We compare the two highest net scores. A gap of 4 or more is described as a strongest observed preference, a gap of 1 to 3 as a closely matched pair, a gap of 0 as a tie, and a very flat profile (highest minus lowest of 4 or less) as evenly balanced. A second style is named only when it is at least 4 points above the remaining styles; otherwise we say the other styles are not clearly separated. These cut-offs are provisional product rules for wording, not scientific thresholds.</li></ul>
   <h3>Why this format</h3>
-  <p>The earlier version asked for one answer per question and gave every answer points to two styles, with the second style fixed in advance. Choosing a “most” and a “least” response gives two signals per question, asks you to weigh real trade-offs, and removes the built-in link between neighboring styles. It does not make differences between styles look bigger: a style’s share can only range from 0% to 50%, and we have not shown that it ranks people better than single-choice questions would.</p>
+  <p>An earlier version asked for one answer per question and gave every answer points to two styles, with the second style fixed in advance. Choosing a “most” and a “least” response gives two signals per question, asks you to weigh real trade-offs, and removes the built-in link between neighboring styles. It does not make differences between styles look bigger: a style’s share can only range from 0% to 50%, and we have not shown that it ranks people better than single-choice questions would.</p>
   <h3>What it can and cannot tell you</h3>
-  <ul><li><b>It can</b> show which kinds of responses you preferred, relative to your other options, in these 15 scenarios, and give you a starting point for a conversation.</li>
-  <li><b>It cannot</b> show how strong a style is compared with other people, how you behave in practice, or who you are. Because you always rank within the same four styles, a high score in one means a lower score in others. Fifteen questions are a small sample, answers shift with role, mood, and context, and people sometimes choose what sounds best. The assessment has not been validated against external measures.</li>
+  <ul><li><b>It can</b> show which kinds of responses you preferred, relative to your other options, in the 15 Part 1 scenarios, and give you a starting point for a conversation. Parts 2 and 3 describe what you said you typically choose and what you appreciate.</li>
+  <li><b>It cannot</b> show how strong a style is compared with other people, how you behave in practice, or who you are. Because you always rank within the same four styles, a high score in one means a lower score in others. The assessment is a small sample, it cannot reliably separate natural from learned behavior, answers shift with role, mood, and context, and people sometimes choose what sounds best. The assessment has not been validated against external measures.</li>
   <li>Do not use it for hiring, promotion, or other decisions about people.</li></ul>
-  <h3>The communication guides</h3>
+  <h3>Working with the four colors</h3>
   <p>The “Connect with others” tips use a simple four-style framework based on the widely used DISC approach, with a color shorthand. They are habits to try, not rules, and no pairing is better or worse than another.</p>
   <h3>Privacy</h3>
   <p>Everything happens in your browser. Nothing is sent anywhere or saved when you close the page. Your PNGs are generated on your device.</p>
@@ -412,82 +438,176 @@ const META = {
   C:{key:'blue',  name:'Blue',  word:'Conscientiousness', base:'#42A5F5',mid:'#1E88E5',light:'#90CAF9',dark:'#1565C0',text:'#1565C0',soft:'#E4F2FE'}
 };
 /* Source order is deliberately rotated so no style sits in a fixed slot even before shuffling. */
+/* ---------- Assessment content: three parts (see ASSESSMENT note in the change log) ----------
+   PART 1  Natural response  (15)  forced choice MOST / LEAST, one option per DISC-inspired style. The ONLY source of the color percentages.
+   PART 2  Adapted behavior   (8)  one deliberate approach per scenario (one option per style) + "how different from your first instinct". Never merged into Part 1.
+   PART 3  Communication preferences (7)  one preferred option per situation; options map to four plain-language preference themes, not to DISC colors. */
 const QUESTIONS = [
- {theme:'Decision-making under pressure', q:'A critical vendor fails two days before a deadline, and you must decide with incomplete information. What are you most likely to do?', o:[
-  ['Choose the most promising option and set an early checkpoint to adjust.','D'],
-  ['Call the people involved and rally the team behind one direction.','I'],
-  ['Protect what is already working and change as little as necessary.','S'],
-  ['Establish what is verifiably known before committing to an option.','C']]},
- {theme:'Conflict resolution', q:'Two colleagues have openly disagreed, and it is slowing a shared project. Which approach is closest to yours?', o:[
-  ['Talk with each of them separately to understand their concerns.','S'],
-  ['Name the decision that is needed and set a date for making it.','D'],
-  ['Ask each of them to set out the facts and the criteria they are using.','C'],
-  ['Bring them together informally to find common ground.','I']]},
- {theme:'Leadership preferences', q:'You are given responsibility for a team that is new to you. Which approach feels most natural?', o:[
-  ['Define roles and standards for how the work is done.','C'],
-  ['Learn how each person works before changing anything.','S'],
-  ['Set clear goals and expectations from the start.','D'],
-  ['Build energy around a shared purpose from the start.','I']]},
- {theme:'Communication priorities', q:'You are updating senior stakeholders on a project with mixed results. What do you most want the update to do?', o:[
-  ['Build confidence by showing progress and what comes next.','I'],
-  ['Lay out the evidence and its limitations clearly.','C'],
-  ['Get to a clear decision on next steps.','D'],
-  ['Keep the updates steady and free of surprises.','S']]},
- {theme:'Handling uncertainty', q:'A project’s requirements are unclear, and nobody can say when they will be settled. How do you proceed?', o:[
-  ['Continue the work that is not affected by the open questions.','S'],
-  ['Define a working assumption and start moving.','D'],
-  ['Talk with stakeholders to build alignment.','I'],
-  ['Clarify the open questions and document the assumptions.','C']]},
- {theme:'Team collaboration', q:'On a shared deliverable, which contribution do you most often make?', o:[
-  ['Checking the work for accuracy and consistency before it goes out.','C'],
-  ['Generating ideas and keeping the team energized.','I'],
-  ['Supporting colleagues and keeping the team cohesive.','S'],
-  ['Driving progress and making sure decisions do not stall.','D']]},
- {theme:'Feedback responses', q:'You receive critical feedback on work you believed went well. What is your usual response?', o:[
-  ['Ask what needs to change and act on it quickly.','D'],
-  ['Ask for specific examples and compare them with my own review.','C'],
-  ['Discuss it openly to hear other perspectives.','I'],
-  ['Take time to reflect, then respond constructively.','S']]},
- {theme:'Risk tolerance', q:'A promising but unproven approach could improve results significantly, with a real chance it fails. What do you do?', o:[
-  ['Suggest a gradual rollout that limits disruption.','S'],
-  ['Bring colleagues together to try it and learn as a group.','I'],
-  ['Test it quickly on a small scale and be ready to change course.','D'],
-  ['Estimate the likelihood and consequences before deciding.','C']]},
- {theme:'Motivation', q:'Which of these would feel most rewarding after a successful project?', o:[
-  ['Knowing the work met a high standard of quality.','C'],
-  ['Being trusted with a bigger challenge.','D'],
-  ['Having the team’s success recognized by colleagues and leadership.','I'],
-  ['Knowing the people I worked with felt supported and valued.','S']]},
- {theme:'Planning versus action', q:'You have a new initiative with a flexible timeline. How do you usually start?', o:[
-  ['Create a manageable plan that can be sustained.','S'],
-  ['Talk ideas through with others before settling on a plan.','I'],
-  ['Build a detailed plan with milestones and risks before starting.','C'],
-  ['Begin with the highest-impact action and refine the plan along the way.','D']]},
- {theme:'Unexpected changes', q:'Leadership announces a major reorganization with little warning. What is your first reaction?', o:[
-  ['Seek the rationale and details behind the change.','C'],
-  ['Work out the new priorities and move quickly.','D'],
-  ['Check how the people around me are affected.','S'],
+ {theme:'Incomplete information', q:'A key supplier tells you they cannot deliver on time, putting an important deadline at risk. What is your immediate priority?', o:[
+  ['Finding a way to meet the deadline, even if the plan needs to change.','D'],
+  ['Getting everyone involved aligned on how to move forward.','I'],
+  ['Keeping the team supported and the remaining work on track.','S'],
+  ['Understanding exactly what is affected before deciding what to do.','C']]},
+ {theme:'Conflicting views', q:'Two colleagues disagree about how to approach a shared project, and the work is stalling. What is your first instinct?', o:[
+  ['Bring them together for an open conversation about it.','I'],
+  ['Keep the work moving on the parts they already agree on.','S'],
+  ['Ask each person for the facts behind their position.','C'],
+  ['Ask what needs to be decided and by when.','D']]},
+ {theme:'Joining a new team', q:'You join a team that has just formed and nothing is settled yet. What do you naturally do first?', o:[
+  ['Spend time with each person to learn how they like to work.','S'],
+  ['Find out how the work will be done and what standards it needs to meet.','C'],
+  ['Ask what the team needs to achieve and by when.','D'],
+  ['Introduce yourself and share your ideas about the work.','I']]},
+ {theme:'A project update', q:'You learn that your team’s project is changing direction, and it may affect everyone’s work. What is your first instinct?', o:[
+  ['Find out the details and what is confirmed versus still unclear.','C'],
+  ['Work out what needs to happen next and who needs to do what.','D'],
+  ['Talk with colleagues about what the change could mean for the team.','I'],
+  ['Check how the change will affect the team’s routines and workload.','S']]},
+ {theme:'Meeting drift', q:'A meeting has drifted away from its agenda and time is running out. What is your first instinct?', o:[
+  ['Restate the goal to steer the group toward a decision.','D'],
+  ['Ask the group what they most want to get out of the remaining time.','I'],
+  ['Let the current point finish, then refocus the group.','S'],
+  ['Point to the agenda and the item still unresolved.','C']]},
+ {theme:'A team without direction', q:'Your team has a deadline coming up, but nobody has agreed on how to approach the work. What is your first instinct?', o:[
+  ['Get the team talking so ideas build.','I'],
+  ['Ask each person what they need to move forward.','S'],
+  ['Check what is already fixed and what the deadline requires.','C'],
+  ['Propose a direction and ask the team to react.','D']]},
+ {theme:'Critical feedback', q:'A colleague gives you critical feedback on work you care about. What is your first instinct?', o:[
+  ['Take a little time to absorb it before responding.','S'],
+  ['Ask for specific examples to understand the gap.','C'],
+  ['Work out what needs to change and by when.','D'],
+  ['Talk it through to understand how others see it.','I']]},
+ {theme:'An unproven approach', q:'You hear about an unproven approach that could improve results, with a real chance it fails. What is your first instinct?', o:[
+  ['Estimate the likely outcomes before committing.','C'],
+  ['Try it small and adjust as you go.','D'],
+  ['Explore the possibilities by discussing the idea with others.','I'],
+  ['Introduce it gradually, alongside what already works.','S']]},
+ {theme:'A colleague under strain', q:'A colleague tells you they feel overloaded. What is your first instinct?', o:[
+  ['Help them decide what to drop and what to prioritize.','D'],
+  ['Suggest the team talk through how to share the work.','I'],
+  ['Ask what would help them feel more supported right now.','S'],
+  ['Go through the workload with them to see what can be simplified.','C']]},
+ {theme:'Starting a new initiative', q:'You are part of a new initiative with an open brief. What do you naturally do first?', o:[
+  ['Talk through ideas with others before settling on a plan.','I'],
+  ['Build a plan around the team’s capacity.','S'],
+  ['Map milestones and risks before starting.','C'],
+  ['Start with the highest-impact step, then refine.','D']]},
+ {theme:'Organizational change', q:'Your organization announces a reorganization that changes how your team works. What is your first instinct?', o:[
+  ['Check how the people around you are affected.','S'],
+  ['Look for the reasons and details behind the change.','C'],
+  ['Work out the new priorities and start adjusting.','D'],
   ['Connect with colleagues to compare views.','I']]},
- {theme:'Influencing others', q:'You believe a change would help your team, but others are hesitant. How do you try to bring them along?', o:[
-  ['Engage them personally and appeal to what excites them.','I'],
-  ['Give them time and listen to their concerns.','S'],
-  ['Provide evidence and address their objections logically.','C'],
-  ['Present the case directly and ask for a decision.','D']]},
- {theme:'Managing deadlines', q:'Several deadlines converge in the same week. How do you manage it?', o:[
-  ['Break the work into steps and track progress against a schedule.','C'],
-  ['Work through tasks one at a time at a steady pace.','S'],
-  ['Talk through priorities with colleagues and agree who covers what.','I'],
-  ['Focus on the few things that matter most.','D']]},
- {theme:'Quality versus speed', q:'A client asks for results sooner than planned, which would mean shortening some review steps. What is your first response?', o:[
-  ['Identify which reviews cannot be skipped and protect them.','C'],
-  ['Check what the team can realistically absorb before agreeing.','S'],
-  ['Find the fastest viable approach and own the trade-offs.','D'],
-  ['Talk with the client to understand what matters most to them.','I']]},
- {theme:'Interpersonal challenges', q:'A colleague is repeatedly late with inputs you depend on. What do you do first?', o:[
-  ['Say plainly what I need and by when.','D'],
-  ['Ask what support they need to deliver reliably.','S'],
-  ['Have a friendly conversation to find out what is getting in the way.','I'],
-  ['Review the specific instances against the expectations we agreed.','C']]}
+ {theme:'Influencing hesitant colleagues', q:'You believe a change would improve how your team works, but several colleagues are hesitant. What is your first instinct?', o:[
+  ['Go through the evidence and address the open questions.','C'],
+  ['Explain clearly why the change is needed and suggest next steps.','D'],
+  ['Talk with them about what the change could make possible.','I'],
+  ['Ask what concerns they have before going further.','S']]},
+ {theme:'Converging deadlines', q:'Several deadlines converge in the same week. What is your first instinct?', o:[
+  ['Concentrate on the few things that matter most.','D'],
+  ['Talk to the people waiting on you and agree what can move.','I'],
+  ['Focus on maintaining a manageable pace and meeting existing commitments.','S'],
+  ['Break the work into steps tracked against a schedule.','C']]},
+ {theme:'Quality and speed', q:'A colleague asks for faster delivery, and speeding up may affect quality. What do you naturally do first?', o:[
+  ['Talk with them about what is behind the request.','I'],
+  ['Check how much the team can take on.','S'],
+  ['Identify which quality checks are essential.','C'],
+  ['Decide what can be delivered sooner and get started.','D']]},
+ {theme:'Late contributions', q:'A colleague’s input is arriving later than agreed and your own work depends on it. What is your first instinct?', o:[
+  ['Ask what support would help them deliver.','S'],
+  ['Compare the delay with the timeline you both agreed.','C'],
+  ['Say plainly what you need and by when.','D'],
+  ['Talk with them about what is getting in the way.','I']]}
+];
+/* Part 2: each option is a deliberate approach (style key = which DISC-inspired style the approach resembles).
+   Effort/distance scale is a self-report of how far the chosen approach is from the person's first instinct. */
+const DISTANCE = ['About the same as my first instinct','Somewhat different from my first instinct','Quite different from my first instinct'];
+const ADAPT = [
+ {theme:'Doubting a colleague’s idea', q:'You have doubts about a colleague’s idea. What do you typically do?', o:[
+  ['Say you have reservations and propose an alternative.','D'],
+  ['Explore variations of the idea together with them.','I'],
+  ['Ask how they would handle the points that concern you.','S'],
+  ['Ask them to walk you through the reasoning and the data.','C']]},
+ {theme:'A quick answer on a complex issue', q:'Someone asks you for a quick answer on a complex issue. What do you typically do?', o:[
+  ['Suggest a quick conversation to talk the issue through together.','I'],
+  ['Acknowledge the urgency and agree on a reliable time to follow up.','S'],
+  ['Share what is confirmed so far and what still needs checking.','C'],
+  ['Give your best recommendation now.','D']]},
+ {theme:'A teammate after a setback', q:'A teammate is upset after a setback. What do you typically do?', o:[
+  ['Check in with them and ask what would help right now.','S'],
+  ['Review together what happened so it can be understood.','C'],
+  ['Help them identify the next step and get moving.','D'],
+  ['Talk with them about what went well despite the setback.','I']]},
+ {theme:'Disagreeing with a decision', q:'You disagree with a decision your manager has made. What do you typically do?', o:[
+  ['Send a written note with your reasoning and supporting information.','C'],
+  ['Tell your manager directly what you would do differently.','D'],
+  ['Bring it up in conversation and explore options together.','I'],
+  ['Ask for a private conversation to share your concerns.','S']]},
+ {theme:'A risk others have not noticed', q:'You notice a risk that others seem to have missed. What do you typically do?', o:[
+  ['Raise it with the group straight away and ask how to respond.','D'],
+  ['Talk about it with colleagues to see whether they see it too.','I'],
+  ['Check with the people most affected to understand what it means for them.','S'],
+  ['Write down the risk and its likely impact, then share it.','C']]},
+ {theme:'Unwelcome news', q:'You have to deliver unwelcome news to a colleague. What do you typically do?', o:[
+  ['Talk it through in person and explore what options remain.','I'],
+  ['Prepare them in advance and allow time for their reaction.','S'],
+  ['Present the facts and reasoning in a clear order.','C'],
+  ['Tell them plainly and be clear about what happens next.','D']]},
+ {theme:'Working at a different pace', q:'You are working with someone whose pace is very different from yours. What do you typically do?', o:[
+  ['Match your pace to theirs where you can.','S'],
+  ['Agree on a schedule and clear steps for each of you.','C'],
+  ['Name the pace you need and where it matters most.','D'],
+  ['Make time to chat and find a rhythm that works for both of you.','I']]},
+ {theme:'Deadline and team strain', q:'A deadline is putting real strain on your team. What do you typically do?', o:[
+  ['Suggest a revised schedule that shows what depends on what.','C'],
+  ['Suggest cutting the work that matters least to the deadline.','D'],
+  ['Suggest a short team conversation to share ideas on getting through the deadline.','I'],
+  ['Suggest the team settle on a pace everyone can keep up.','S']]}
+];
+/* Part 3: preferences. Option keys are preference themes (never DISC color labels). */
+const THEMES = {
+  brief:{name:'Brief and direct', short:'brief and direct', phrase:'a short, direct summary with the main point first', ask:'Lead with the main point and keep it short.'},
+  talk:{name:'Interactive conversation', short:'interactive', phrase:'talking things through together', ask:'Set up a short conversation rather than only sending a message.'},
+  time:{name:'Time and predictability', short:'time and predictability', phrase:'advance notice and time to think before responding', ask:'Give me notice and a little time before I need to respond.'},
+  detail:{name:'Detail and evidence', short:'detail and evidence', phrase:'specific information, preferably in writing', ask:'Share the specifics, ideally in writing, so I can review them.'}
+};
+const THEME_KEYS = ['brief','talk','time','detail'];
+const PREFS = [
+ {theme:'Receiving feedback', q:'When a colleague gives you feedback, what do you appreciate most?', o:[
+  ['The main point first, in a few sentences.','brief'],
+  ['A conversation where we talk it through.','talk'],
+  ['Notice in advance, so I can reflect first.','time'],
+  ['Specific examples, ideally written down.','detail']]},
+ {theme:'Discussing disagreements', q:'When you and a colleague see something differently, what helps you most?', o:[
+  ['Discussing it openly to find common ground.','talk'],
+  ['A chance to prepare before we discuss it.','time'],
+  ['Seeing their reasoning and evidence.','detail'],
+  ['Hearing plainly where they disagree.','brief']]},
+ {theme:'Receiving instructions', q:'When you are given a new task, which kind of instruction do you appreciate most?', o:[
+  ['A heads-up about the timing and what to expect.','time'],
+  ['Clear steps and examples in writing.','detail'],
+  ['The goal and deadline, in a sentence or two.','brief'],
+  ['A walk-through where I can ask questions.','talk']]},
+ {theme:'Making decisions together', q:'When a decision affects you, how do you appreciate being involved?', o:[
+  ['The analysis and options beforehand.','detail'],
+  ['A recommendation and the key trade-off.','brief'],
+  ['Joining the discussion before it is final.','talk'],
+  ['Time to think before I commit.','time']]},
+ {theme:'Day-to-day collaboration', q:'In day-to-day work, how do you prefer colleagues to reach out to you?', o:[
+  ['A short, direct message with the main point.','brief'],
+  ['A quick, informal chat.','talk'],
+  ['At agreed or predictable times, rather than unexpectedly.','time'],
+  ['A clear message with the context and details included.','detail']]},
+ {theme:'Updates and check-ins', q:'How do you prefer to receive project updates?', o:[
+  ['Informal chats where I can ask questions as things develop.','talk'],
+  ['Check-ins at predictable, agreed times.','time'],
+  ['Thorough updates with the supporting data.','detail'],
+  ['Short updates on what has changed.','brief']]},
+ {theme:'Support when stuck', q:'When you are stuck on something, what kind of help do you appreciate most?', o:[
+  ['Patient support, without pressure to hurry.','time'],
+  ['Help finding the information I am missing.','detail'],
+  ['Straight, to-the-point advice on the next step.','brief'],
+  ['Someone to talk the problem through with.','talk']]}
 ];
 
 const PROFILES = {
@@ -559,24 +679,25 @@ const TARGET = {
  C:{need:'Data, documentation, time to review, and clear standards.',up:['Accuracy','Data','Written follow-up'],down:['Exaggeration','Rushing','Vagueness'],
     avoid:['Exaggerating or overselling','Rushing them to sign off','Staying vague on specifics']}
 };
-/* Pair cards: [be careful of your pull, your first move, in common, where you may differ, great team, instead of, try saying] — key = YOU+THEM */
+/* Pair cards: [your pull, your first move, in common, where you may differ, great team, instead of, try saying, possible misunderstanding, workplace example] — key = YOU+THEM.
+   Written as possibilities to explore: nothing here predicts how a particular colleague will behave. */
 const PAIRS = {
- DD:["You both want the bottom line and control. Two Reds can turn a disagreement into a contest. Name the shared goal first, then pick one owner.","Lead with the outcome, then the detail if asked. Give two or three options with your recommendation.","You both value speed, clear goals, and getting results.","Mostly who leads. With two strong drivers, a disagreement can quietly become a contest.","Shared drive plus clearly split ownership can move mountains.","I'll handle it my way.","We both want this done. I'll own the client side and you own delivery. Can we check in on Friday?"],
- DI:["You go straight to the point and skip the relationship. Under stress you get blunt. If your Yellow colleague values connection, that may come across as rejection, so check how it landed.","Open with the relationship and the vision. Put the details in writing afterward so nothing is lost.","You are both energetic, forward-looking, and comfortable taking the lead.","You want the bottom line, while Yellow wants connection and the story first.","Your drive plus their energy gets people excited and moving at the same time.","Skip the intro. What do you need?","Great energy on this. Here's the outcome I'm after, and I'd love your take on how to get people behind it."],
- DS:["Your speed and force feel like pressure and sudden change. If your colleague is reserved, they may go quiet and agree without committing. Silence is not a yes.","Explain the why and how it affects their people. Ask directly for concerns.","You both care about getting things done, one quickly and one reliably.","Pace and change. You move fast, while Green wants time to adjust and to know people are looked after.","You create momentum and Green makes it stick, keeping people on board along the way.","We're doing this now. Just go with it.","Here's where I think we should go and why. How would it land with your team, and what would make the timing easier?"],
- DC:["You move fast, lead with the bottom line, and get blunt under stress. If your colleague prioritizes accuracy, moving too fast without discussing risks may reduce their confidence in the decision.","Send an agenda and the data ahead of time. Be precise: exact steps, root cause, dates. Give them time to think and answer in writing.","You both focus on results and competence, and neither of you is swayed by fluff.","Speed versus accuracy. You want to decide now, while Blue wants to get it right first.","You decide and they check, which means fast progress with fewer mistakes.","We need to move faster. Let's just make a decision.","Let's identify the key risks, agree on what information we need, and set a time to make the decision."],
- ID:["Your stories, warmth and big ideas sound like long preambles to a Red. Overpromising and light detail get checked fast, and a Red remembers.","Lead with the outcome, then the detail if asked. Be brief, confident, and specific about dates and owners.","You are both outgoing, bold, and happy to act on an idea.","You tell the story, while Red wants the headline. Your detail level and pace may differ.","Your vision plus their push turns ideas into action.","Let me tell you the whole backstory first...","Bottom line: I'd like to launch by the 15th. I see three options and my pick is B. Can you back it?"],
- II:["Two Yellows make a lot of energy and ideas, and details fall through. Agreements stay verbal and get lost. Write down who does what by when.","Open with the relationship and the vision. Put the details in writing afterward so nothing is lost.","You both love ideas, people, and good energy.","Mostly follow-through. With two big-picture thinkers, the small stuff can drift.","Creativity and momentum, and a simple shared tracker keeps nothing from getting lost.","Let's just wing it. We'll remember.","Love it. Before we leave the call, let's write down who does what by when."],
- IS:["Your enthusiasm and fast pivots feel like sudden change to a Green. Don't spring an idea as a decision, and don't leave the agreement verbal.","Explain the why and how it affects their people. Give a clear, paced plan with support built in.","You are both warm, people-oriented, and care how the team feels.","You like fast pivots and the spotlight, while Green prefers steady, quiet, and predictable.","You lift the team and they sustain it, a lasting kind of energy.","Let's change everything. It'll be amazing!","I have a new idea and I'm excited, but nothing is decided. Here's the plan in steps, and I'd value your read on how it affects the team."],
- IC:["You talk big picture, stay light on specifics, and may overpromise. If your colleague values accuracy, exaggeration may reduce trust. Bring the specifics before the story.","Send an agenda and the data ahead of time. Be precise: exact steps, root cause, dates.","You are both curious and care about doing good work, in different ways.","You lead with vision and enthusiasm, while Blue leads with data and precision.","Your vision plus their rigor makes ideas both inspiring and sound.","Trust me, this is going to be huge.","Here's the idea, and here are the numbers and sources behind it. What would you want to verify before we commit?"],
- SD:["Your patience and wish to keep the peace can sound like hedging. If your colleague is results-focused, they may need a clear answer. Say what you recommend, and say no when you mean no. Don't agree and then not commit.","Lead with the outcome, then the detail if asked. Don't take it personally when they push.","You are both reliable and focused on getting things done.","You weigh how people will feel, while Red wants a straight answer and fast.","You steady the team and they drive it, which makes for a strong, balanced engine.","Maybe, we could possibly consider it, if everyone is fine with it...","My recommendation is option 2. I have one concern about timing, and I'd like us to settle it today."],
- SI:["You keep concerns to yourself and agree without committing. If you stay quiet, others may take it as agreement and be surprised later. Say the concern out loud, warmly.","Open with the relationship and the vision. Use stories and customer examples, not spreadsheets.","You are both warm, supportive, and relationship-centered.","You are reserved and prefer steady change, while Yellow is expressive and spontaneous.","Your reliability plus their energy makes a team people want to be on.","Sure, that sounds fine. (while feeling uneasy)","I love the energy here. I have one worry about the timeline. Can I share it so we keep the spirit and fix it?"],
- SS:["Two Greens can both avoid conflict, so decisions stall and problems go unsaid. Ask each other directly for concerns.","Explain the why and how it affects their people. Ask directly for concerns; silence is not agreement.","You both value harmony, loyalty, and a calm working rhythm.","Mostly what goes unsaid. Two peacekeepers may avoid the hard conversation.","Deep trust and stability, especially once honest concerns are welcome.","Whatever works for you.","I'd like to hear any concerns, even small ones. Mine is the timeline. What's yours?"],
- SC:["You soften bad news and say it should be fine. If your colleague wants precision, general reassurance may not be enough. Give the actual number, date or root cause.","Be precise: exact steps, root cause, dates. Give them time to think and answer in writing.","You are both thoughtful, careful, and steady.","You reassure in general terms, while Blue wants exact specifics.","Your care plus their quality builds work that is both humane and excellent.","It should be fine. Don't worry about it.","Here's the actual status: 80% done, the open piece is the API review, due Thursday. Here's my plan if it slips."],
- CD:["Your thoroughness sounds slow to a Red, and under stress you over-analyze and withdraw. Lead with the conclusion, then offer the data if they ask.","Lead with the outcome. Give two or three options with your recommendation.","You are both results-minded and comfortable working independently.","You want to be thorough, while Red wants a decision and momentum.","Your rigor behind their drive means fast decisions that hold up.","I need more time to analyze everything before I can say anything.","My recommendation is option B. Two risks matter most, and I can share the data if useful. I'll confirm by Thursday."],
- CI:["You lead with data and may criticize an idea in the moment. If your colleague values rapport, they may want it first, and public criticism may land hard. Start with what's good, then follow up in writing.","Open with the relationship and the vision. Put the details in writing afterward.","You both care about good ideas and are curious about how things work.","You critique with data, while Yellow wants appreciation and connection first.","Your rigor polishes their ideas until they shine.","That won't work. The numbers don't support it.","I like the direction and the energy. Can I send a few details after the meeting so we make it even stronger?"],
- CS:["Your precision and questions can come across as criticism or doubt. If your colleague prefers a steady pace, they may need reassurance and time. Say what's working before what's wrong, and keep surprises out of it.","Explain the why and how it affects their people. Give a clear, paced plan.","You are both careful, dependable, and committed to doing things properly.","Your precise questions can sound like doubt, while Green needs reassurance and time.","Your quality bar plus their steady support makes excellent, sustainable work.","Why did this go wrong? Where is the error?","The core is working well. There's one thing I'd like to adjust. Can we walk through a steady plan together?"],
- CC:["Two Blues can go deep on detail and slow every decision, and both get critical under stress. Agree on the standard and a decision date.","Send an agenda and the data ahead of time. Be precise: exact steps, root cause, dates.","You both value accuracy, preparation, and high standards.","Mostly depth and timing. Two careful thinkers can analyze for a very long time.","Exceptional quality, as long as you agree on when 'done' is.","I need to look at every detail first.","Let's agree on the standard we'll use and set a decision date of Friday so we don't over-analyze."]
+ DD:["You may both want the bottom line and control. If you disagree, it can turn into a contest. Naming the shared goal first and agreeing on one owner may help.","Lead with the outcome, then offer the detail if they ask. Two or three options with your recommendation may work well.","You may both value speed, clear goals, and getting results.","Possibly who leads. When two people both like to drive, a disagreement can quietly become a contest.","Shared drive plus clearly split ownership can move a lot of work forward.","I'll handle it my way.","We both want this done. I'll own the client side and you own delivery. Can we check in on Friday?","Each of you may read the other's directness as an attempt to take over, when you may both simply want to move forward.","Two leads start assigning tasks for the same launch. One says, “I'll take the client side and you take delivery,” which turns a contest into a split of ownership."],
+ DI:["You may go straight to the point and skip the relationship. If your colleague values connection, that can feel like rejection, so it may help to check how it landed.","Open with the relationship and the vision. Putting the details in writing afterward may keep anything from being lost.","You may both be energetic, forward-looking, and comfortable taking the lead.","You may want the bottom line, while your colleague may want connection and the story first.","Your drive plus their energy can get people excited and moving at the same time.","Skip the intro. What do you need?","Great energy on this. Here's the outcome I'm after, and I'd love your take on how to get people behind it.","Your focus on the outcome may be read as a lack of interest in people, and their storytelling as a lack of focus. Neither reading has to be right.","You open a call with “What do you need?” and your colleague, who hoped to share an idea first, goes quiet. Starting with “Great energy on this” and then naming the outcome may keep both."],
+ DS:["Your pace may feel like pressure or sudden change. If your colleague prefers a steadier rhythm, they may stay quiet and agree without feeling committed, so it may help to ask directly for concerns.","Explain the why and how it may affect their people. Asking directly for concerns may surface what is unsaid.","You may both care about getting things done, one quickly and one reliably.","Possibly pace and change. You may move fast, while your colleague may want time to adjust and to know people are looked after.","You can create momentum and they can help it stick, keeping people on board along the way.","We're doing this now. Just go with it.","Here's where I think we should go and why. How would it land with your team, and what would make the timing easier?","Their quiet may be read as agreement or as resistance, and your pace as a lack of care. Either reading may be wrong.","You announce a new process and nobody objects. A day later the questions arrive in side chats. Asking “What would make the timing easier?” in the meeting may surface them earlier."],
+ DC:["You may move fast, lead with the bottom line, and become blunt under stress. If your colleague prioritizes accuracy, moving ahead without discussing risks may reduce their confidence in the decision.","Sending an agenda and the data ahead of time may help. Being precise (exact steps, root cause, dates) and giving them time to think may work well.","You may both focus on results and competence, and neither of you may be swayed by fluff.","Possibly speed versus accuracy. You may want to decide now, while your colleague may want to get it right first.","You decide and they check, which can mean fast progress with fewer mistakes.","We need to move faster. Let's just make a decision.","Let's identify the key risks, agree on what information we need, and set a time to make the decision.","A quick decision may be read as carelessness, and careful questions as stalling.","You want to approve a vendor today and your colleague asks for the contract terms first. Agreeing on the three facts you need and a decision time may work for both."],
+ ID:["Your stories and big ideas may sound like a long preamble to a colleague who prefers the headline. Bringing the outcome and the specifics first may help.","Lead with the outcome, then offer the detail if they ask. Being brief, confident, and specific about dates and owners may work well.","You may both be outgoing, bold, and happy to act on an idea.","You may tell the story, while your colleague may want the headline. Your level of detail and pace may differ.","Your vision plus their push can turn ideas into action.","Let me tell you the whole backstory first...","Bottom line: I'd like to launch by the 15th. I see three options and my pick is B. Can you back it?","Enthusiasm may be read as overpromising, and brevity as disinterest.","You start a pitch with the backstory and your colleague asks, “What's the ask?” Opening with the date, the options and your pick may get a faster answer."],
+ II:["If you both love ideas and energy, details may slip and agreements may stay verbal. Writing down who does what by when may help.","Open with the relationship and the vision. Putting the details in writing afterward may keep anything from being lost.","You may both love ideas, people, and good energy.","Possibly follow-through. With two big-picture thinkers, the small stuff can drift.","Creativity and momentum, and a simple shared tracker may keep nothing from getting lost.","Let's just wing it. We'll remember.","Love it. Before we leave the call, let's write down who does what by when.","Each of you may assume the other has captured the next steps.","After a lively brainstorm, both leave sure the other will send the notes. A shared tracker and a closing “who does what by when” may prevent that."],
+ IS:["Your enthusiasm and quick pivots may feel like sudden change to a colleague who prefers a steadier rhythm. Saying clearly that an idea is not yet a decision, and putting agreements in writing, may help.","Explain the why and how it may affect their people. A clear, paced plan with support built in may work well.","You may both be warm, people-oriented, and care how the team feels.","You may like fast pivots and the spotlight, while your colleague may prefer steady, quiet, and predictable.","You can lift the team and they can sustain it, a lasting kind of energy.","Let's change everything. It'll be amazing!","I have a new idea and I'm excited, but nothing is decided. Here's the plan in steps, and I'd value your read on how it affects the team.","An idea shared with excitement may be heard as a decision already made.","You mention a new idea in passing and a colleague starts worrying about the changes. Saying “nothing is decided yet” may help."],
+ IC:["You may talk big picture and stay light on specifics. If your colleague values accuracy, strong claims without support may reduce trust. Bringing the specifics along with the story may help.","Sending an agenda and the data ahead of time may help. Being precise (exact steps, root cause, dates) may work well.","You may both be curious and care about doing good work, in different ways.","You may lead with vision and enthusiasm, while your colleague may lead with data and precision.","Your vision plus their rigor can make ideas both inspiring and sound.","Trust me, this is going to be huge.","Here's the idea, and here are the numbers and sources behind it. What would you want to verify before we commit?","Optimism may be read as overselling, and questions about evidence as negativity.","You say “this will be huge” and your colleague asks for the source. Sharing the numbers and asking “What would you verify?” may turn it into a joint check."],
+ SD:["Your patience and wish to keep the peace may sound like hedging to a colleague who wants a clear answer. Stating your recommendation, and any concern, plainly may help.","Lead with the outcome, then offer the detail if they ask. A firm push may not be personal.","You may both be reliable and focused on getting things done.","You may weigh how people will feel, while your colleague may want a straight answer, fast.","You can steady the team and they can drive it, which may make a strong, balanced engine.","Maybe, we could possibly consider it, if everyone is fine with it...","My recommendation is option 2. I have one concern about timing, and I'd like us to settle it today.","Care may be read as indecision, and directness as dismissal.","Asked about a timeline, you say “maybe, if everyone is fine with it.” Saying “My recommendation is option 2; my concern is timing” gives your colleague something to respond to."],
+ SI:["You may keep concerns to yourself to protect the mood. Others may take silence as agreement and be surprised later. Voicing the concern warmly may help.","Open with the relationship and the vision. Stories and customer examples may work better than spreadsheets.","You may both be warm, supportive, and relationship-centered.","You may be reserved and prefer steady change, while your colleague may be expressive and spontaneous.","Your reliability plus their energy can make a team people want to be on.","Sure, that sounds fine. (while feeling uneasy)","I love the energy here. I have one worry about the timeline. Can I share it so we keep the spirit and fix it?","Your quiet may be read as full agreement, and their enthusiasm as not listening.","A colleague proposes a fast launch and you say “sounds fine” while feeling uneasy. Saying “I love the energy; I have one worry about the timeline” may keep both."],
+ SS:["If you both prefer to avoid conflict, decisions may stall and problems may go unsaid. Asking each other directly for concerns may help.","Explain the why and how it may affect their people. Asking directly for concerns may help, since silence is not always agreement.","You may both value harmony, loyalty, and a calm working rhythm.","Possibly what goes unsaid. Two people who prefer harmony may avoid the hard conversation.","Deep trust and stability, especially once honest concerns are welcome.","Whatever works for you.","I'd like to hear any concerns, even small ones. Mine is the timeline. What's yours?","Each of you may assume that no objection means agreement.","Two colleagues each privately worry about a deadline but say “whatever works.” Asking “What is your concern?” early may bring it out."],
+ SC:["You may soften bad news with general reassurance. If your colleague wants precision, an actual number, date or cause may help more.","Being precise (exact steps, root cause, dates) and giving them time to think may work well.","You may both be thoughtful, careful, and steady.","You may reassure in general terms, while your colleague may want exact specifics.","Your care plus their quality can build work that is both humane and excellent.","It should be fine. Don't worry about it.","Here's the actual status: 80% done, the open piece is the API review, due Thursday. Here's my plan if it slips.","Reassurance may be read as vagueness, and precise questions as doubt.","“It should be fine” meets “What is the status?” Answering “80% done, API review due Thursday” may settle it."],
+ CD:["Your thoroughness may seem slow to a colleague who wants a decision, and under stress you may over-analyze or withdraw. Leading with the conclusion and offering the data if they ask may help.","Lead with the outcome. Two or three options with your recommendation may work well.","You may both be results-minded and comfortable working independently.","You may want to be thorough, while your colleague may want a decision and momentum.","Your rigor behind their drive can mean fast decisions that hold up.","I need more time to analyze everything before I can say anything.","My recommendation is option B. Two risks matter most, and I can share the data if useful. I'll confirm by Thursday.","Careful analysis may be read as stalling, and quick calls as reckless.","You need two more days to check the numbers and your colleague needs an answer. Saying “My recommendation is B; I'll confirm by Thursday” offers both."],
+ CI:["You may lead with data and challenge an idea in the moment. If your colleague values connection first, public critique may land hard. Naming what works first and following up in writing may help.","Open with the relationship and the vision. Putting the details in writing afterward may work well.","You may both care about good ideas and be curious about how things work.","You may critique with data, while your colleague may want appreciation and connection first.","Your rigor can polish their ideas until they shine.","That won't work. The numbers don't support it.","I like the direction and the energy. Can I send a few details after the meeting so we make it even stronger?","Precision may be read as negativity, and enthusiasm as a lack of rigor.","In a meeting you say, “The numbers don't support it.” Saying “I like the direction; can I send a few details afterward?” may keep the idea alive and improve it."],
+ CS:["Your precise questions may come across as doubt or criticism to a colleague who prefers a steady pace. Saying what is working first, and allowing time, may help.","Explain the why and how it may affect their people. A clear, paced plan may work well.","You may both be careful, dependable, and committed to doing things properly.","Your precise questions may sound like doubt, while your colleague may need reassurance and time.","Your quality bar plus their steady support can make excellent, sustainable work.","Why did this go wrong? Where is the error?","The core is working well. There's one thing I'd like to adjust. Can we walk through a steady plan together?","Questions meant to check quality may be heard as blame.","You ask “Where is the error?” after a miss. Asking “What happened, and what would help next time?” may keep the focus on the work."],
+ CC:["If you both value detail, you may go deep and slow decisions, and both may turn critical under pressure. Agreeing on the standard and a decision date may help.","Sending an agenda and the data ahead of time may help. Being precise (exact steps, root cause, dates) may work well.","You may both value accuracy, preparation, and high standards.","Possibly depth and timing. Two careful thinkers can analyze for a very long time.","Exceptional quality, as long as you agree on when “done” is.","I need to look at every detail first.","Let's agree on the standard we'll use and set a decision date of Friday so we don't over-analyze.","Each of you may assume the other is satisfied while you are both still checking.","Two reviewers keep refining a report. Agreeing on “done” criteria and a Friday date may stop the loop."]
 };
 const SAYS = {D:"Let's get to it!",I:"I've got an idea!",S:"Take your time.",C:"Let me check the details."};
 const CHAL_GENERAL = [
@@ -601,7 +722,9 @@ const CHAL_SELF = {
  S:"Share one small concern out loud this week, kindly and early.",
  C:"In one conversation, offer your recommendation first and your supporting data second."
 };
-const BUDDY = ["Nice start! Go with your gut.","You're doing great!","Every choice reveals a little more.","No right or wrong answers here.","Your colors are coming together!","Halfway there, keep going!","Trust your first instinct.","Almost two thirds done!","Every style brings something special.","You're on a roll!","So close, keep it up!","Your Color DNA is taking shape!","Just a few more!","Two to go. You've got this!","Last one! Ready to meet your colors?"];
+const BUDDY = ["Nice start! Go with your gut.","You're doing great!","Every choice reveals a little more.","No right or wrong answers here.","Your colors are coming together!","Halfway through Part 1, keep going!","Trust your first instinct.","Every style brings something special.","You're on a roll!","So close to the end of Part 1.","Just a few more!","Two to go in Part 1. You've got this!","Almost there!","One more in Part 1!","Part 1 done after this one! Then two shorter parts.",
+"Part 2: think about what you actually tend to do.","It's fine if this differs from your first instinct.","Honest answers help most here.","No approach is better than another.","Think of a real situation.","Almost through Part 2.","Two more adapted scenarios.","Last one in Part 2!",
+"Part 3: what do you appreciate?","Think about colleagues you enjoy working with.","Preferences can differ by topic.","Pick what helps you most.","Nearly there!","One more!","Last one! Ready to see your results?"];
 
 /* =====================================================================
    HELPERS
@@ -703,7 +826,7 @@ function mascot(k, extra='', pose){
    + `</span>${hands}</span>`;
 }
 
-const S = {name:'', order:[], answers:[], q:0, res:null, focus:null, src:null, dst:null, step:0, sub:{self:'strengths',talk:'connect'}, chal:null, dir:1, revealDone:false};
+const S = {seen:{1:true,2:false,3:false}, name:'', order:[], orderA:[], orderP:[], answers:[], adapt:[], prefs:[], resA:null, resP:null, q:0, res:null, focus:null, src:null, dst:null, step:0, sub:{self:'strengths',talk:'connect'}, chal:null, dir:1, revealDone:false};
 /*SCORING-START*/
 /* =====================================================================
    SCORING MODEL — forced choice, deterministic, auditable (no randomness, no hidden weights)
@@ -839,6 +962,121 @@ function presentResult(r){
         eyebrow:'YOUR PATTERN', cardNames:[], cardPlain:'Evenly Balanced', cardSub:'No single style leads', reflection:'In these scenarios, your choices were spread across all four styles. Many people flex with context.'});
   }
 }
+/* =====================================================================
+   PARTS 2 AND 3 — separate, descriptive, count-based. They are NEVER added to the Part 1 color percentages.
+   Part 2 (Adapted behavior): per scenario one deliberate approach (one option per style) + a self-reported distance from the first instinct (0/1/2).
+       counts[style] sums to the number of scenarios (8). No percentages, no net scores, no shared scale with Part 1.
+   Part 3 (Communication preferences): per situation one preferred option (one option per preference theme). counts[theme] sums to 7.
+   Pattern wording uses the same small rule set for both parts. The thresholds are provisional product rules for wording only.
+   ===================================================================== */
+const COUNT_RULES = {
+  CLEAR_GAP: 3,   // one top group member, at least this far ahead of the next → "clear"; a smaller lead → "lean" (≈10% of random responders reach "clear")
+  CLEAR_MIN: 4,   // …and chosen at least this many times (keeps a 3-vs-1 pattern from being called clear in an 8-item set)
+  VARIED_MAX: 2   // if no option was chosen more than this many times, the answers are "varied" (no repeated preference)
+};
+function tallyPattern(counts, keys, rules=COUNT_RULES){
+  const ranked = [...keys].sort((a,b)=>counts[b]-counts[a] || keys.indexOf(a)-keys.indexOf(b));
+  const hi = counts[ranked[0]];
+  const top = ranked.filter(k=>counts[k]===hi);
+  const rest = ranked.filter(k=>!top.includes(k));
+  const gap = rest.length ? hi - counts[rest[0]] : hi;
+  const next = rest.length ? rest.filter(k=>counts[k]===counts[rest[0]]) : [];
+  let kind;
+  if (hi <= rules.VARIED_MAX) kind = 'varied';
+  else if (top.length>1) kind = 'tied';
+  else if (gap >= rules.CLEAR_GAP && hi >= rules.CLEAR_MIN) kind = 'clear';
+  else kind = 'lean';
+  return {ranked, top: kind==='varied' ? [] : top, next: kind==='lean' ? next : [], gap, kind, max: hi};
+}
+function validateChoiceItems(items, keys, label){
+  const errs = [];
+  items.forEach((q,i)=>{
+    if (!q || !Array.isArray(q.o) || q.o.length!==keys.length){ errs.push(`${label} ${i+1}: needs exactly ${keys.length} options`); return; }
+    const k = q.o.map(o=>o[1]);
+    if (!keys.every(x=>k.filter(y=>y===x).length===1)) errs.push(`${label} ${i+1}: needs exactly one option for each of ${keys.join(', ')}`);
+  });
+  return errs;
+}
+const validateAdaptItems = (items=ADAPT) => validateChoiceItems(items, DIMS, 'Adapted-behavior question');
+const validatePrefItems = (items=PREFS) => validateChoiceItems(items, THEME_KEYS, 'Preference question');
+const okIndex = (i,n) => Number.isInteger(i) && i>=0 && i<n;
+
+/* answers[i] = {pick, effort}: pick indexes ADAPT[i].o, effort is 0, 1 or 2 (distance from first instinct). */
+function scoreAdapted(answers, items=ADAPT){
+  const counts = EMPTY(), dist = [0,0,0], byDist = {D:[0,0,0],I:[0,0,0],S:[0,0,0],C:[0,0,0]};
+  const errors = validateAdaptItems(items); let answered = 0;
+  if (!Array.isArray(answers) || answers.length!==items.length) errors.push(`Expected ${items.length} adapted-behavior answers`);
+  (Array.isArray(answers)?answers:[]).forEach((a,i)=>{
+    if (!a || !items[i] || a.pick==null || a.effort==null) return;
+    if (!okIndex(a.pick, items[i].o.length) || !okIndex(a.effort, 3)){ errors.push(`Adapted-behavior question ${i+1}: invalid selection`); return; }
+    const st = items[i].o[a.pick][1]; counts[st]++; dist[a.effort]++; byDist[st][a.effort]++; answered++;
+  });
+  const pat = tallyPattern(counts, DIMS);
+  const complete = answered===items.length;
+  if (DIMS.reduce((s,d)=>s+counts[d],0)!==answered) errors.push('Internal error: counts do not add up');
+  return Object.assign(pat, {part:2, counts, dist, byDist, answered, expected:items.length, complete, valid: errors.length===0, errors, final: complete && errors.length===0});
+}
+/* answers[i] = pick index into PREFS[i].o */
+function scorePrefs(answers, items=PREFS){
+  const counts = {brief:0,talk:0,time:0,detail:0}; let answered = 0;
+  const errors = validatePrefItems(items);
+  if (!Array.isArray(answers) || answers.length!==items.length) errors.push(`Expected ${items.length} preference answers`);
+  (Array.isArray(answers)?answers:[]).forEach((a,i)=>{
+    if (a==null || !items[i]) return;
+    if (!okIndex(a, items[i].o.length)){ errors.push(`Preference question ${i+1}: invalid selection`); return; }
+    counts[items[i].o[a][1]]++; answered++;
+  });
+  const pat = tallyPattern(counts, THEME_KEYS);
+  const complete = answered===items.length;
+  if (THEME_KEYS.reduce((s,k)=>s+counts[k],0)!==answered) errors.push('Internal error: counts do not add up');
+  return Object.assign(pat, {part:3, counts, answered, expected:items.length, complete, valid: errors.length===0, errors, final: complete && errors.length===0});
+}
+/* Compare the Part 2 pattern with the Part 1 leading style(s). Part 1 is read only through presentResult(); nothing flows back into it. */
+function compareAdapted(a2, r1){
+  const m = presentResult(r1);
+  if (!a2 || !a2.final || !m.final) return {available:false, relation:'unavailable', lead:[], aligned:null};
+  const lead = m.lead;                                   // clear → 1 style, blend → 2–3, tied → 2–4, flat → none
+  if (!lead.length || lead.length===4) return {available:true, relation:'no-lead', lead:[], aligned:null};
+  let aligned = 0;
+  DIMS.forEach(d=>{ if (lead.includes(d)) aligned += a2.counts[d]; });
+  const topOverlap = a2.top.some(d=>lead.includes(d));
+  const relation = a2.kind==='varied' ? 'varied' : topOverlap ? 'similar' : 'different';
+  return {available:true, relation, lead, aligned, of:a2.expected};
+}
+const DIST_SHORT = ['Close to first instinct','Somewhat different','Quite different'];
+const nameList = ks => ks.length<2 ? (ks[0]||'') : ks.slice(0,-1).join(', ') + ' and ' + ks[ks.length-1];
+function presentAdapted(a2, r1){
+  if (!a2 || !a2.final) return {final:false, kind:'incomplete', lines:['Some adapted-behavior questions were skipped or invalid, so no pattern is shown.'], cmp:{available:false}};
+  const L = [], N = ks => nameList(ks.map(d=>META[d].name));
+  const cmp = compareAdapted(a2, r1);
+  switch (a2.kind){
+    case 'clear': L.push(`In these scenarios you most often chose an approach resembling ${N(a2.top)} (${a2.counts[a2.top[0]]} of ${a2.expected}).`); break;
+    case 'lean':  L.push(`In these scenarios you chose approaches resembling ${N(a2.top)} somewhat more often (${a2.counts[a2.top[0]]} of ${a2.expected}), with ${N(a2.next)} close behind.`); break;
+    case 'tied':  L.push(`In these scenarios you chose approaches resembling ${N(a2.top)} equally often (${a2.counts[a2.top[0]]} of ${a2.expected} each), so none is ranked above the other.`); break;
+    default:      L.push('In these scenarios your deliberate approaches were spread evenly across the four styles, so no single approach stands out.');
+  }
+  const moved = a2.dist[1]+a2.dist[2];
+  L.push(moved===0 ? 'In these situations you described every approach you chose as close to your first instinct.'
+       : moved>=3 ? 'In several situations, you reported choosing an approach that feels different from your first instinct.'
+       : `In ${moved===1?'one situation':'two situations'}, you reported choosing an approach that feels different from your first instinct.`);
+  if (cmp.relation==='similar') L.push(`Your most frequent approach here overlaps with your Part 1 pattern (${N(cmp.lead)}).`);
+  else if (cmp.relation==='different') L.push(`Your most frequent approach here differs from your Part 1 pattern (${N(cmp.lead)}). That is not a contradiction: people often choose the approach that suits the situation, and this assessment cannot tell why.`);
+  else if (cmp.relation==='varied') L.push('Because your approaches were spread across styles, there is no single pattern to compare with Part 1.');
+  else if (cmp.relation==='no-lead') L.push('Your Part 1 pattern did not single out a leading style, so there is nothing specific to compare with.');
+  return {final:true, kind:a2.kind, top:a2.top, next:a2.next, cmp, moved, lines:L};
+}
+function presentPrefs(p3){
+  if (!p3 || !p3.final) return {final:false, kind:'incomplete', lines:['Some preference questions were skipped or invalid, so no pattern is shown.']};
+  const P = ks => nameList(ks.map(k=>THEMES[k].phrase));
+  let line;
+  switch (p3.kind){
+    case 'clear': line = `Across these situations you most often chose ${P(p3.top)} (${p3.counts[p3.top[0]]} of ${p3.expected}).`; break;
+    case 'lean':  line = `You chose ${P(p3.top)} somewhat more often (${p3.counts[p3.top[0]]} of ${p3.expected}), with ${P(p3.next)} close behind.`; break;
+    case 'tied':  line = `You chose ${P(p3.top)} equally often (${p3.counts[p3.top[0]]} of ${p3.expected} each), so none is ranked above the other.`; break;
+    default:      line = 'Your preferences varied from one situation to the next, so no single kind of communication stands out.';
+  }
+  return {final:true, kind:p3.kind, top:p3.top, next:p3.next, lines:[line]};
+}
 /*SCORING-END*/
 
 const names = listNames;
@@ -898,56 +1136,121 @@ function renderLanding(){
   $('#nameMini').innerHTML = mascot('S');
 }
 
-/* ---------- Quiz (forced choice: one MOST, one LEAST, never the same response) ---------- */
+/* ---------- Quiz: three parts (Part 1 forced choice MOST/LEAST; Parts 2 and 3 single choice) ---------- */
+const PARTS = [
+  {n:1, name:'Natural response', help:'Imagine you could respond freely, without worrying about expectations or what others might think. Mark the response that feels most natural as your first instinct (<b>most like you</b>) and a different one that is <b>least like you</b>, even if you would act differently in real life.'},
+  {n:2, name:'Adapted behavior', help:'Think about what you <b>typically do</b> at work. It may be the same as your first instinct or different, and adjusting to a situation does not change who you are. Then say how close that approach is to your first instinct. This part is reported separately and is not part of your Color DNA.'},
+  {n:3, name:'Communication preferences', help:'Choose what you <b>appreciate most</b> from colleagues in each situation. This part describes preferences, not styles, and is reported separately.'}
+];
+const INTRO = {
+  2:{eye:'Part 1 complete · Part 2 of 3', title:'Next: what you typically choose to do', text:'Part 1 asked about your first instinct. In Part 2, think about what you typically do at work. That can be the same as your first instinct or different. Adjusting your approach to a situation is a normal part of working with others and does not mean changing who you are. After each choice, say how close it feels to your first instinct. There are 8 short scenarios. Your answers are reported separately and do not change your Color DNA.', go:'Start Part 2'},
+  3:{eye:'Part 2 complete · Part 3 of 3', title:'Last: how you like to communicate', text:'Part 3 is about what you appreciate from colleagues, such as how you like to receive feedback, instructions and updates. There are 7 short questions, with no right answers. These are preferences, not styles, and they are reported separately.', go:'Start Part 3'}
+};
+const TOTAL = () => QUESTIONS.length + ADAPT.length + PREFS.length;
+const locate = g => g < QUESTIONS.length ? {part:1, i:g} : g < QUESTIONS.length+ADAPT.length ? {part:2, i:g-QUESTIONS.length} : {part:3, i:g-QUESTIONS.length-ADAPT.length};
+const partSize = n => n===1 ? QUESTIONS.length : n===2 ? ADAPT.length : PREFS.length;
 function startQuiz(){
   S.order = QUESTIONS.map(()=>shuffle([0,1,2,3]));
+  S.orderA = ADAPT.map(()=>shuffle([0,1,2,3]));
+  S.orderP = PREFS.map(()=>shuffle([0,1,2,3]));
   S.answers = QUESTIONS.map(()=>({most:null,least:null}));
-  S.q = 0; S.res = null; S.dir = 1;
+  S.adapt = ADAPT.map(()=>({pick:null,effort:null}));
+  S.prefs = PREFS.map(()=>null);
+  S.q = 0; S.res = null; S.resA = null; S.resP = null; S.dir = 1; S.seen = {1:true,2:false,3:false};
   renderQ(); show('quiz');
 }
 const isDone = a => a && a.most!==null && a.least!==null;
+const doneAdapt = a => a && a.pick!==null && a.effort!==null;
+const donePref = a => a!==null && a!==undefined;
+function doneAt(g){ const L = locate(g); return L.part===1 ? isDone(S.answers[L.i]) : L.part===2 ? doneAdapt(S.adapt[L.i]) : donePref(S.prefs[L.i]); }
 function paintOpts(){
-  const a = S.answers[S.q], n = QUESTIONS.length;
-  $$('#opts .opt').forEach(el=>{
-    const oi = +el.dataset.oi, m = a.most===oi, l = a.least===oi;
-    el.classList.toggle('is-most',m); el.classList.toggle('is-least',l);
-    $('[data-role="most"]',el).setAttribute('aria-pressed',m); $('[data-role="least"]',el).setAttribute('aria-pressed',l);
-    const tag = $('.otag',el); tag.textContent = m ? 'Most like me' : l ? 'Least like me' : '';
-  });
-  $('#qStatus').textContent = isDone(a) ? 'Both choices made. You can continue.' : a.most===null && a.least===null ? 'Choose one Most like me and one Least like me.' : a.most===null ? 'Now choose Most like me.' : 'Now choose Least like me.';
-  $('#qStatus').className = 'qstatus' + (isDone(a)?' ok':'');
-  $('#btnNext').disabled = !isDone(a);
-  const done = S.answers.filter(isDone).length;
-  $('#barI').style.width = (done/n*100)+'%'; $('#barA').setAttribute('aria-valuenow', done);
+  const L = locate(S.q);
+  if (L.part===1){
+    const a = S.answers[L.i];
+    $$('#opts .opt').forEach(el=>{
+      const oi = +el.dataset.oi, m = a.most===oi, l = a.least===oi;
+      el.classList.toggle('is-most',m); el.classList.toggle('is-least',l);
+      $('[data-role="most"]',el).setAttribute('aria-pressed',m); $('[data-role="least"]',el).setAttribute('aria-pressed',l);
+      const tag = $('.otag',el); tag.textContent = m ? 'Most like me' : l ? 'Least like me' : '';
+    });
+    $('#qStatus').textContent = isDone(a) ? 'Both choices made. You can continue.' : a.most===null && a.least===null ? 'Choose one Most like me and one Least like me.' : a.most===null ? 'Now choose Most like me.' : 'Now choose Least like me.';
+  } else {
+    const a = L.part===2 ? S.adapt[L.i] : {pick:S.prefs[L.i], effort:0};
+    $$('#opts .opt').forEach(el=>{ const on = +el.dataset.oi===a.pick; el.classList.toggle('is-most',on); el.setAttribute('aria-checked',on); });
+    if (L.part===2) $$('#distBox .dopt').forEach(el=>{ const on = +el.dataset.dist===a.effort; el.classList.toggle('on',on); el.setAttribute('aria-checked',on); });
+    $('#qStatus').textContent = doneAt(S.q) ? 'Answer recorded. You can continue.' : L.part===2 ? (a.pick===null ? 'Choose the approach you typically take.' : 'Now say how close it is to your first instinct.') : 'Choose the option you appreciate most.';
+  }
+  const ok = doneAt(S.q);
+  $('#qStatus').className = 'qstatus' + (ok?' ok':'');
+  $('#btnNext').disabled = !ok;
+  const done = Array.from({length:TOTAL()},(_,g)=>doneAt(g)).filter(Boolean).length;
+  $('#barI').style.width = (done/TOTAL()*100)+'%'; $('#barA').setAttribute('aria-valuenow', done);
 }
 function renderQ(){
-  const q = QUESTIONS[S.q], n = QUESTIONS.length;
-  $('#qCount').innerHTML = `<b>${S.q+1}</b> / ${n}`;
+  const L = locate(S.q), n = TOTAL(), P = PARTS[L.part-1];
+  const intro = L.i===0 && L.part>1 && !S.seen[L.part];
+  $('.coach').hidden = intro;
+  $('#qcard').hidden = intro; $('#qcard').nextElementSibling.hidden = intro; $('#partIntro').hidden = !intro;
+  if (intro){
+    const I = INTRO[L.part]; $('#piEye').textContent = I.eye; $('#piTitle').textContent = I.title; $('#piText').textContent = I.text; $('#piGo').textContent = I.go + ' →';
+    $('#qPart').innerHTML = `Part ${L.part} of 3 · <b>${P.name}</b>`; $('#qCount').innerHTML = ''; $('#qTheme').textContent = '';
+    $('#barA').setAttribute('aria-valuemax', n); paintOpts();
+    $('#piTitle').focus({preventScroll:true}); return;
+  }
+  const q = L.part===1 ? QUESTIONS[L.i] : L.part===2 ? ADAPT[L.i] : PREFS[L.i];
+  const ord = L.part===1 ? S.order[L.i] : L.part===2 ? S.orderA[L.i] : S.orderP[L.i];
+  $('#barA').setAttribute('aria-valuemax', n);
+  $('#qPart').innerHTML = `Part ${L.part} of 3 · <b>${P.name}</b>`;
+  $('#qCount').innerHTML = `<b>${L.i+1}</b> / ${partSize(L.part)}`;
   $('#qTheme').textContent = q.theme;
   $('#qText').textContent = q.q;
-  $('#opts').innerHTML = S.order[S.q].map((oi,pos)=>`<div class="opt" role="group" aria-label="Response ${pos+1}: ${esc(q.o[oi][0])}" data-oi="${oi}">
+  $('#qHelp').innerHTML = P.help;
+  const opts = $('#opts');
+  opts.setAttribute('role', L.part===1 ? 'group' : 'radiogroup');
+  if (L.part===1){
+    opts.innerHTML = ord.map((oi,pos)=>`<div class="opt" role="group" aria-label="Response ${pos+1}: ${esc(q.o[oi][0])}" data-oi="${oi}">
     <div class="obody"><span class="otag" aria-hidden="true"></span><p class="otxt">${esc(q.o[oi][0])}</p></div>
     <div class="oact"><button type="button" class="mk most" data-role="most" aria-pressed="false"><span class="ic" aria-hidden="true">✓</span>Most like me</button><button type="button" class="mk least" data-role="least" aria-pressed="false"><span class="ic" aria-hidden="true">−</span>Least like me</button></div></div>`).join('');
+  } else {
+    opts.innerHTML = ord.map((oi,pos)=>`<button type="button" class="opt single" role="radio" aria-checked="false" data-oi="${oi}"><span class="obody"><span class="otxt">${esc(q.o[oi][0])}</span></span><span class="otick" aria-hidden="true">✓</span></button>`).join('');
+  }
+  const dist = $('#distBox'); dist.hidden = L.part!==2;
+  if (L.part===2) $('#distOpts').innerHTML = DISTANCE.map((t,i)=>`<button type="button" class="dopt" role="radio" aria-checked="false" data-dist="${i}">${esc(t)}</button>`).join('');
+  $('#qKeys').textContent = L.part===1 ? 'Keyboard: 1–4 = most like me · Shift + 1–4 = least like me' : L.part===2 ? 'Keyboard: 1–4 = choose an approach · 5–7 = how close it is to your first instinct' : 'Keyboard: 1–4 = choose an option';
   $('#btnBack').style.visibility = S.q===0 ? 'hidden' : 'visible';
-  $('#btnNext').textContent = S.q===n-1 ? 'See my colors →' : 'Continue →';
+  $('#btnNext').textContent = S.q===n-1 ? 'See my results →' : 'Continue →';
   $('#coachT').textContent = BUDDY[S.q] || '';
   $('#coachM').innerHTML = mascot(DIMS[S.q%4],'',Math.floor(S.q/4)%4);
   paintOpts();
   const card = $('#qcard'); card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
   $('#qText').focus({preventScroll:true});
 }
-/* Marking a response as MOST that was LEAST (or the reverse) moves it, so the two are always different. */
+/* Part 1: marking a response as MOST that was LEAST (or the reverse) moves it, so the two are always different. */
 function mark(oi, role){
-  const a = S.answers[S.q], other = role==='most' ? 'least' : 'most';
+  const L = locate(S.q); if (L.part!==1) return;
+  const a = S.answers[L.i], other = role==='most' ? 'least' : 'most';
   if (a[role]===oi) a[role] = null;
   else { a[role] = oi; if (a[other]===oi) a[other] = null; }
   paintOpts();
 }
-function nextQ(){ if (!isDone(S.answers[S.q])) return; if (S.q < QUESTIONS.length-1){ S.q++; renderQ(); } else finishQuiz(); }
+/* Parts 2 and 3: choose one option (choosing it again keeps it; there is no "undo to empty" because it would hide a completed answer). */
+function choose(oi){
+  const L = locate(S.q);
+  if (L.part===2) S.adapt[L.i].pick = oi; else if (L.part===3) S.prefs[L.i] = oi; else return;
+  paintOpts();
+}
+function setDist(v){ const L = locate(S.q); if (L.part!==2) return; S.adapt[L.i].effort = v; paintOpts(); }
+function nextQ(){ if (!doneAt(S.q)) return; if (S.q < TOTAL()-1){ S.q++; renderQ(); } else finishQuiz(); }
 function backQ(){ if (S.q>0){ S.q--; renderQ(); } }
 function finishQuiz(){
-  S.res = scoreAnswers(S.answers);
-  if (!S.res.final){ const miss = S.answers.findIndex(x=>x.most==null||x.least==null||x.most===x.least); if (miss>=0){ S.q = miss; renderQ && renderQ(); } notify(S.res.valid ? 'Please answer every question to see your result.' : 'Your answers could not be scored. Please check them and try again.'); return; }
+  S.res = scoreAnswers(S.answers); S.resA = scoreAdapted(S.adapt); S.resP = scorePrefs(S.prefs);
+  const all = S.res.final && S.resA.final && S.resP.final;
+  if (!all){
+    let miss = Array.from({length:TOTAL()},(_,g)=>g).find(g=>!doneAt(g));
+    if (miss===undefined) miss = 0;
+    S.q = miss; renderQ();
+    notify(S.res.valid && S.resA.valid && S.resP.valid ? 'Please answer every question to see your results.' : 'Your answers could not be scored. Please check them and try again.'); return;
+  }
   S.focus = S.res.top[0]; S.src = S.focus;
   S.dst = {D:'C',C:'D',I:'S',S:'I'}[S.focus];
   S.chal = null; S.step = 0; S.sub = {self:'strengths',talk:'connect'};
@@ -983,9 +1286,9 @@ function finishReveal(){
 }
 
 /* ---------- Results (5 focused steps) ---------- */
-const STEPS = [['dna','Your Color DNA'],['self','Understand yourself'],['connect','Connect & challenge'],['card','My color card']];
+const STEPS = [['dna','Your Color DNA'],['self','Understand yourself'],['adapt','Your Adapted Approach'],['prefs','Your Communication Preferences'],['guide','Working with the four colors'],['card','My color card']];
 function enterResults(){
-  if (!S.res || !S.res.final){ notify(S.res && S.res.errors && S.res.errors.length ? 'Your answers could not be scored. Please retake the quiz.' : NOT_FINAL); show('quiz'); return; }
+  if (!S.res || !S.res.final || !S.resA || !S.resA.final || !S.resP || !S.resP.final){ notify(S.res && S.res.errors && S.res.errors.length ? 'Your answers could not be scored. Please retake the quiz.' : NOT_FINAL); show('quiz'); return; }
   show('results'); goStep(S.step||0);
 }
 function goStep(i){
@@ -998,7 +1301,7 @@ function renderStepper(){
 function renderStep(){
   const body = $('#stepBody');
   const ae = document.activeElement, fk = ae && body.contains(ae) ? ['data-seg','data-v','data-act','data-d'].map(a=>ae.hasAttribute&&ae.hasAttribute(a)?`[${a}="${ae.getAttribute(a)}"]`:'').join('') : '', ftag = fk && ae.tagName.toLowerCase();
-  body.innerHTML = [stepDNA,stepSelf,stepConnect,stepCard][S.step]();
+  body.innerHTML = [stepDNA,stepSelf,stepAdapt,stepPrefs,stepGuide,stepCard][S.step]();
   body.firstElementChild && body.firstElementChild.classList.add('step-anim');
   const last = S.step===STEPS.length-1;
   $('#stepNav').innerHTML = `${S.step>0?`<button class="linkbtn" data-act="prevStep">← ${STEPS[S.step-1][1]}</button>`:'<span></span>'}
@@ -1037,7 +1340,8 @@ function stepDNA(){
     <div class="badge">${badgeSVG(r.pct,1,r.bt,r.bs,{chips:true})}</div>
     <div>
       <h3 class="big">${heading()}</h3><p class="with">${withLine}</p>
-      <div style="margin-top:18px" role="list" aria-label="Color percentages">${r.ranked.map(d=>`<div class="pr${r.bt.includes(d)?' top':''}" role="listitem"><span class="sw" style="background:${META[d].base}"></span><span>${META[d].name}</span><span class="t"><i style="width:${r.pct[d]}%;background:${META[d].base}"></i></span><b>${r.pct[d]}%</b></div>`).join('')}</div>
+      <p class="fine" style="margin-top:18px">Relative questionnaire scores from Part 1, not measured personality percentages.</p>
+      <div style="margin-top:6px" role="list" aria-label="Relative color scores from Part 1">${r.ranked.map(d=>`<div class="pr${r.bt.includes(d)?' top':''}" role="listitem"><span class="sw" style="background:${META[d].base}"></span><span>${META[d].name}</span><span class="t"><i style="width:${r.pct[d]}%;background:${META[d].base}"></i></span><b>${r.pct[d]}%</b></div>`).join('')}</div>
       <p class="summary">${summary()}</p>
       <details class="raw"><summary>How these numbers were calculated</summary>
         <p>For each question you marked one response <b>most</b> and one <b>least</b> like you. A style’s <b>net score</b> is its “most” picks minus its “least” picks (range −${r.answered} to +${r.answered}; the four net scores always add up to 0). For the chart only, we add ${r.answered} to each net score so nothing is negative, then divide by ${4*r.answered}, so a perfectly even profile is 25% each. There is no amplification or bonus. The gap between your top two net scores is <b>${r.gap}</b>, and your spread (highest minus lowest) is <b>${r.spread}</b>.</p>
@@ -1067,26 +1371,75 @@ function stepSelf(){
   <div class="pane" role="tabpanel" id="panel-self" aria-labelledby="tab-self-${cur}" style="border-top:3px solid ${M.base}">${panes[cur]}</div>
   <p class="fine" style="margin-top:12px">Tendencies, not rules. Most people flex across all four colors.</p>`;
 }
+/* ---------- Results: Parts 2 and 3 and the collaboration guide (separate from the Color DNA) ---------- */
+const lowerFirst = t => t.charAt(0).toLowerCase() + t.slice(1);
+const stripDot = t => t.replace(/\.$/,'');
+const cntRow = (name, color, n, of, top) => `<div class="pr cnt${top?' top':''}" role="listitem"><span class="sw" style="background:${color}"></span><span>${esc(name)}</span><span class="t"><i style="width:${of?n/of*100:0}%;background:${color}"></i></span><b>${n} of ${of}</b></div>`;
+function stepAdapt(){
+  const a = S.resA, pa = presentAdapted(a, S.res);
+  const rows = ADAPT.map((q,i)=>{ const x = S.adapt[i], o = q.o[x.pick]; return `<tr><th scope="row">${esc(q.theme)}</th><td>${esc(o[0])}</td><td>${META[o[1]].name}</td><td>${DIST_SHORT[x.effort]}</td></tr>`; }).join('');
+  const shift = ADAPT.map((q,i)=>({i,q,x:S.adapt[i]})).filter(o=>o.x.effort>0).sort((a,b)=>b.x.effort-a.x.effort||a.i-b.i);
+  return `${head('Your Adapted Approach','What you said you typically choose to do, including when it differs from your first instinct. This is shown separately and was not used to calculate your Color DNA.')}
+  <div class="pane" style="margin-top:22px;border-top:3px solid var(--ink)">
+    <h3>Approaches you chose</h3>
+    <div role="list" aria-label="Approaches chosen in Part 2" style="margin-top:8px">${DIMS.map(d=>cntRow(META[d].name, META[d].base, a.counts[d], a.expected, a.top.includes(d))).join('')}</div>
+    <p class="fine" style="margin-top:8px">Counts, not percentages. Each scenario offered one approach resembling each style, so the four counts add up to ${a.expected}.</p>
+    ${pa.lines.map(l=>`<p>${esc(l)}</p>`).join('')}
+    <h3>How different each approach felt</h3>
+    <ul class="checks" style="--k:var(--ink)">${DISTANCE.map((t,i)=>`<li><span>${esc(t)}: <b>${a.dist[i]}</b> of ${a.expected}</span></li>`).join('')}</ul>
+    ${shift.length?`<h3>Situations where you reported adapting</h3><ul class="checks" style="--k:var(--ink)">${shift.slice(0,4).map(o=>`<li><span><b>${esc(o.q.theme)}</b> (${o.x.effort===2?'quite':'somewhat'} different from your first instinct): ${esc(lowerFirst(stripDot(o.q.o[o.x.pick][0])))}.</span></li>`).join('')}</ul>${shift.length>4?`<p class="fine">${shift.length-4} more are in the table below.</p>`:''}<p class="fine" style="margin-top:8px">Choosing a different approach from your first instinct is a normal part of working with others. It is not a sign of inconsistency.</p>`:'<p>You did not report choosing an approach that felt different from your first instinct in these scenarios.</p>'}
+    <div class="callout" style="--k:${META[S.focus].base}"><b>How to read this</b>These answers describe what you reported choosing, not what you do in every situation. A difference between your first instinct and your chosen approach can come from your role, your team, your culture, habit, or a deliberate decision. This assessment cannot tell which, and it cannot separate natural from learned behavior.</div>
+    <details class="raw"><summary>Your answers, scenario by scenario</summary><div class="tw"><table><thead><tr><th>Scenario</th><th>Approach you chose</th><th>Resembles</th><th>Compared with first instinct</th></tr></thead><tbody>${rows}</tbody></table></div></details>
+  </div>
+  <p class="fine" style="margin-top:12px">${a.expected} scenarios are a small sample. Counts like 3 versus 2 are not meaningful differences. Not a validated measure.</p>`;
+}
+function stepPrefs(){
+  const p = S.resP, pp = presentPrefs(p);
+  const rows = PREFS.map((q,i)=>`<tr><th scope="row">${esc(q.theme)}</th><td>${esc(q.o[S.prefs[i]][0])}</td><td>${THEMES[q.o[S.prefs[i]][1]].name}</td></tr>`).join('');
+  const focus = [...p.top, ...p.next];
+  const TC = {brief:'#3A3F58', talk:'#3A3F58', time:'#3A3F58', detail:'#3A3F58'}; /* neutral: preference themes are not colors */
+  return `${head('Your Communication Preferences','What you said you appreciate from colleagues. This describes how you like to receive communication, not your personality, and it is shown separately from your Color DNA.')}
+  <div class="pane" style="margin-top:22px;border-top:3px solid var(--ink)">
+    <h3>What you chose most often</h3>
+    <div role="list" aria-label="Communication preferences chosen in Part 3" style="margin-top:8px">${THEME_KEYS.map(k=>cntRow(THEMES[k].name, TC[k], p.counts[k], p.expected, p.top.includes(k))).join('')}</div>
+    <p class="fine" style="margin-top:8px">Counts, not percentages. Each situation offered one option of each kind, so the four counts add up to ${p.expected}.</p>
+    ${pp.lines.map(l=>`<p>${esc(l)}</p>`).join('')}
+    <h3>What you chose in different situations</h3>
+    <ul class="checks" style="--k:var(--ink)">${THEME_KEYS.filter(k=>p.counts[k]>0).sort((x,y)=>p.counts[y]-p.counts[x]).map(k=>`<li><span><b>${esc(THEMES[k].name)}</b>: ${PREFS.filter((q,i)=>q.o[S.prefs[i]][1]===k).map(q=>esc(q.theme.toLowerCase())).join(', ')}</span></li>`).join('')}</ul>
+    <p class="fine" style="margin-top:8px">These preferences can coexist. You may want direct feedback, detailed instructions and advance notice of changes all at once, so no single style applies to every situation.</p>
+    ${focus.length?`<h3>Things you could ask colleagues for</h3><ul class="checks" style="--k:var(--ink)">${focus.map(k=>`<li>${esc(THEMES[k].ask)}</li>`).join('')}</ul>`:'<p>Because your preferences varied, it may help to tell colleagues what you need in each situation.</p>'}
+    <div class="callout" style="--k:var(--ink)"><b>How to read this</b>Preferences can change with the topic, the stakes and who you are talking to. Wanting a short, direct message does not mean you do not care about people, and wanting time or detail does not mean you are slow or rigid. These are things to ask for, not labels.</div>
+    <details class="raw"><summary>Your answers, situation by situation</summary><div class="tw"><table><thead><tr><th>Situation</th><th>What you chose</th><th>Kind</th></tr></thead><tbody>${rows}</tbody></table></div></details>
+  </div>
+  <p class="fine" style="margin-top:12px">${p.expected} situations are a small sample, and each option was written to be equally reasonable. Not a validated measure.</p>`;
+}
+function stepGuide(){ return stepConnect(); }
+function prefNote(){
+  const p = S.resP; if (!p || !p.final) return '';
+  const f = [...p.top, ...p.next]; if (!f.length) return '';
+  return `<div class="callout" style="--k:var(--ink)"><b>Your own preferences</b>You said you often appreciate ${esc(nameList(f.map(k=>THEMES[k].phrase)))}. Consider sharing that with your colleague and asking about theirs. Do not assume they have taken the quiz or share these preferences.</div>`;
+}
 function stepConnect(){
   const s = S.src, t = S.dst, cur = S.sub.talk, MS = META[s], MT = META[t];
-  const [pull, first, common, differ, team, instead, say] = PAIRS[s+t], T = TARGET[t];
+  const [pull, first, common, differ, team, instead, say, misread, example] = PAIRS[s+t], T = TARGET[t];
   const same = s===t; if (!S.chal) newChallenge();
   const panes = {
     connect:`<h3>What connects you</h3><p>${esc(common)}</p><div class="callout" style="--k:${MT.base}"><b>How you make a great team</b>${esc(team)}</div>`,
-    differ:`<h3>Where you may differ</h3><p>${esc(differ)}</p>`,
+    differ:`<h3>Where you may differ</h3><p>${esc(differ)}</p><div class="callout" style="--k:${MT.base}"><b>A possible misunderstanding</b>${esc(misread)}</div><div class="callout" style="--k:${MS.base}"><b>A workplace example</b>${esc(example)}</div>`,
     how:`<h3>How to communicate</h3>
       <div class="tipn"><b class="n">1</b><div><b>Your first move.</b> ${esc(first)}</div></div>
-      <div class="tipn"><b class="n">2</b><div><b>What ${MT.name} listens for.</b> ${esc(T.need)}</div></div>
+      <div class="tipn"><b class="n">2</b><div><b>What may land well with a ${MT.name}-style colleague.</b> ${esc(T.need)}</div></div>
       <div class="tipn"><b class="n">3</b><div><b>Dial up</b><div class="dial up">${T.up.map(x=>`<span>${esc(x)}</span>`).join('')}</div></div></div>
       <div class="callout" style="--k:${MS.base}"><b>Be careful of your pull</b>${esc(pull)}</div>
+      ${prefNote()}
       <h3 style="margin-top:20px">Easy to overdo</h3><ul class="checks" style="--k:#C9625F">${T.avoid.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><div class="dial dn">${T.down.map(x=>`<span>Dial down: ${esc(x)}</span>`).join('')}</div>`,
     say:`<h3>Try saying this</h3><p style="margin-bottom:12px">${MS.name} speaking to ${MT.name}:</p><div class="say-box"><div class="sb no"><small>Instead of</small>“${esc(instead)}”</div><div class="sb yes"><small>Try</small>“${esc(say)}”</div></div>`
   };
-  return `${head(`I'm ${MS.name}. How do I connect with ${same?'another ':''}${MT.name}?`, 'Choose a color to see how to communicate with that style.')}
+  return `${head('Working with the four colors', `Choose how you speak and who you want to connect with. These are ideas to try, not predictions about any one person. You are exploring ${MS.name} to ${MT.name}${same?' (the same color)':''}.`)}
   <div class="who"><label for="srcSel">Speaking as</label><select id="srcSel">${DIMS.map(d=>`<option value="${d}"${d===s?' selected':''}>${META[d].name}</option>`).join('')}</select></div>
   <div class="partners" role="group" aria-label="Choose who you want to talk to">${DIMS.map(d=>`<button class="pc" data-act="setDst" data-d="${d}" aria-pressed="${d===t}" style="--k:${META[d].base}"><span class="pm">${mascot(d,'still')}</span><span><b>${META[d].name}${d===s?' (same)':''}</b><span class="w">${META[d].word}</span></span></button>`).join('')}</div>
   <div class="duo" aria-hidden="true"><div class="dc">${mascot(s)}<div class="nm" style="color:${MS.text}">${MS.name}</div></div><div class="vs">↔</div><div class="dc r"><div>${mascot(t)}</div><div class="nm" style="color:${MT.text}">${MT.name}</div></div></div>
-  <section class="mission" id="challenge" aria-labelledby="mTitle"><p class="eyebrow">Try it this week</p><h3 id="mTitle">Team Connection Challenge</h3><p class="fine" style="margin-top:4px">One small, low-pressure experiment for this pairing. Nobody has to share anything personal.</p>
+  <section class="mission" id="challenge" aria-labelledby="mTitle"><p class="eyebrow">Try it this week</p><h3 id="mTitle">Team Connection Challenge</h3><p class="fine" style="margin-top:4px">One small, optional, low-pressure experiment for this pairing. Nobody has to share anything personal.</p>
   <div class="chal" style="--k:${MT.base}"><div class="pair"><span class="pm">${mascot(s,'still')}</span><span>${MS.name} × ${MT.name}</span><span class="pm">${mascot(t,'still')}</span></div><p class="q" id="chalText">${esc(S.chal)}</p></div>
   <div class="row" style="justify-content:flex-start"><button class="btn line" data-act="newChal">Show another challenge</button></div></section>
   ${seg('talk',[['connect','What connects you'],['differ','Where you may differ'],['how','How to communicate'],['say','Try saying this']],cur)}
@@ -1234,7 +1587,7 @@ async function drawCard(snap){
   x.fillStyle = '#1E2235'; let fs = 27, lines; do { x.font = `600 ${fs}px ${FONT}`; lines = wrapLines(x, M.note, CW-40); fs -= 1; } while (lines.length > 2 && fs > 22);
   lines.slice(0,2).forEach((t,i)=> x.fillText(t, CX, 1160 + i*37));
   // 8. disclaimer with bottom padding
-  x.fillStyle = '#5E6378'; x.font = `500 16px ${FONT}`; x.fillText('A DISC-inspired reflection activity, not a validated assessment', CX, 1254);
+  x.fillStyle = '#5E6378'; x.font = `500 16px ${FONT}`; x.fillText('Relative scores from a DISC-inspired reflection activity, not a validated assessment', CX, 1254);
   return c;
 }
 
@@ -1281,9 +1634,11 @@ function openDlg(id){ const d = $(id); if (d.showModal) d.showModal(); else d.se
 /* =====================================================================
    EVENTS
    ===================================================================== */
-function resetAll(){ S.res = null; S.answers = []; S.q = 0; S.chal = null; S.step = 0; S.name = ''; S.revealDone = true; $('#nameInput').value = ''; }
+function resetAll(){ S.res = null; S.resA = null; S.resP = null; S.adapt = []; S.prefs = []; S.answers = []; S.q = 0; S.chal = null; S.step = 0; S.name = ''; S.revealDone = true; $('#nameInput').value = ''; }
 document.addEventListener('click', e=>{
   const mk = e.target.closest('.mk'); if (mk){ mark(+mk.closest('.opt').dataset.oi, mk.dataset.role); return; }
+  const sg1 = e.target.closest('.opt.single'); if (sg1){ choose(+sg1.dataset.oi); return; }
+  const dd = e.target.closest('.dopt'); if (dd){ setDist(+dd.dataset.dist); return; }
   const st = e.target.closest('.st'); if (st){ goStep(+st.dataset.step); return; }
   const sg = e.target.closest('[data-seg]');
   if (sg){
@@ -1299,6 +1654,7 @@ document.addEventListener('click', e=>{
     case 'nameGo': S.name = $('#nameInput').value.trim().slice(0,24); startQuiz(); break;
     case 'nameSkip': S.name = ''; startQuiz(); break;
     case 'next': nextQ(); break;
+    case 'partGo': S.seen[locate(S.q).part] = true; renderQ(); break;
     case 'back': backQ(); break;
     case 'skipReveal': finishReveal(); break;
     case 'toResults': enterResults(); break;
@@ -1326,13 +1682,15 @@ document.addEventListener('keydown', e=>{
     requestAnimationFrame(()=>{ const nt = $$(`.seg [data-seg="${grp}"]`).find(b=>b.dataset.v===t[n].dataset.v); if (nt) nt.focus(); });
     e.preventDefault(); return;
   }
-  if (!$('#quiz').classList.contains('active') || e.target.matches('input,textarea,select') || e.metaKey || e.ctrlKey || e.altKey) return;
-  const dg = /^Digit([1-4])$/.exec(e.code||'');
-  if (dg){ const o = $$('#opts .opt')[+dg[1]-1]; if (o) mark(+o.dataset.oi, e.shiftKey?'least':'most'); e.preventDefault(); }
+  if (!$('#quiz').classList.contains('active') || !$('#partIntro').hidden || document.querySelector('dialog[open]') || e.repeat || e.target.closest('input,textarea,select,button,a,summary,[role="radio"],[role="tab"]') || e.metaKey || e.ctrlKey || e.altKey) return;
+  const dg = /^Digit([1-4])$/.exec(e.code||''), dd5 = /^Digit([5-7])$/.exec(e.code||''), part = locate(S.q).part;
+  if (dg){ const o = $$('#opts .opt')[+dg[1]-1]; if (o){ if (part===1) mark(+o.dataset.oi, e.shiftKey?'least':'most'); else choose(+o.dataset.oi); } e.preventDefault(); }
+  else if (dd5 && part===2){ setDist(+dd5[1]-5); e.preventDefault(); }
   else if (e.key==='ArrowRight'){ if (!$('#btnNext').disabled) nextQ(); }
   else if (e.key==='ArrowLeft'){ backQ(); }
 });
 $$('dialog').forEach(d=>d.addEventListener('click', e=>{ if (e.target===d) d.close(); }));
+$$('dialog').forEach(d=>d.addEventListener('close', ()=>{ if ($('#quiz').classList.contains('active') && !$('#qcard').hidden) $('#qText').focus({preventScroll:true}); }));
 
 renderLanding();
 </script>
