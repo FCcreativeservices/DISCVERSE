@@ -335,11 +335,11 @@ details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;ma
   <section id="landing" class="screen active" aria-labelledby="heroTitle">
     <div class="wrap hero">
       <p class="eyebrow">Discover your colors. Connect beyond them.</p>
-      <h1 id="heroTitle" data-focus tabindex="-1">What color is <span class="hl">your personality?</span></h1>
+      <h1 id="heroTitle" data-focus tabindex="-1">What color is <span class="hl">your work style?</span></h1>
       <p class="sub">Discover what drives you, how you connect, and what makes your teamwork unique.</p>
       <div class="cast" id="cast" role="group" aria-label="The four DISCVERSE characters"></div>
       <button class="btn lg" data-act="start">Start quiz →</button>
-      <p class="meta">30 questions in three short parts · Approximately 10–12 minutes · No right or wrong answers</p>
+      <p class="meta">30 questions in two short parts · Approximately 10–15 minutes · No right or wrong answers</p>
       <p class="fine" style="margin-top:10px;max-width:520px">Four colors. Different strengths. One amazing team. A reflection activity inspired by DISC, not an official assessment.</p>
     </div>
   </section>
@@ -348,7 +348,7 @@ details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;ma
     <div class="narrow panel">
       <div class="mini" id="nameMini"></div>
       <h2 id="nameTitle" data-focus tabindex="-1">What should we call you?</h2>
-      <p>Optional. Your name or nickname appears on your results and color card. No account needed.</p>
+      <p>Optional. Your name or nickname appears on your results and profile PDF. No account needed.</p>
       <label class="sr" for="nameInput">First name or nickname (optional)</label>
       <input id="nameInput" class="input" type="text" maxlength="24" autocomplete="off" placeholder="First name or nickname">
       <div class="row"><button class="btn" data-act="nameGo">Begin</button><button class="linkbtn" data-act="nameSkip">Skip</button></div>
@@ -364,7 +364,6 @@ details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;ma
         <h2 class="qtext" id="qText" data-focus tabindex="-1"></h2>
         <p class="qhelp" id="qHelp"></p>
         <div class="opts" id="opts" role="group" aria-labelledby="qText" aria-describedby="qHelp"></div>
-        <fieldset class="dist" id="distBox" hidden><legend id="distLegend">Compared with your first instinct, this approach feels:</legend><div class="distopts" id="distOpts" role="radiogroup" aria-labelledby="distLegend"></div></fieldset>
         <p class="qstatus" id="qStatus" role="status" aria-live="polite"></p>
         <p class="qkeys" id="qKeys" aria-hidden="true"></p>
       </div>
@@ -400,19 +399,19 @@ details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;ma
 <dialog id="dlgHow" aria-labelledby="howTitle"><button class="dclose" data-act="closeDlg" aria-label="Close">✕</button>
 <div class="dbody how">
   <h2 id="howTitle">How your results work</h2>
-  <h3>The quiz: three parts</h3>
-  <p>The quiz has 30 questions in three parts, each reported separately.</p>
-  <ul><li><b>Part 1, Natural response (15 questions).</b> In each workplace scenario you choose the response that is <b>most like you</b> and a different response that is <b>least like you</b>, based on your first instinct. Each scenario has one response for each of the four styles, shown in a shuffled order, and no response is meant to be better than another. Only Part 1 produces your Color DNA percentages.</li>
-  <li><b>Part 2, Adapted behavior (8 questions).</b> You choose the approach you typically take, even when your first instinct would be different, and say how close that approach is to your first instinct. Results are counts, not percentages, and they are never added to Part 1.</li>
-  <li><b>Part 3, Communication preferences (7 questions).</b> You choose what you appreciate most from colleagues. The options describe kinds of communication, not colors.</li></ul>
+  <h3>The quiz: two parts</h3>
+  <p>The quiz has 30 questions in two parts, each reported separately.</p>
+  <ul><li><b>Part 1, Your natural work style (23 questions).</b> In each workplace scenario you choose the response that is <b>most like you</b> and a different response that is <b>least like you</b>, based on your first instinct. Each scenario has one response for each of the four styles, shown in a shuffled order, and no response is meant to be better than another. All 23 scenarios together produce your Color DNA percentages.</li>
+  <li><b>Part 2, How you like to connect (7 questions).</b> You choose what you appreciate most from colleagues, such as how you like to receive feedback, instructions and updates. The options describe kinds of communication, not colors. Results are counts, and they are never added to Part 1.</li></ul>
+
 <h3>The scoring (Part 1)</h3>
-  <ul><li><b>Net score.</b> For each style: the number of times you marked it “most” minus the number of times you marked it “least”. Net scores run from −15 to +15 and always add up to 0.</li>
-  <li><b>Chart percentages.</b> Only for drawing the ring, we add 15 to each net score so nothing is negative, then divide by 60. A perfectly even profile is 25% each and one style can reach at most 50%. Nothing is amplified, boosted, or forced, and rounding keeps the four numbers at exactly 100%.</li>
-  <li><b>Labels.</b> We compare the two highest net scores. A gap of 4 or more is described as a strongest observed preference, a gap of 1 to 3 as a closely matched pair, a gap of 0 as a tie, and a very flat profile (highest minus lowest of 4 or less) as evenly balanced. A second style is named only when it is at least 4 points above the remaining styles; otherwise we say the other styles are not clearly separated. These cut-offs are provisional product rules for wording, not scientific thresholds.</li></ul>
+  <ul><li><b>Net score.</b> For each style: the number of times you marked it “most” minus the number of times you marked it “least”. Net scores run from −23 to +23 and always add up to 0.</li>
+  <li><b>Chart percentages.</b> Only for drawing the ring, we add 23 to each net score so nothing is negative, then divide by 92. A perfectly even profile is 25% each and one style can reach at most 50%. Nothing is amplified, boosted, or forced, and rounding keeps the four numbers at exactly 100%.</li>
+  <li><b>Labels.</b> We compare the two highest net scores. A gap of 5 or more is described as a strongest observed preference, a gap of 1 to 4 as a closely matched pair, a gap of 0 as a tie, and a very flat profile (highest minus lowest of 5 or less) as evenly balanced. A second style is named only when it is at least 5 points above the remaining styles; otherwise we say the other styles are not clearly separated. These cut-offs are provisional product rules for wording, not scientific thresholds. They were set for 23 questions by scaling the earlier 15-question cut-offs with the square root of the length, because random noise grows with the square root of the number of questions.</li></ul>
   <h3>Why this format</h3>
   <p>An earlier version asked for one answer per question and gave every answer points to two styles, with the second style fixed in advance. Choosing a “most” and a “least” response gives two signals per question, asks you to weigh real trade-offs, and removes the built-in link between neighboring styles. It does not make differences between styles look bigger: a style’s share can only range from 0% to 50%, and we have not shown that it ranks people better than single-choice questions would.</p>
   <h3>What it can and cannot tell you</h3>
-  <ul><li><b>It can</b> show which kinds of responses you preferred, relative to your other options, in the 15 Part 1 scenarios, and give you a starting point for a conversation. Parts 2 and 3 describe what you said you typically choose and what you appreciate.</li>
+  <ul><li><b>It can</b> show which kinds of responses you preferred, relative to your other options, in the 23 Part 1 scenarios, and give you a starting point for a conversation. Part 2 describes what you said you appreciate from colleagues.</li>
   <li><b>It cannot</b> show how strong a style is compared with other people, how you behave in practice, or who you are. Because you always rank within the same four styles, a high score in one means a lower score in others. The assessment is a small sample, it cannot reliably separate natural from learned behavior, answers shift with role, mood, and context, and people sometimes choose what sounds best. The assessment has not been validated against external measures.</li>
   <li>Do not use it for hiring, promotion, or other decisions about people.</li></ul>
   <h3>Working with the four colors</h3>
@@ -426,7 +425,7 @@ details.raw .sw{display:inline-block;width:10px;height:10px;border-radius:3px;ma
 /* =====================================================================
    DATA — edit here to review or adjust content and scoring.
    Every response maps to exactly ONE style: o:[ [text, style], ... ] with one response per
-   style in every question (4 responses × 15 questions → each style appears 15 times).
+   style in every question (4 responses × 23 questions → each style appears 23 times).
    D = Dominance (Red) · I = Influence (Yellow) · S = Steadiness (Green) · C = Conscientiousness (Blue)
    Options are shuffled when shown; the style mapping travels with each option.
    ===================================================================== */
@@ -438,10 +437,9 @@ const META = {
   C:{key:'blue',  name:'Blue',  word:'Conscientiousness', base:'#42A5F5',mid:'#1E88E5',light:'#90CAF9',dark:'#1565C0',text:'#1565C0',soft:'#E4F2FE'}
 };
 /* Source order is deliberately rotated so no style sits in a fixed slot even before shuffling. */
-/* ---------- Assessment content: three parts (see ASSESSMENT note in the change log) ----------
-   PART 1  Natural response  (15)  forced choice MOST / LEAST, one option per DISC-inspired style. The ONLY source of the color percentages.
-   PART 2  Adapted behavior   (8)  one deliberate approach per scenario (one option per style) + "how different from your first instinct". Never merged into Part 1.
-   PART 3  Communication preferences (7)  one preferred option per situation; options map to four plain-language preference themes, not to DISC colors. */
+/* ---------- Assessment content: two parts ----------
+   PART 1  Your natural work style (23)  forced choice MOST / LEAST, one option per DISC-inspired style. The ONLY source of the color percentages.
+   PART 2  How you like to connect (7)   one preferred option per situation; options map to four plain-language preference themes, not to DISC colors. Never merged into Part 1. */
 const QUESTIONS = [
  {theme:'Incomplete information', q:'A key supplier tells you they cannot deliver on time, putting an important deadline at risk. What is your immediate priority?', o:[
   ['Finding a way to meet the deadline, even if the plan needs to change.','D'],
@@ -453,20 +451,20 @@ const QUESTIONS = [
   ['Keep the work moving on the parts they already agree on.','S'],
   ['Ask each person for the facts behind their position.','C'],
   ['Ask what needs to be decided and by when.','D']]},
- {theme:'Joining a new team', q:'You join a team that has just formed and nothing is settled yet. What do you naturally do first?', o:[
+ {theme:'Joining a new team', q:'You join a team that has just formed. What do you naturally do first?', o:[
   ['Spend time with each person to learn how they like to work.','S'],
   ['Find out how the work will be done and what standards it needs to meet.','C'],
   ['Ask what the team needs to achieve and by when.','D'],
-  ['Introduce yourself and share your ideas about the work.','I']]},
+  ['Introduce yourself and start talking with people about the work.','I']]},
  {theme:'A project update', q:'You learn that your team’s project is changing direction, and it may affect everyone’s work. What is your first instinct?', o:[
   ['Find out the details and what is confirmed versus still unclear.','C'],
-  ['Work out what needs to happen next and who needs to do what.','D'],
+  ['Work out what needs to happen next and what you can start on.','D'],
   ['Talk with colleagues about what the change could mean for the team.','I'],
   ['Check how the change will affect the team’s routines and workload.','S']]},
  {theme:'Meeting drift', q:'A meeting has drifted away from its agenda and time is running out. What is your first instinct?', o:[
   ['Restate the goal to steer the group toward a decision.','D'],
   ['Ask the group what they most want to get out of the remaining time.','I'],
-  ['Let the current point finish, then refocus the group.','S'],
+  ['Let the current point reach its natural end before moving on.','S'],
   ['Point to the agenda and the item still unresolved.','C']]},
  {theme:'A team without direction', q:'Your team has a deadline coming up, but nobody has agreed on how to approach the work. What is your first instinct?', o:[
   ['Get the team talking so ideas build.','I'],
@@ -474,19 +472,19 @@ const QUESTIONS = [
   ['Check what is already fixed and what the deadline requires.','C'],
   ['Propose a direction and ask the team to react.','D']]},
  {theme:'Critical feedback', q:'A colleague gives you critical feedback on work you care about. What is your first instinct?', o:[
-  ['Take a little time to absorb it before responding.','S'],
+  ['Give yourself a moment to take it in before responding.','S'],
   ['Ask for specific examples to understand the gap.','C'],
   ['Work out what needs to change and by when.','D'],
-  ['Talk it through to understand how others see it.','I']]},
+  ['Talk it through with them to understand where they are coming from.','I']]},
  {theme:'An unproven approach', q:'You hear about an unproven approach that could improve results, with a real chance it fails. What is your first instinct?', o:[
   ['Estimate the likely outcomes before committing.','C'],
-  ['Try it small and adjust as you go.','D'],
+  ['Test it quickly to see whether it pays off.','D'],
   ['Explore the possibilities by discussing the idea with others.','I'],
   ['Introduce it gradually, alongside what already works.','S']]},
  {theme:'A colleague under strain', q:'A colleague tells you they feel overloaded. What is your first instinct?', o:[
-  ['Help them decide what to drop and what to prioritize.','D'],
+  ['Help them decide which tasks to prioritize.','D'],
   ['Suggest the team talk through how to share the work.','I'],
-  ['Ask what would help them feel more supported right now.','S'],
+  ['Ask what would help them most right now.','S'],
   ['Go through the workload with them to see what can be simplified.','C']]},
  {theme:'Starting a new initiative', q:'You are part of a new initiative with an open brief. What do you naturally do first?', o:[
   ['Talk through ideas with others before settling on a plan.','I'],
@@ -506,65 +504,60 @@ const QUESTIONS = [
  {theme:'Converging deadlines', q:'Several deadlines converge in the same week. What is your first instinct?', o:[
   ['Concentrate on the few things that matter most.','D'],
   ['Talk to the people waiting on you and agree what can move.','I'],
-  ['Focus on maintaining a manageable pace and meeting existing commitments.','S'],
-  ['Break the work into steps tracked against a schedule.','C']]},
+  ['Keep a manageable pace so existing commitments are still met.','S'],
+  ['Map out the steps and schedule for each deadline.','C']]},
  {theme:'Quality and speed', q:'A colleague asks for faster delivery, and speeding up may affect quality. What do you naturally do first?', o:[
   ['Talk with them about what is behind the request.','I'],
-  ['Check how much the team can take on.','S'],
+  ['Check how much faster is realistic for the people involved.','S'],
   ['Identify which quality checks are essential.','C'],
-  ['Decide what can be delivered sooner and get started.','D']]},
+  ['Decide what can realistically be delivered sooner.','D']]},
  {theme:'Late contributions', q:'A colleague’s input is arriving later than agreed and your own work depends on it. What is your first instinct?', o:[
   ['Ask what support would help them deliver.','S'],
-  ['Compare the delay with the timeline you both agreed.','C'],
+  ['Check how far behind the agreed timeline it is.','C'],
   ['Say plainly what you need and by when.','D'],
-  ['Talk with them about what is getting in the way.','I']]}
+  ['Talk with them about what is getting in the way.','I']]},
+ {theme:'Recognition', q:'A project you worked on has just gone well. What do you enjoy most about it?', o:[
+  ['Celebrating the result together with the people involved.','I'],
+  ['Knowing we worked well together to get there.','S'],
+  ['Knowing the work was done accurately and to a high standard.','C'],
+  ['Seeing that we reached the goal we set.','D']]},
+ {theme:'Owning a mistake', q:'You realize you made a mistake in something you already shared with colleagues. What is your first instinct?', o:[
+  ['Understand exactly how it happened so it does not repeat.','C'],
+  ['Fix it fast so the work can keep moving.','D'],
+  ['Focus on how it affects them and what they may need.','S'],
+  ['Talk to them openly about what happened.','I']]},
+ {theme:'Freedom in how to work', q:'You are given a task with a lot of freedom in how you do it. What would you most want in that situation?', o:[
+  ['The opportunity to brainstorm ideas and collaborate with others.','I'],
+  ['Being clear on the standards the finished work has to meet.','C'],
+  ['Choosing my own route and moving quickly.','D'],
+  ['Knowing who I can check in with along the way.','S']]},
+ {theme:'Being challenged in a meeting', q:'During a meeting, a colleague openly challenges an idea of yours. What is your first instinct?', o:[
+  ['Hear the full point before responding.','S'],
+  ['Explain your reasoning clearly and directly.','D'],
+  ['Ask what evidence their challenge is based on.','C'],
+  ['Open it up so others can add their views.','I']]},
+ {theme:'A shared deliverable', q:'You are producing a deliverable together with a colleague. What do you naturally prefer?', o:[
+  ['Working through it side by side, trading ideas as we go.','I'],
+  ['Splitting it up so each of us can move fast.','D'],
+  ['Agreeing on a shared format and quality standard.','C'],
+  ['Regular check-ins so neither of us is left guessing.','S']]},
+ {theme:'Two equal options', q:'Two reasonable options are in front of you, and the available information does not clearly favor either. What is your first instinct?', o:[
+  ['Look for any detail that could tell them apart.','C'],
+  ['Go with the one that feels easier for the people involved.','S'],
+  ['Talk both through with colleagues to see which feels right.','I'],
+  ['Pick one and commit so things can move.','D']]},
+ {theme:'A new tool', q:'A new tool is being introduced to replace one you use every day. What is your first instinct?', o:[
+  ['Start using it right away and learn as you go.','D'],
+  ['Try it out together with a colleague.','I'],
+  ['Switch over gradually, keeping your routines steady.','S'],
+  ['Read up on how it works and what it does differently.','C']]},
+ {theme:'Pressed for a deadline', q:'A colleague presses you to commit to a deadline you are unsure you can meet. What is your first instinct?', o:[
+  ['Estimate what the work requires before agreeing to a date.','C'],
+  ['Talk it through to see what could flex.','I'],
+  ['Say plainly which date you can commit to.','D'],
+  ['Work out together what would make it feasible.','S']]}
 ];
-/* Part 2: each option is a deliberate approach (style key = which DISC-inspired style the approach resembles).
-   Effort/distance scale is a self-report of how far the chosen approach is from the person's first instinct. */
-const DISTANCE = ['About the same as my first instinct','Somewhat different from my first instinct','Quite different from my first instinct'];
-const ADAPT = [
- {theme:'Doubting a colleague’s idea', q:'You have doubts about a colleague’s idea. What do you typically do?', o:[
-  ['Say you have reservations and propose an alternative.','D'],
-  ['Explore variations of the idea together with them.','I'],
-  ['Ask how they would handle the points that concern you.','S'],
-  ['Ask them to walk you through the reasoning and the data.','C']]},
- {theme:'A quick answer on a complex issue', q:'Someone asks you for a quick answer on a complex issue. What do you typically do?', o:[
-  ['Suggest a quick conversation to talk the issue through together.','I'],
-  ['Acknowledge the urgency and agree on a reliable time to follow up.','S'],
-  ['Share what is confirmed so far and what still needs checking.','C'],
-  ['Give your best recommendation now.','D']]},
- {theme:'A teammate after a setback', q:'A teammate is upset after a setback. What do you typically do?', o:[
-  ['Check in with them and ask what would help right now.','S'],
-  ['Review together what happened so it can be understood.','C'],
-  ['Help them identify the next step and get moving.','D'],
-  ['Talk with them about what went well despite the setback.','I']]},
- {theme:'Disagreeing with a decision', q:'You disagree with a decision your manager has made. What do you typically do?', o:[
-  ['Send a written note with your reasoning and supporting information.','C'],
-  ['Tell your manager directly what you would do differently.','D'],
-  ['Bring it up in conversation and explore options together.','I'],
-  ['Ask for a private conversation to share your concerns.','S']]},
- {theme:'A risk others have not noticed', q:'You notice a risk that others seem to have missed. What do you typically do?', o:[
-  ['Raise it with the group straight away and ask how to respond.','D'],
-  ['Talk about it with colleagues to see whether they see it too.','I'],
-  ['Check with the people most affected to understand what it means for them.','S'],
-  ['Write down the risk and its likely impact, then share it.','C']]},
- {theme:'Unwelcome news', q:'You have to deliver unwelcome news to a colleague. What do you typically do?', o:[
-  ['Talk it through in person and explore what options remain.','I'],
-  ['Prepare them in advance and allow time for their reaction.','S'],
-  ['Present the facts and reasoning in a clear order.','C'],
-  ['Tell them plainly and be clear about what happens next.','D']]},
- {theme:'Working at a different pace', q:'You are working with someone whose pace is very different from yours. What do you typically do?', o:[
-  ['Match your pace to theirs where you can.','S'],
-  ['Agree on a schedule and clear steps for each of you.','C'],
-  ['Name the pace you need and where it matters most.','D'],
-  ['Make time to chat and find a rhythm that works for both of you.','I']]},
- {theme:'Deadline and team strain', q:'A deadline is putting real strain on your team. What do you typically do?', o:[
-  ['Suggest a revised schedule that shows what depends on what.','C'],
-  ['Suggest cutting the work that matters least to the deadline.','D'],
-  ['Suggest a short team conversation to share ideas on getting through the deadline.','I'],
-  ['Suggest the team settle on a pace everyone can keep up.','S']]}
-];
-/* Part 3: preferences. Option keys are preference themes (never DISC color labels). */
+/* Part 2: preferences. Option keys are preference themes (never DISC color labels). */
 const THEMES = {
   brief:{name:'Brief and direct', short:'brief and direct', phrase:'a short, direct summary with the main point first', ask:'Lead with the main point and keep it short.'},
   talk:{name:'Interactive conversation', short:'interactive', phrase:'talking things through together', ask:'Set up a short conversation rather than only sending a message.'},
@@ -576,19 +569,19 @@ const PREFS = [
  {theme:'Receiving feedback', q:'When a colleague gives you feedback, what do you appreciate most?', o:[
   ['The main point first, in a few sentences.','brief'],
   ['A conversation where we talk it through.','talk'],
-  ['Notice in advance, so I can reflect first.','time'],
+  ['A heads-up beforehand, so I have time to reflect.','time'],
   ['Specific examples, ideally written down.','detail']]},
  {theme:'Discussing disagreements', q:'When you and a colleague see something differently, what helps you most?', o:[
   ['Discussing it openly to find common ground.','talk'],
   ['A chance to prepare before we discuss it.','time'],
   ['Seeing their reasoning and evidence.','detail'],
   ['Hearing plainly where they disagree.','brief']]},
- {theme:'Receiving instructions', q:'When you are given a new task, which kind of instruction do you appreciate most?', o:[
-  ['A heads-up about the timing and what to expect.','time'],
+ {theme:'Receiving instructions', q:'When you are given a new task, what helps you most at the start?', o:[
+  ['Advance notice and a clear sense of what to expect.','time'],
   ['Clear steps and examples in writing.','detail'],
   ['The goal and deadline, in a sentence or two.','brief'],
   ['A walk-through where I can ask questions.','talk']]},
- {theme:'Making decisions together', q:'When a decision affects you, how do you appreciate being involved?', o:[
+ {theme:'Making decisions together', q:'When a decision will affect you, what do you appreciate most?', o:[
   ['The analysis and options beforehand.','detail'],
   ['A recommendation and the key trade-off.','brief'],
   ['Joining the discussion before it is final.','talk'],
@@ -603,15 +596,15 @@ const PREFS = [
   ['Check-ins at predictable, agreed times.','time'],
   ['Thorough updates with the supporting data.','detail'],
   ['Short updates on what has changed.','brief']]},
- {theme:'Support when stuck', q:'When you are stuck on something, what kind of help do you appreciate most?', o:[
-  ['Patient support, without pressure to hurry.','time'],
+ {theme:'Support when stuck', q:'When you are stuck on something, what helps you most?', o:[
+  ['Time to think it over before anyone steps in.','time'],
   ['Help finding the information I am missing.','detail'],
   ['Straight, to-the-point advice on the next step.','brief'],
   ['Someone to talk the problem through with.','talk']]}
 ];
 
 const PROFILES = {
- D:{headline:'YOUR DOMINANT COLOR IS RED!',sub:"You're the one who turns ideas into action.",tagline:'Turns ideas into action',
+ D:{headline:'YOUR DOMINANT COLOR IS RED!',sub:"Your answers lean toward turning ideas into action.",tagline:'Turns ideas into action',
   traits:['Decisive','Direct','Results-focused','Challenge-driven'],
   chips:['Decisive','Driven','Courageous'],
   strengths:['Decisive when things are uncertain','A strong drive for results','Comfortable taking the lead','Courage to challenge the status quo'],
@@ -621,7 +614,7 @@ const PROFILES = {
   growth:['Ask for others\' views before locking in a decision.','Share the "why" along with the "what".','Celebrate the people behind the results.'],
   env:'You may thrive with real ownership, room to make calls, ambitious goals, and teammates who give straight feedback.',
   interp:'you tend to move toward goals quickly and clearly'},
- I:{headline:'YOUR DOMINANT COLOR IS YELLOW!',sub:"You're the one who brings people and possibilities together.",tagline:'Brings energy and connection',
+ I:{headline:'YOUR DOMINANT COLOR IS YELLOW!',sub:"Your answers lean toward connecting people and ideas.",tagline:'Brings energy and connection',
   traits:['Enthusiastic','Sociable','Optimistic','Persuasive'],
   chips:['Optimistic','Persuasive','Connector'],
   strengths:['Contagious optimism','Easy rapport with new people','Creative idea generation','Inspiring, persuasive storytelling'],
@@ -631,7 +624,7 @@ const PROFILES = {
   growth:['Capture agreements in writing with owners and dates.','Leave space for quieter voices before moving on.','Follow through on the details after the spark.'],
   env:'You may thrive in a team with variety, flexibility, regular appreciation, and plenty of chances to talk ideas through.',
   interp:'you tend to connect with people and spark enthusiasm'},
- S:{headline:'YOUR DOMINANT COLOR IS GREEN!',sub:"You're the heart that keeps the team steady.",tagline:'Keeps the team steady',
+ S:{headline:'YOUR DOMINANT COLOR IS GREEN!',sub:"Your answers lean toward keeping the team steady.",tagline:'Keeps the team steady',
   traits:['Supportive','Patient','Reliable','Team-oriented'],
   chips:['Patient','Dependable','Empathetic'],
   strengths:['Patient, attentive listening','Dependable follow-through','Genuine empathy for teammates','A calm presence in turbulent moments'],
@@ -641,7 +634,7 @@ const PROFILES = {
   growth:['Voice concerns early, even gently.','Practice saying "not yet" or "no" when you need to.','Try small changes before they are forced on you.'],
   env:'You may thrive where expectations are clear, relationships are trusting, and change comes with time and a step-by-step plan.',
   interp:'you tend to build trust and keep things steady'},
- C:{headline:'YOUR DOMINANT COLOR IS BLUE!',sub:"You're the one who makes good ideas great.",tagline:'Makes good ideas great',
+ C:{headline:'YOUR DOMINANT COLOR IS BLUE!',sub:"Your answers lean toward making good ideas great.",tagline:'Makes good ideas great',
   traits:['Analytical','Detail-oriented','Organized','Quality-focused'],
   chips:['Analytical','Precise','Thoughtful'],
   strengths:['Sharp analytical thinking','High standards for quality','Careful planning and organization','Thoughtful, evidence-based questions'],
@@ -722,9 +715,8 @@ const CHAL_SELF = {
  S:"Share one small concern out loud this week, kindly and early.",
  C:"In one conversation, offer your recommendation first and your supporting data second."
 };
-const BUDDY = ["Nice start! Go with your gut.","You're doing great!","Every choice reveals a little more.","No right or wrong answers here.","Your colors are coming together!","Halfway through Part 1, keep going!","Trust your first instinct.","Every style brings something special.","You're on a roll!","So close to the end of Part 1.","Just a few more!","Two to go in Part 1. You've got this!","Almost there!","One more in Part 1!","Part 1 done after this one! Then two shorter parts.",
-"Part 2: think about what you actually tend to do.","It's fine if this differs from your first instinct.","Honest answers help most here.","No approach is better than another.","Think of a real situation.","Almost through Part 2.","Two more adapted scenarios.","Last one in Part 2!",
-"Part 3: what do you appreciate?","Think about colleagues you enjoy working with.","Preferences can differ by topic.","Pick what helps you most.","Nearly there!","One more!","Last one! Ready to see your results?"];
+const BUDDY = ["Nice start! Go with your gut.","You're doing great!","Every choice reveals a little more.","No right or wrong answers here.","Your colors are coming together!","Trust your first instinct.","Every style brings something special.","You're on a roll!","Keep going, you're building your Color DNA.","Just a few more!","Nearly halfway through Part 1.","Halfway there, keep going!","Go with what feels natural.","No response is better than another.","Every choice counts.","More than halfway through Part 1!","Your colors are getting clearer.","Stay with your first instinct.","Almost there!","Only a few left in Part 1.","Three more in Part 1.","Two more in Part 1. You've got this!","Part 1 done after this one! Then a shorter part.",
+"Part 2: what do you appreciate?","Think about colleagues you enjoy working with.","Preferences can differ by topic.","Pick what helps you most.","Nearly there!","One more!","Last one! Ready to see your results?"];
 
 /* =====================================================================
    HELPERS
@@ -826,7 +818,7 @@ function mascot(k, extra='', pose){
    + `</span>${hands}</span>`;
 }
 
-const S = {seen:{1:true,2:false,3:false}, name:'', order:[], orderA:[], orderP:[], answers:[], adapt:[], prefs:[], resA:null, resP:null, q:0, res:null, focus:null, src:null, dst:null, step:0, sub:{self:'strengths',talk:'connect'}, chal:null, dir:1, revealDone:false};
+const S = {seen:{1:true,2:false}, name:'', order:[], orderP:[], answers:[], prefs:[], resP:null, q:0, res:null, focus:null, src:null, dst:null, step:0, sub:{self:'strengths',talk:'connect'}, chal:null, dir:1, revealDone:false};
 /*SCORING-START*/
 /* =====================================================================
    SCORING MODEL — forced choice, deterministic, auditable (no randomness, no hidden weights)
@@ -834,7 +826,7 @@ const S = {seen:{1:true,2:false,3:false}, name:'', order:[], orderA:[], orderP:[
    Per question the person marks ONE response MOST like them and a DIFFERENT one LEAST like them.
    Each response belongs to exactly one style (see QUESTIONS).
      raw[style]  = (# times a response of that style was marked MOST) − (# times marked LEAST)
-     range       = −N … +N  (N = questions answered, 15 when complete); the four raw scores always sum to 0.
+     range       = −N … +N  (N = questions answered, 23 when complete); the four raw scores always sum to 0.
    Display scale (visualisation only, never used for classification):
      shifted     = raw + N   (0 … 2N, non-negative so it can be drawn as a ring segment; a fixed offset,
                               so it never depends on other styles' scores)
@@ -847,10 +839,13 @@ const S = {seen:{1:true,2:false,3:false}, name:'', order:[], orderA:[], orderP:[
    PROVISIONAL PRODUCT RULES for interface wording only. They are not statistical or clinical thresholds,
    and the test suite reports how sensitive the labels are to them.
    ===================================================================== */
+/* Provisional thresholds for N = 23. The v16 values (4 / 3 / 4) were set for N = 15. Under random responding the noise in a raw score grows with √N, not with N,
+   so the cut-offs were scaled by √(23/15) ≈ 1.24 and rounded (4→5, 3→4, 4→5). A simulation of 200,000 random responders shows the same share of
+   "clear / blend / tied / balanced" labels as the N = 15 rules had (see the scoring change log). They are product rules for wording, not statistical cut-offs. */
 const RULES = {
-  FLAT_SPREAD: 4,  // highest raw − lowest raw ≤ 4  → "evenly distributed"
-  BLEND_GAP: 3,    // gap between top two raw scores: 0 = tied, 1–3 = closely matched pair, ≥ 4 = clear lead
-  SEC_GAP: 4       // a second style is only named when it is at least this far above the next one (clear lead only)
+  FLAT_SPREAD: 5,  // highest raw − lowest raw ≤ 5  → "evenly distributed"
+  BLEND_GAP: 4,    // gap between top two raw scores: 0 = tied, 1–4 = closely matched pair, ≥ 5 = clear lead
+  SEC_GAP: 5       // a second style is only named when it is at least this far above the next one (clear lead only)
 };
 const EMPTY = () => ({D:0,I:0,S:0,C:0});
 
@@ -963,15 +958,13 @@ function presentResult(r){
   }
 }
 /* =====================================================================
-   PARTS 2 AND 3 — separate, descriptive, count-based. They are NEVER added to the Part 1 color percentages.
-   Part 2 (Adapted behavior): per scenario one deliberate approach (one option per style) + a self-reported distance from the first instinct (0/1/2).
-       counts[style] sums to the number of scenarios (8). No percentages, no net scores, no shared scale with Part 1.
-   Part 3 (Communication preferences): per situation one preferred option (one option per preference theme). counts[theme] sums to 7.
-   Pattern wording uses the same small rule set for both parts. The thresholds are provisional product rules for wording only.
+   PART 2 — separate, descriptive, count-based. It is NEVER added to the Part 1 color percentages.
+   Per situation one preferred option (one option per preference theme). counts[theme] sums to the number of situations (7).
+   Pattern wording uses a small rule set. The thresholds are provisional product rules for wording only.
    ===================================================================== */
 const COUNT_RULES = {
-  CLEAR_GAP: 3,   // one top group member, at least this far ahead of the next → "clear"; a smaller lead → "lean" (≈10% of random responders reach "clear")
-  CLEAR_MIN: 4,   // …and chosen at least this many times (keeps a 3-vs-1 pattern from being called clear in an 8-item set)
+  CLEAR_GAP: 3,   // one top group member, at least this far ahead of the next → "clear"; a smaller lead → "lean"
+  CLEAR_MIN: 4,   // …and chosen at least this many times (keeps a 3-vs-1 pattern from being called clear in a short set)
   VARIED_MAX: 2   // if no option was chosen more than this many times, the answers are "varied" (no repeated preference)
 };
 function tallyPattern(counts, keys, rules=COUNT_RULES){
@@ -997,25 +990,9 @@ function validateChoiceItems(items, keys, label){
   });
   return errs;
 }
-const validateAdaptItems = (items=ADAPT) => validateChoiceItems(items, DIMS, 'Adapted-behavior question');
 const validatePrefItems = (items=PREFS) => validateChoiceItems(items, THEME_KEYS, 'Preference question');
 const okIndex = (i,n) => Number.isInteger(i) && i>=0 && i<n;
 
-/* answers[i] = {pick, effort}: pick indexes ADAPT[i].o, effort is 0, 1 or 2 (distance from first instinct). */
-function scoreAdapted(answers, items=ADAPT){
-  const counts = EMPTY(), dist = [0,0,0], byDist = {D:[0,0,0],I:[0,0,0],S:[0,0,0],C:[0,0,0]};
-  const errors = validateAdaptItems(items); let answered = 0;
-  if (!Array.isArray(answers) || answers.length!==items.length) errors.push(`Expected ${items.length} adapted-behavior answers`);
-  (Array.isArray(answers)?answers:[]).forEach((a,i)=>{
-    if (!a || !items[i] || a.pick==null || a.effort==null) return;
-    if (!okIndex(a.pick, items[i].o.length) || !okIndex(a.effort, 3)){ errors.push(`Adapted-behavior question ${i+1}: invalid selection`); return; }
-    const st = items[i].o[a.pick][1]; counts[st]++; dist[a.effort]++; byDist[st][a.effort]++; answered++;
-  });
-  const pat = tallyPattern(counts, DIMS);
-  const complete = answered===items.length;
-  if (DIMS.reduce((s,d)=>s+counts[d],0)!==answered) errors.push('Internal error: counts do not add up');
-  return Object.assign(pat, {part:2, counts, dist, byDist, answered, expected:items.length, complete, valid: errors.length===0, errors, final: complete && errors.length===0});
-}
 /* answers[i] = pick index into PREFS[i].o */
 function scorePrefs(answers, items=PREFS){
   const counts = {brief:0,talk:0,time:0,detail:0}; let answered = 0;
@@ -1029,42 +1006,9 @@ function scorePrefs(answers, items=PREFS){
   const pat = tallyPattern(counts, THEME_KEYS);
   const complete = answered===items.length;
   if (THEME_KEYS.reduce((s,k)=>s+counts[k],0)!==answered) errors.push('Internal error: counts do not add up');
-  return Object.assign(pat, {part:3, counts, answered, expected:items.length, complete, valid: errors.length===0, errors, final: complete && errors.length===0});
+  return Object.assign(pat, {part:2, counts, answered, expected:items.length, complete, valid: errors.length===0, errors, final: complete && errors.length===0});
 }
-/* Compare the Part 2 pattern with the Part 1 leading style(s). Part 1 is read only through presentResult(); nothing flows back into it. */
-function compareAdapted(a2, r1){
-  const m = presentResult(r1);
-  if (!a2 || !a2.final || !m.final) return {available:false, relation:'unavailable', lead:[], aligned:null};
-  const lead = m.lead;                                   // clear → 1 style, blend → 2–3, tied → 2–4, flat → none
-  if (!lead.length || lead.length===4) return {available:true, relation:'no-lead', lead:[], aligned:null};
-  let aligned = 0;
-  DIMS.forEach(d=>{ if (lead.includes(d)) aligned += a2.counts[d]; });
-  const topOverlap = a2.top.some(d=>lead.includes(d));
-  const relation = a2.kind==='varied' ? 'varied' : topOverlap ? 'similar' : 'different';
-  return {available:true, relation, lead, aligned, of:a2.expected};
-}
-const DIST_SHORT = ['Close to first instinct','Somewhat different','Quite different'];
 const nameList = ks => ks.length<2 ? (ks[0]||'') : ks.slice(0,-1).join(', ') + ' and ' + ks[ks.length-1];
-function presentAdapted(a2, r1){
-  if (!a2 || !a2.final) return {final:false, kind:'incomplete', lines:['Some adapted-behavior questions were skipped or invalid, so no pattern is shown.'], cmp:{available:false}};
-  const L = [], N = ks => nameList(ks.map(d=>META[d].name));
-  const cmp = compareAdapted(a2, r1);
-  switch (a2.kind){
-    case 'clear': L.push(`In these scenarios you most often chose an approach resembling ${N(a2.top)} (${a2.counts[a2.top[0]]} of ${a2.expected}).`); break;
-    case 'lean':  L.push(`In these scenarios you chose approaches resembling ${N(a2.top)} somewhat more often (${a2.counts[a2.top[0]]} of ${a2.expected}), with ${N(a2.next)} close behind.`); break;
-    case 'tied':  L.push(`In these scenarios you chose approaches resembling ${N(a2.top)} equally often (${a2.counts[a2.top[0]]} of ${a2.expected} each), so none is ranked above the other.`); break;
-    default:      L.push('In these scenarios your deliberate approaches were spread evenly across the four styles, so no single approach stands out.');
-  }
-  const moved = a2.dist[1]+a2.dist[2];
-  L.push(moved===0 ? 'In these situations you described every approach you chose as close to your first instinct.'
-       : moved>=3 ? 'In several situations, you reported choosing an approach that feels different from your first instinct.'
-       : `In ${moved===1?'one situation':'two situations'}, you reported choosing an approach that feels different from your first instinct.`);
-  if (cmp.relation==='similar') L.push(`Your most frequent approach here overlaps with your Part 1 pattern (${N(cmp.lead)}).`);
-  else if (cmp.relation==='different') L.push(`Your most frequent approach here differs from your Part 1 pattern (${N(cmp.lead)}). That is not a contradiction: people often choose the approach that suits the situation, and this assessment cannot tell why.`);
-  else if (cmp.relation==='varied') L.push('Because your approaches were spread across styles, there is no single pattern to compare with Part 1.');
-  else if (cmp.relation==='no-lead') L.push('Your Part 1 pattern did not single out a leading style, so there is nothing specific to compare with.');
-  return {final:true, kind:a2.kind, top:a2.top, next:a2.next, cmp, moved, lines:L};
-}
 function presentPrefs(p3){
   if (!p3 || !p3.final) return {final:false, kind:'incomplete', lines:['Some preference questions were skipped or invalid, so no pattern is shown.']};
   const P = ks => nameList(ks.map(k=>THEMES[k].phrase));
@@ -1136,33 +1080,28 @@ function renderLanding(){
   $('#nameMini').innerHTML = mascot('S');
 }
 
-/* ---------- Quiz: three parts (Part 1 forced choice MOST/LEAST; Parts 2 and 3 single choice) ---------- */
+/* ---------- Quiz: two parts (Part 1 forced choice MOST/LEAST; Part 2 single choice) ---------- */
 const PARTS = [
-  {n:1, name:'Natural response', help:'Imagine you could respond freely, without worrying about expectations or what others might think. Mark the response that feels most natural as your first instinct (<b>most like you</b>) and a different one that is <b>least like you</b>, even if you would act differently in real life.'},
-  {n:2, name:'Adapted behavior', help:'Think about what you <b>typically do</b> at work. It may be the same as your first instinct or different, and adjusting to a situation does not change who you are. Then say how close that approach is to your first instinct. This part is reported separately and is not part of your Color DNA.'},
-  {n:3, name:'Communication preferences', help:'Choose what you <b>appreciate most</b> from colleagues in each situation. This part describes preferences, not styles, and is reported separately.'}
+  {n:1, name:'Your natural work style', help:'Imagine you could respond freely, without worrying about expectations or what others might think. Mark the response that feels most natural as your first instinct (<b>most like you</b>) and a different one that is <b>least like you</b>, even if you would act differently in real life.'},
+  {n:2, name:'How you like to connect', help:'Choose what you <b>appreciate most</b> from colleagues in each situation. This part describes preferences, not styles, and is reported separately.'}
 ];
 const INTRO = {
-  2:{eye:'Part 1 complete · Part 2 of 3', title:'Next: what you typically choose to do', text:'Part 1 asked about your first instinct. In Part 2, think about what you typically do at work. That can be the same as your first instinct or different. Adjusting your approach to a situation is a normal part of working with others and does not mean changing who you are. After each choice, say how close it feels to your first instinct. There are 8 short scenarios. Your answers are reported separately and do not change your Color DNA.', go:'Start Part 2'},
-  3:{eye:'Part 2 complete · Part 3 of 3', title:'Last: how you like to communicate', text:'Part 3 is about what you appreciate from colleagues, such as how you like to receive feedback, instructions and updates. There are 7 short questions, with no right answers. These are preferences, not styles, and they are reported separately.', go:'Start Part 3'}
+  2:{eye:'Part 1 complete · Part 2 of 2', title:'Last: how you like to connect', text:'Part 2 is about what you appreciate from colleagues, such as how you like to receive feedback, instructions and updates. There are 7 short questions, with no right answers. These are preferences, not styles, and they are reported separately from your Color DNA.', go:'Start Part 2'}
 };
-const TOTAL = () => QUESTIONS.length + ADAPT.length + PREFS.length;
-const locate = g => g < QUESTIONS.length ? {part:1, i:g} : g < QUESTIONS.length+ADAPT.length ? {part:2, i:g-QUESTIONS.length} : {part:3, i:g-QUESTIONS.length-ADAPT.length};
-const partSize = n => n===1 ? QUESTIONS.length : n===2 ? ADAPT.length : PREFS.length;
+const TOTAL = () => QUESTIONS.length + PREFS.length;
+const locate = g => g < QUESTIONS.length ? {part:1, i:g} : {part:2, i:g-QUESTIONS.length};
+const partSize = n => n===1 ? QUESTIONS.length : PREFS.length;
 function startQuiz(){
   S.order = QUESTIONS.map(()=>shuffle([0,1,2,3]));
-  S.orderA = ADAPT.map(()=>shuffle([0,1,2,3]));
   S.orderP = PREFS.map(()=>shuffle([0,1,2,3]));
   S.answers = QUESTIONS.map(()=>({most:null,least:null}));
-  S.adapt = ADAPT.map(()=>({pick:null,effort:null}));
   S.prefs = PREFS.map(()=>null);
-  S.q = 0; S.res = null; S.resA = null; S.resP = null; S.dir = 1; S.seen = {1:true,2:false,3:false};
+  S.q = 0; S.res = null; S.resP = null; S.dir = 1; S.seen = {1:true,2:false};
   renderQ(); show('quiz');
 }
 const isDone = a => a && a.most!==null && a.least!==null;
-const doneAdapt = a => a && a.pick!==null && a.effort!==null;
 const donePref = a => a!==null && a!==undefined;
-function doneAt(g){ const L = locate(g); return L.part===1 ? isDone(S.answers[L.i]) : L.part===2 ? doneAdapt(S.adapt[L.i]) : donePref(S.prefs[L.i]); }
+function doneAt(g){ const L = locate(g); return L.part===1 ? isDone(S.answers[L.i]) : donePref(S.prefs[L.i]); }
 function paintOpts(){
   const L = locate(S.q);
   if (L.part===1){
@@ -1175,10 +1114,9 @@ function paintOpts(){
     });
     $('#qStatus').textContent = isDone(a) ? 'Both choices made. You can continue.' : a.most===null && a.least===null ? 'Choose one Most like me and one Least like me.' : a.most===null ? 'Now choose Most like me.' : 'Now choose Least like me.';
   } else {
-    const a = L.part===2 ? S.adapt[L.i] : {pick:S.prefs[L.i], effort:0};
+    const a = {pick:S.prefs[L.i]};
     $$('#opts .opt').forEach(el=>{ const on = +el.dataset.oi===a.pick; el.classList.toggle('is-most',on); el.setAttribute('aria-checked',on); });
-    if (L.part===2) $$('#distBox .dopt').forEach(el=>{ const on = +el.dataset.dist===a.effort; el.classList.toggle('on',on); el.setAttribute('aria-checked',on); });
-    $('#qStatus').textContent = doneAt(S.q) ? 'Answer recorded. You can continue.' : L.part===2 ? (a.pick===null ? 'Choose the approach you typically take.' : 'Now say how close it is to your first instinct.') : 'Choose the option you appreciate most.';
+    $('#qStatus').textContent = doneAt(S.q) ? 'Answer recorded. You can continue.' : 'Choose the option you appreciate most.';
   }
   const ok = doneAt(S.q);
   $('#qStatus').className = 'qstatus' + (ok?' ok':'');
@@ -1193,14 +1131,14 @@ function renderQ(){
   $('#qcard').hidden = intro; $('#qcard').nextElementSibling.hidden = intro; $('#partIntro').hidden = !intro;
   if (intro){
     const I = INTRO[L.part]; $('#piEye').textContent = I.eye; $('#piTitle').textContent = I.title; $('#piText').textContent = I.text; $('#piGo').textContent = I.go + ' →';
-    $('#qPart').innerHTML = `Part ${L.part} of 3 · <b>${P.name}</b>`; $('#qCount').innerHTML = ''; $('#qTheme').textContent = '';
+    $('#qPart').innerHTML = `Part ${L.part} of 2 · <b>${P.name}</b>`; $('#qCount').innerHTML = ''; $('#qTheme').textContent = '';
     $('#barA').setAttribute('aria-valuemax', n); paintOpts();
     $('#piTitle').focus({preventScroll:true}); return;
   }
-  const q = L.part===1 ? QUESTIONS[L.i] : L.part===2 ? ADAPT[L.i] : PREFS[L.i];
-  const ord = L.part===1 ? S.order[L.i] : L.part===2 ? S.orderA[L.i] : S.orderP[L.i];
+  const q = L.part===1 ? QUESTIONS[L.i] : PREFS[L.i];
+  const ord = L.part===1 ? S.order[L.i] : S.orderP[L.i];
   $('#barA').setAttribute('aria-valuemax', n);
-  $('#qPart').innerHTML = `Part ${L.part} of 3 · <b>${P.name}</b>`;
+  $('#qPart').innerHTML = `Part ${L.part} of 2 · <b>${P.name}</b>`;
   $('#qCount').innerHTML = `<b>${L.i+1}</b> / ${partSize(L.part)}`;
   $('#qTheme').textContent = q.theme;
   $('#qText').textContent = q.q;
@@ -1214,9 +1152,7 @@ function renderQ(){
   } else {
     opts.innerHTML = ord.map((oi,pos)=>`<button type="button" class="opt single" role="radio" aria-checked="false" data-oi="${oi}"><span class="obody"><span class="otxt">${esc(q.o[oi][0])}</span></span><span class="otick" aria-hidden="true">✓</span></button>`).join('');
   }
-  const dist = $('#distBox'); dist.hidden = L.part!==2;
-  if (L.part===2) $('#distOpts').innerHTML = DISTANCE.map((t,i)=>`<button type="button" class="dopt" role="radio" aria-checked="false" data-dist="${i}">${esc(t)}</button>`).join('');
-  $('#qKeys').textContent = L.part===1 ? 'Keyboard: 1–4 = most like me · Shift + 1–4 = least like me' : L.part===2 ? 'Keyboard: 1–4 = choose an approach · 5–7 = how close it is to your first instinct' : 'Keyboard: 1–4 = choose an option';
+  $('#qKeys').textContent = L.part===1 ? 'Keyboard: 1–4 = most like me · Shift + 1–4 = least like me' : 'Keyboard: 1–4 = choose an option';
   $('#btnBack').style.visibility = S.q===0 ? 'hidden' : 'visible';
   $('#btnNext').textContent = S.q===n-1 ? 'See my results →' : 'Continue →';
   $('#coachT').textContent = BUDDY[S.q] || '';
@@ -1233,23 +1169,22 @@ function mark(oi, role){
   else { a[role] = oi; if (a[other]===oi) a[other] = null; }
   paintOpts();
 }
-/* Parts 2 and 3: choose one option (choosing it again keeps it; there is no "undo to empty" because it would hide a completed answer). */
+/* Part 2: choose one option (choosing it again keeps it; there is no "undo to empty" because it would hide a completed answer). */
 function choose(oi){
   const L = locate(S.q);
-  if (L.part===2) S.adapt[L.i].pick = oi; else if (L.part===3) S.prefs[L.i] = oi; else return;
+  if (L.part===2) S.prefs[L.i] = oi; else return;
   paintOpts();
 }
-function setDist(v){ const L = locate(S.q); if (L.part!==2) return; S.adapt[L.i].effort = v; paintOpts(); }
 function nextQ(){ if (!doneAt(S.q)) return; if (S.q < TOTAL()-1){ S.q++; renderQ(); } else finishQuiz(); }
 function backQ(){ if (S.q>0){ S.q--; renderQ(); } }
 function finishQuiz(){
-  S.res = scoreAnswers(S.answers); S.resA = scoreAdapted(S.adapt); S.resP = scorePrefs(S.prefs);
-  const all = S.res.final && S.resA.final && S.resP.final;
+  S.res = scoreAnswers(S.answers); S.resP = scorePrefs(S.prefs);
+  const all = S.res.final && S.resP.final;
   if (!all){
     let miss = Array.from({length:TOTAL()},(_,g)=>g).find(g=>!doneAt(g));
     if (miss===undefined) miss = 0;
     S.q = miss; renderQ();
-    notify(S.res.valid && S.resA.valid && S.resP.valid ? 'Please answer every question to see your results.' : 'Your answers could not be scored. Please check them and try again.'); return;
+    notify(S.res.valid && S.resP.valid ? 'Please answer every question to see your results.' : 'Your answers could not be scored. Please check them and try again.'); return;
   }
   S.focus = S.res.top[0]; S.src = S.focus;
   S.dst = {D:'C',C:'D',I:'S',S:'I'}[S.focus];
@@ -1286,9 +1221,9 @@ function finishReveal(){
 }
 
 /* ---------- Results (5 focused steps) ---------- */
-const STEPS = [['dna','Your Color DNA'],['self','Understand yourself'],['adapt','Your Adapted Approach'],['prefs','Your Communication Preferences'],['guide','Working with the four colors'],['card','My color card']];
+const STEPS = [['dna','Your Color DNA'],['self','Understand yourself'],['prefs','Your Communication Preferences'],['guide','Working with the four colors'],['card','My profile']];
 function enterResults(){
-  if (!S.res || !S.res.final || !S.resA || !S.resA.final || !S.resP || !S.resP.final){ notify(S.res && S.res.errors && S.res.errors.length ? 'Your answers could not be scored. Please retake the quiz.' : NOT_FINAL); show('quiz'); return; }
+  if (!S.res || !S.res.final || !S.resP || !S.resP.final){ notify(S.res && S.res.errors && S.res.errors.length ? 'Your answers could not be scored. Please retake the quiz.' : NOT_FINAL); show('quiz'); return; }
   show('results'); goStep(S.step||0);
 }
 function goStep(i){
@@ -1301,11 +1236,11 @@ function renderStepper(){
 function renderStep(){
   const body = $('#stepBody');
   const ae = document.activeElement, fk = ae && body.contains(ae) ? ['data-seg','data-v','data-act','data-d'].map(a=>ae.hasAttribute&&ae.hasAttribute(a)?`[${a}="${ae.getAttribute(a)}"]`:'').join('') : '', ftag = fk && ae.tagName.toLowerCase();
-  body.innerHTML = [stepDNA,stepSelf,stepAdapt,stepPrefs,stepGuide,stepCard][S.step]();
+  body.innerHTML = [stepDNA,stepSelf,stepPrefs,stepGuide,stepCard][S.step]();
   body.firstElementChild && body.firstElementChild.classList.add('step-anim');
   const last = S.step===STEPS.length-1;
   $('#stepNav').innerHTML = `${S.step>0?`<button class="linkbtn" data-act="prevStep">← ${STEPS[S.step-1][1]}</button>`:'<span></span>'}
-   ${last?`<button class="btn lg" data-act="dlCard">Download my color card</button>`:`<button class="btn lg" data-act="nextStep">${STEPS[S.step+1][1]} →</button>`}`;
+   ${last?`<button class="btn lg" data-act="dlProfile">Download my profile (PDF)</button>`:`<button class="btn lg" data-act="nextStep">${STEPS[S.step+1][1]} →</button>`}`;
   if (last) paintCard();
   if (fk){ const t = body.querySelector(ftag+fk); if (t) t.focus({preventScroll:true}); }
 }
@@ -1357,9 +1292,9 @@ function stepSelf(){
   const sec = secondaryOf(f);
   const hidden = sec.dims.length ? (sec.dims.length>1 ? `${names(sec.dims)} are equally ranked, so none is picked over the others. ` : '') + sec.dims.map(d=>HIDDEN[f+d]).join(' ') : HIDDEN_NONE;
   const panes = {
-    strengths:`<h3>Your strengths</h3><ul class="checks" style="--k:${M.base}">${P.strengths.map(s=>`<li>${esc(s)}</li>`).join('')}</ul><div class="callout" style="--k:${sec.dim?META[sec.dim].base:M.base}"><b>A strength to explore</b>${esc(hidden)}</div>`,
-    drives:`<h3>What drives you</h3><p>${esc(P.motivates)}</p><h3>Where you may thrive</h3><p>${esc(P.env)}</p>`,
-    comm:`<h3>How you communicate</h3><p>${esc(P.comm)}</p><div class="chips">${P.traits.map(t=>`<span class="chip" style="--bgc:${M.soft};--tc:${M.text}">${t}</span>`).join('')}</div>`,
+    strengths:`<h3>Possible strengths</h3><ul class="checks" style="--k:${M.base}">${P.strengths.map(s=>`<li>${esc(s)}</li>`).join('')}</ul><div class="callout" style="--k:${sec.dim?META[sec.dim].base:M.base}"><b>A strength to explore</b>${esc(hidden)}</div>`,
+    drives:`<h3>What may drive you</h3><p>${esc(P.motivates)}</p><h3>Where you may thrive</h3><p>${esc(P.env)}</p>`,
+    comm:`<h3>How you may communicate</h3><p>${esc(P.comm)}</p><div class="chips">${P.traits.map(t=>`<span class="chip" style="--bgc:${M.soft};--tc:${M.text}">${t}</span>`).join('')}</div>`,
     pressure:`<h3>Under pressure</h3><p>${esc(P.pressure)}</p>`,
     growth:`<h3>Growth opportunities</h3><ul class="checks" style="--k:${M.base}">${P.growth.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`
   };
@@ -1375,41 +1310,26 @@ function stepSelf(){
 const lowerFirst = t => t.charAt(0).toLowerCase() + t.slice(1);
 const stripDot = t => t.replace(/\.$/,'');
 const cntRow = (name, color, n, of, top) => `<div class="pr cnt${top?' top':''}" role="listitem"><span class="sw" style="background:${color}"></span><span>${esc(name)}</span><span class="t"><i style="width:${of?n/of*100:0}%;background:${color}"></i></span><b>${n} of ${of}</b></div>`;
-function stepAdapt(){
-  const a = S.resA, pa = presentAdapted(a, S.res);
-  const rows = ADAPT.map((q,i)=>{ const x = S.adapt[i], o = q.o[x.pick]; return `<tr><th scope="row">${esc(q.theme)}</th><td>${esc(o[0])}</td><td>${META[o[1]].name}</td><td>${DIST_SHORT[x.effort]}</td></tr>`; }).join('');
-  const shift = ADAPT.map((q,i)=>({i,q,x:S.adapt[i]})).filter(o=>o.x.effort>0).sort((a,b)=>b.x.effort-a.x.effort||a.i-b.i);
-  return `${head('Your Adapted Approach','What you said you typically choose to do, including when it differs from your first instinct. This is shown separately and was not used to calculate your Color DNA.')}
-  <div class="pane" style="margin-top:22px;border-top:3px solid var(--ink)">
-    <h3>Approaches you chose</h3>
-    <div role="list" aria-label="Approaches chosen in Part 2" style="margin-top:8px">${DIMS.map(d=>cntRow(META[d].name, META[d].base, a.counts[d], a.expected, a.top.includes(d))).join('')}</div>
-    <p class="fine" style="margin-top:8px">Counts, not percentages. Each scenario offered one approach resembling each style, so the four counts add up to ${a.expected}.</p>
-    ${pa.lines.map(l=>`<p>${esc(l)}</p>`).join('')}
-    <h3>How different each approach felt</h3>
-    <ul class="checks" style="--k:var(--ink)">${DISTANCE.map((t,i)=>`<li><span>${esc(t)}: <b>${a.dist[i]}</b> of ${a.expected}</span></li>`).join('')}</ul>
-    ${shift.length?`<h3>Situations where you reported adapting</h3><ul class="checks" style="--k:var(--ink)">${shift.slice(0,4).map(o=>`<li><span><b>${esc(o.q.theme)}</b> (${o.x.effort===2?'quite':'somewhat'} different from your first instinct): ${esc(lowerFirst(stripDot(o.q.o[o.x.pick][0])))}.</span></li>`).join('')}</ul>${shift.length>4?`<p class="fine">${shift.length-4} more are in the table below.</p>`:''}<p class="fine" style="margin-top:8px">Choosing a different approach from your first instinct is a normal part of working with others. It is not a sign of inconsistency.</p>`:'<p>You did not report choosing an approach that felt different from your first instinct in these scenarios.</p>'}
-    <div class="callout" style="--k:${META[S.focus].base}"><b>How to read this</b>These answers describe what you reported choosing, not what you do in every situation. A difference between your first instinct and your chosen approach can come from your role, your team, your culture, habit, or a deliberate decision. This assessment cannot tell which, and it cannot separate natural from learned behavior.</div>
-    <details class="raw"><summary>Your answers, scenario by scenario</summary><div class="tw"><table><thead><tr><th>Scenario</th><th>Approach you chose</th><th>Resembles</th><th>Compared with first instinct</th></tr></thead><tbody>${rows}</tbody></table></div></details>
-  </div>
-  <p class="fine" style="margin-top:12px">${a.expected} scenarios are a small sample. Counts like 3 versus 2 are not meaningful differences. Not a validated measure.</p>`;
-}
+const PREF_GROUPS = [
+  {title:'How you prefer to receive feedback', idx:[0]},
+  {title:'How you like to discuss disagreements', idx:[1]},
+  {title:'How you prefer to receive instructions', idx:[2]},
+  {title:'What helps you collaborate effectively', idx:[3,4,5,6]}
+];
 function stepPrefs(){
   const p = S.resP, pp = presentPrefs(p);
-  const rows = PREFS.map((q,i)=>`<tr><th scope="row">${esc(q.theme)}</th><td>${esc(q.o[S.prefs[i]][0])}</td><td>${THEMES[q.o[S.prefs[i]][1]].name}</td></tr>`).join('');
   const focus = [...p.top, ...p.next];
   const TC = {brief:'#3A3F58', talk:'#3A3F58', time:'#3A3F58', detail:'#3A3F58'}; /* neutral: preference themes are not colors */
-  return `${head('Your Communication Preferences','What you said you appreciate from colleagues. This describes how you like to receive communication, not your personality, and it is shown separately from your Color DNA.')}
+  return `${head('Your Communication Preferences','What you said you appreciate from colleagues, in your own answers first. This describes how you like to connect, not your personality, and it is shown separately from your Color DNA.')}
   <div class="pane" style="margin-top:22px;border-top:3px solid var(--ink)">
     <h3>What you chose most often</h3>
-    <div role="list" aria-label="Communication preferences chosen in Part 3" style="margin-top:8px">${THEME_KEYS.map(k=>cntRow(THEMES[k].name, TC[k], p.counts[k], p.expected, p.top.includes(k))).join('')}</div>
+    <div role="list" aria-label="Communication preferences chosen in Part 2" style="margin-top:8px">${THEME_KEYS.map(k=>cntRow(THEMES[k].name, TC[k], p.counts[k], p.expected, p.top.includes(k))).join('')}</div>
     <p class="fine" style="margin-top:8px">Counts, not percentages. Each situation offered one option of each kind, so the four counts add up to ${p.expected}.</p>
     ${pp.lines.map(l=>`<p>${esc(l)}</p>`).join('')}
-    <h3>What you chose in different situations</h3>
-    <ul class="checks" style="--k:var(--ink)">${THEME_KEYS.filter(k=>p.counts[k]>0).sort((x,y)=>p.counts[y]-p.counts[x]).map(k=>`<li><span><b>${esc(THEMES[k].name)}</b>: ${PREFS.filter((q,i)=>q.o[S.prefs[i]][1]===k).map(q=>esc(q.theme.toLowerCase())).join(', ')}</span></li>`).join('')}</ul>
-    <p class="fine" style="margin-top:8px">These preferences can coexist. You may want direct feedback, detailed instructions and advance notice of changes all at once, so no single style applies to every situation.</p>
+    ${PREF_GROUPS.map(g=>`<h3>${esc(g.title)}</h3><ul class="checks" style="--k:var(--ink)">${g.idx.map(i=>`<li><span><b>${esc(PREFS[i].theme)}:</b> ${esc(PREFS[i].o[S.prefs[i]][0])}</span></li>`).join('')}</ul>`).join('')}
+    <p class="fine" style="margin-top:8px">These are your own answers. They can coexist: you may want direct feedback, detailed instructions and advance notice of changes all at once, so no single style applies to every situation.</p>
     ${focus.length?`<h3>Things you could ask colleagues for</h3><ul class="checks" style="--k:var(--ink)">${focus.map(k=>`<li>${esc(THEMES[k].ask)}</li>`).join('')}</ul>`:'<p>Because your preferences varied, it may help to tell colleagues what you need in each situation.</p>'}
     <div class="callout" style="--k:var(--ink)"><b>How to read this</b>Preferences can change with the topic, the stakes and who you are talking to. Wanting a short, direct message does not mean you do not care about people, and wanting time or detail does not mean you are slow or rigid. These are things to ask for, not labels.</div>
-    <details class="raw"><summary>Your answers, situation by situation</summary><div class="tw"><table><thead><tr><th>Situation</th><th>What you chose</th><th>Kind</th></tr></thead><tbody>${rows}</tbody></table></div></details>
   </div>
   <p class="fine" style="margin-top:12px">${p.expected} situations are a small sample, and each option was written to be equally reasonable. Not a validated measure.</p>`;
 }
@@ -1455,9 +1375,9 @@ function newChallenge(){
   S.chal = c;
 }
 function stepCard(){
-  return `${head('Your color card', 'Your personal avatar, filled with your colors, ready to share at your next team meeting.')}
+  return `${head('Your profile', 'Your color card and full results in one PDF, ready to share at your next team meeting.')}
   <div class="cardgrid" style="margin-top:22px"><div class="cardprev" id="cardPrev"><span class="fine">Preparing your card…</span></div>
-  <div class="acts"><p class="fine" style="max-width:34ch">Your card is created on your device as a PNG. Nothing is uploaded.</p><button class="linkbtn" data-act="dlAvatar" style="padding-left:0">Save the badge only</button></div></div>`;
+  <div class="acts"><p class="fine" style="max-width:34ch">Your profile PDF is created on your device and includes this card, your avatar and all your results. Nothing is uploaded.</p></div></div>`;
 }
 let paintTok = 0;
 function paintCard(){
@@ -1598,6 +1518,132 @@ async function downloadCard(){
   let c; try{ c = await getCard(snap); }catch(e){ notify('The color card could not be rendered, so nothing was downloaded. Please try again.'); return; }
   saveCanvas(c, `discverse-color-card${fileTag(snap.name)}.png`);
 }
+/* ---------- Profile PDF: built locally with no libraries (standard Helvetica text, vector bars, embedded JPEG images). Nothing is uploaded. ---------- */
+const PDFW = 595.28, PDFH = 841.89, PM = 48, PINK = '#1E2235', PGREY = '#5E6378';
+const pdfEnc = s => {
+  const map = {'‘':0x91,'’':0x92,'“':0x93,'”':0x94,'•':0x95,'–':0x96,'—':0x97,'…':0x85};
+  let h = '';
+  for (const ch of String(s)){ const c = ch.codePointAt(0), b = map[ch] !== undefined ? map[ch] : (c >= 32 && c <= 255 && !(c >= 0x7F && c <= 0x9F)) ? c : (c < 32 ? 32 : 0x3F); h += (b < 16 ? '0' : '') + b.toString(16); }
+  return h;
+};
+const pdfMeasure = (() => { const x = document.createElement('canvas').getContext('2d'); return (s, size, bold) => { x.font = `${bold ? 'bold ' : ''}${size}px Helvetica, Arial, sans-serif`; return x.measureText(s).width; }; })();
+const pdfCol = h => { const n = parseInt(h.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(v => (v / 255).toFixed(3)).join(' '); };
+const pdfPlain = x => String(x).replace(/<[^>]*>/g,'').replace(/&nbsp;/g,' ').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#0?39;/g,"'").replace(/&amp;/g,'&');
+function pdfDoc(){
+  const pages = [], imgs = []; let cur = null, y = PM;
+  const d = {
+    get y(){ return y; }, set y(v){ y = v; },
+    pages, imgs,
+    newPage(){ cur = {ops:[]}; pages.push(cur); y = PM; return d; },
+    room(h){ if (y + h > PDFH - PM - 20) d.newPage(); },
+    rect(x, top, w, h, color){ cur.ops.push(`${pdfCol(color)} rg ${x.toFixed(2)} ${(PDFH - top - h).toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)} re f`); },
+    text(s, x, base, size, o = {}){ cur.ops.push(`BT /${o.bold ? 'F2' : 'F1'} ${size} Tf ${pdfCol(o.color || PINK)} rg ${x.toFixed(2)} ${(PDFH - base).toFixed(2)} Td <${pdfEnc(s)}> Tj ET`); },
+    image(i, x, top, w, h){ cur.ops.push(`q ${w.toFixed(2)} 0 0 ${h.toFixed(2)} ${x.toFixed(2)} ${(PDFH - top - h).toFixed(2)} cm /Im${i} Do Q`); },
+    addImage(bytes, w, h){ imgs.push({bytes, w, h}); return imgs.length - 1; },
+    lines(s, size, bold, maxW){
+      const out = []; let line = '';
+      String(s).split(/\n/).forEach(par => { line = ''; par.split(/\s+/).filter(Boolean).forEach(w => { const t = line ? line + ' ' + w : w; if (line && pdfMeasure(t, size, bold) > maxW){ out.push(line); line = w; } else line = t; }); out.push(line); });
+      return out;
+    },
+    para(s, o = {}){
+      const size = o.size || 10.5, lead = size * 1.5, ind = o.indent || 0, bl = o.bullet ? 12 : 0, w = PDFW - 2*PM - ind - bl - (o.pad || 0);
+      d.lines(s, size, o.bold, w).forEach((ln, i) => {
+        d.room(lead);
+        const x = o.center ? (PDFW - pdfMeasure(ln, size, o.bold)) / 2 : PM + ind + bl + (o.pad || 0);
+        if (o.bullet && i === 0) d.text('•', PM + ind + 2 + (o.pad || 0), y + size, size, {color: o.color || '#2B2F45'});
+        d.text(ln, x, y + size, size, {bold: o.bold, color: o.color || '#2B2F45'}); y += lead;
+      });
+      y += o.gap === undefined ? 5 : o.gap;
+    },
+    title(s, color){ d.room(46); d.rect(PM, y, 5, 22, color); d.text(s, PM + 14, y + 17, 15, {bold: true, color: PINK}); y += 36; },
+    sub(s, color){ d.room(30); d.text(s, PM, y + 11, 11, {bold: true, color: color || PINK}); y += 20; },
+    bar(label, n, of, color, valueText){
+      d.room(24); const lw = 150, bw = PDFW - 2*PM - lw - 70;
+      d.text(label, PM, y + 12, 10.5, {bold: true, color: PINK}); d.rect(PM + lw, y + 3, bw, 11, '#ECE8E0'); if (n > 0) d.rect(PM + lw, y + 3, Math.max(4, bw * n / of), 11, color);
+      d.text(valueText, PM + lw + bw + 10, y + 12, 10.5, {color: '#2B2F45'}); y += 23;
+    }
+  };
+  return d;
+}
+function pdfAssemble(doc){
+  const enc = new TextEncoder(), parts = [], offs = []; let len = 0;
+  const push = u => { parts.push(u); len += u.length; }, str = s => push(enc.encode(s));
+  const obj = (n, body) => { offs[n] = len; str(`${n} 0 obj\n${body}\nendobj\n`); };
+  const nImg = doc.imgs.length, fi = 5, fp = 5 + nImg, total = fp + 2 * doc.pages.length;
+  str('%PDF-1.4\n'); push(new Uint8Array([0x25,0xE2,0xE3,0xCF,0xD3,0x0A]));
+  obj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+  obj(2, `<< /Type /Pages /Kids [${doc.pages.map((_,i)=>`${fp+2*i} 0 R`).join(' ')}] /Count ${doc.pages.length} >>`);
+  obj(3, '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');
+  obj(4, '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
+  doc.imgs.forEach((im, i) => { offs[fi+i] = len; str(`${fi+i} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${im.w} /Height ${im.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${im.bytes.length} >>\nstream\n`); push(im.bytes); str('\nendstream\nendobj\n'); });
+  const xo = doc.imgs.map((_, i) => `/Im${i} ${fi+i} 0 R`).join(' ');
+  doc.pages.forEach((pg, i) => {
+    const pn = fp + 2*i, cn = pn + 1, cb = enc.encode(pg.ops.join('\n'));
+    obj(pn, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PDFW} ${PDFH}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> /XObject << ${xo} >> >> /Contents ${cn} 0 R >>`);
+    offs[cn] = len; str(`${cn} 0 obj\n<< /Length ${cb.length} >>\nstream\n`); push(cb); str('\nendstream\nendobj\n');
+  });
+  const xr = len; str(`xref\n0 ${total}\n0000000000 65535 f \n`);
+  for (let n = 1; n < total; n++) str(String(offs[n]).padStart(10, '0') + ' 00000 n \n');
+  str(`trailer\n<< /Size ${total} /Root 1 0 R >>\nstartxref\n${xr}\n%%EOF\n`);
+  const out = new Uint8Array(len); let p = 0; parts.forEach(u => { out.set(u, p); p += u.length; });
+  return out;
+}
+const jpegBytes = c => { const b = atob(c.toDataURL('image/jpeg', 0.92).split(',')[1]), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+function mascotJpeg(d){
+  const p = CH[d][MAIN_POSE[d]];
+  return new Promise((res, rej) => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; const x = c.getContext('2d'); x.fillStyle = META[d].soft; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0); res({bytes: jpegBytes(c), w: c.width, h: c.height}); }; im.onerror = () => rej(new Error('mascot image')); im.src = p.src; });
+}
+async function buildProfilePdf(snap){
+  const r = snap.res, m = snap.model, p = S.resP, pp = presentPrefs(p), doc = pdfDoc();
+  const card = await getCard(snap), cardIdx = doc.addImage(jpegBytes(card), card.width, card.height);
+  const styles = r.pick && r.pick.length ? r.pick : [S.focus], mj = {};
+  for (const d of styles){ const j = await mascotJpeg(d); mj[d] = {i: doc.addImage(j.bytes, j.w, j.h), w: j.w, h: j.h}; }
+  /* cover */
+  doc.newPage(); DIMS.forEach((d, i) => doc.rect(i * PDFW / 4, 0, PDFW / 4, 9, META[d].base));
+  doc.y = 34; doc.text('DISCVERSE', PM, 44, 12, {bold: true}); doc.text('MY PROFILE', PDFW - PM - pdfMeasure('MY PROFILE', 10, true), 44, 10, {bold: true, color: PGREY});
+  doc.y = 70; doc.para(snap.name ? `${snap.name}'s Color DNA` : 'My Color DNA', {size: 26, bold: true, center: true, gap: 2, color: PINK});
+  doc.para('Discover Your Colors. Connect Beyond Them.', {size: 11, center: true, color: PGREY, gap: 8});
+  const cw = 330, chh = cw * card.height / card.width, cx = (PDFW - cw) / 2; doc.image(cardIdx, cx, doc.y, cw, chh); doc.y += chh + 14;
+  doc.para(pdfPlain(heading()), {size: 15, bold: true, center: true, gap: 3});
+  doc.para(pdfPlain(summary()), {size: 10, center: true, color: '#3A3F58', gap: 4});
+  /* understand yourself */
+  doc.newPage(); doc.title('Understand yourself', META[styles[0]].base);
+  styles.forEach(k => {
+    const P = PROFILES[k], M = META[k], j = mj[k], bh = 74; doc.room(bh + 170);
+    doc.rect(PM, doc.y, PDFW - 2*PM, bh, M.soft); const iw = j.w * (bh - 8) / j.h; doc.image(j.i, PM + 10, doc.y + 4, iw, bh - 8);
+    doc.text(M.name.toUpperCase(), PM + iw + 28, doc.y + 30, 17, {bold: true, color: M.text}); doc.text(P.tagline, PM + iw + 28, doc.y + 50, 11, {color: '#3A3F58'}); doc.y += bh + 12;
+    doc.sub('Possible strengths', M.text); P.strengths.forEach(s => doc.para(s, {bullet: true, gap: 2})); doc.y += 4;
+    doc.sub('What may drive you', M.text); doc.para(P.motivates);
+    doc.sub('Where you may thrive', M.text); doc.para(P.env);
+    doc.sub('How you may communicate', M.text); doc.para(P.comm);
+    doc.sub('Under pressure', M.text); doc.para(P.pressure);
+    doc.sub('Growth opportunities', M.text); P.growth.forEach(s => doc.para(s, {bullet: true, gap: 2})); doc.y += 12;
+  });
+  doc.para('Tendencies, not rules. Most people flex across all four colors.', {size: 9.5, color: PGREY});
+  /* part 2 */
+  doc.y += 12; doc.room(150); doc.title('Part 2 · How you like to connect', '#3A3F58');
+  THEME_KEYS.forEach(k => doc.bar(THEMES[k].name, p.counts[k], p.expected, '#3A3F58', `${p.counts[k]} of ${p.expected}`));
+  doc.y += 4; pp.lines.forEach(l => doc.para(l));
+  PREF_GROUPS.forEach(g => { doc.sub(g.title); g.idx.forEach(i => doc.para(`${PREFS[i].theme}: ${PREFS[i].o[S.prefs[i]][0]}`, {bullet: true, gap: 2, size: 10})); });
+  const ask = [...p.top, ...p.next]; if (ask.length){ doc.sub('Things you could ask colleagues for'); ask.forEach(k => doc.para(THEMES[k].ask, {bullet: true, gap: 2})); doc.y += 4; }
+  doc.y += 14; doc.para('These results come from a short self-report. They describe tendencies and preferences, not fixed traits, and should not be used for hiring or other decisions about people.', {size: 9.5, color: PGREY});
+  /* footers */
+  const n = doc.pages.length;
+  doc.pages.forEach((pg, i) => {
+    pg.ops.push(`${pdfCol('#E6E0D6')} rg ${PM} ${46} ${(PDFW - 2*PM).toFixed(2)} 0.6 re f`);
+    pg.ops.push(`BT /F1 8 Tf ${pdfCol(PGREY)} rg ${PM} ${32} Td <${pdfEnc('DISCVERSE · A DISC-inspired reflection activity, not a validated assessment')}> Tj ET`);
+    const pt = `Page ${i + 1} of ${n}`; pg.ops.push(`BT /F1 8 Tf ${pdfCol(PGREY)} rg ${(PDFW - PM - pdfMeasure(pt, 8)).toFixed(2)} ${32} Td <${pdfEnc(pt)}> Tj ET`);
+  });
+  return pdfAssemble(doc);
+}
+async function downloadProfile(){
+  const snap = snapshot(); if (!snap || !S.resP || !S.resP.final){ notify(NOT_FINAL); return; }
+  let bytes; try{ await ensureAssets(); bytes = await buildProfilePdf(snap); }catch(e){ notify('The profile could not be created, so nothing was downloaded. Please try again.'); return; }
+  try{
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([bytes], {type: 'application/pdf'})); a.download = 'discverse-profile' + fileTag(snap.name) + '.pdf';
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }catch(e){ notify('The profile could not be downloaded. Please try again.'); }
+}
 async function downloadAvatar(){
   const snap = snapshot(); if (!snap){ notify(NOT_FINAL); return; }
   const r = snap.res, W = 900, H = 1000, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
@@ -1634,11 +1680,10 @@ function openDlg(id){ const d = $(id); if (d.showModal) d.showModal(); else d.se
 /* =====================================================================
    EVENTS
    ===================================================================== */
-function resetAll(){ S.res = null; S.resA = null; S.resP = null; S.adapt = []; S.prefs = []; S.answers = []; S.q = 0; S.chal = null; S.step = 0; S.name = ''; S.revealDone = true; $('#nameInput').value = ''; }
+function resetAll(){ S.res = null; S.resP = null; S.prefs = []; S.answers = []; S.q = 0; S.chal = null; S.step = 0; S.name = ''; S.revealDone = true; $('#nameInput').value = ''; }
 document.addEventListener('click', e=>{
   const mk = e.target.closest('.mk'); if (mk){ mark(+mk.closest('.opt').dataset.oi, mk.dataset.role); return; }
   const sg1 = e.target.closest('.opt.single'); if (sg1){ choose(+sg1.dataset.oi); return; }
-  const dd = e.target.closest('.dopt'); if (dd){ setDist(+dd.dataset.dist); return; }
   const st = e.target.closest('.st'); if (st){ goStep(+st.dataset.step); return; }
   const sg = e.target.closest('[data-seg]');
   if (sg){
@@ -1664,6 +1709,7 @@ document.addEventListener('click', e=>{
     case 'setDst': S.dst = b.dataset.d; S.chal = null; renderStep(); break;
     case 'newChal': newChallenge(); { const q = $('#chalText'); if (q) q.textContent = S.chal; } break;
     case 'dlCard': downloadCard(); break;
+    case 'dlProfile': downloadProfile(); break;
     case 'retryCard': { const p=$('#cardPrev'); if(p) p.innerHTML='<span class="fine">Preparing your card…</span>'; paintCard(); break; }
     case 'dlAvatar': downloadAvatar(); break;
     case 'retake': resetAll(); show('landing'); break;
@@ -1683,9 +1729,8 @@ document.addEventListener('keydown', e=>{
     e.preventDefault(); return;
   }
   if (!$('#quiz').classList.contains('active') || !$('#partIntro').hidden || document.querySelector('dialog[open]') || e.repeat || e.target.closest('input,textarea,select,button,a,summary,[role="radio"],[role="tab"]') || e.metaKey || e.ctrlKey || e.altKey) return;
-  const dg = /^Digit([1-4])$/.exec(e.code||''), dd5 = /^Digit([5-7])$/.exec(e.code||''), part = locate(S.q).part;
+  const dg = /^Digit([1-4])$/.exec(e.code||''), part = locate(S.q).part;
   if (dg){ const o = $$('#opts .opt')[+dg[1]-1]; if (o){ if (part===1) mark(+o.dataset.oi, e.shiftKey?'least':'most'); else choose(+o.dataset.oi); } e.preventDefault(); }
-  else if (dd5 && part===2){ setDist(+dd5[1]-5); e.preventDefault(); }
   else if (e.key==='ArrowRight'){ if (!$('#btnNext').disabled) nextQ(); }
   else if (e.key==='ArrowLeft'){ backQ(); }
 });
