@@ -269,6 +269,7 @@ details.raw{margin-top:14px;border:1px solid var(--line);border-radius:12px;padd
 details.raw summary{cursor:pointer;font-weight:700;font-size:.92rem}
 details.raw p{margin-top:10px;font-size:.9rem;line-height:1.55;color:#3A3F58}
 details.raw .tw{overflow-x:auto;margin-top:10px}
+span.src{display:block;margin-top:2px}
 details.raw table{border-collapse:collapse;width:100%;font-size:.85rem}
 details.raw th,details.raw td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
 details.raw th:first-child{text-align:left}
@@ -559,10 +560,10 @@ const QUESTIONS = [
 ];
 /* Part 2: preferences. Option keys are preference themes (never DISC color labels). */
 const THEMES = {
-  brief:{name:'Brief and direct', short:'brief and direct', phrase:'a short, direct summary with the main point first', ask:'Lead with the main point and keep it short.'},
-  talk:{name:'Interactive conversation', short:'interactive', phrase:'talking things through together', ask:'Set up a short conversation rather than only sending a message.'},
-  time:{name:'Time and predictability', short:'time and predictability', phrase:'advance notice and time to think before responding', ask:'Give me notice and a little time before I need to respond.'},
-  detail:{name:'Detail and evidence', short:'detail and evidence', phrase:'specific information, preferably in writing', ask:'Share the specifics, ideally in writing, so I can review them.'}
+  brief:{name:'Brief and direct', short:'brief and direct', phrase:'a short, direct summary with the main point first'},
+  talk:{name:'Interactive conversation', short:'interactive', phrase:'talking things through together'},
+  time:{name:'Time and predictability', short:'time and predictability', phrase:'advance notice and time to think before responding'},
+  detail:{name:'Detail and evidence', short:'detail and evidence', phrase:'specific information, preferably in writing'}
 };
 const THEME_KEYS = ['brief','talk','time','detail'];
 const PREFS = [
@@ -601,6 +602,40 @@ const PREFS = [
   ['Help finding the information I am missing.','detail'],
   ['Straight, to-the-point advice on the next step.','brief'],
   ['Someone to talk the problem through with.','talk']]}
+];
+
+/* Part 2 insight text. COMM[situation][theme] = [heading, why it may help, what you lean toward, a possible mismatch, something a colleague could say].
+   Every sentence is tied to one situation and one chosen option, so each insight can be traced to a specific answer. */
+const COMM_CTX = ['when you receive feedback','when you disagree with someone','when you start a new task','when decisions affect you','when colleagues reach out','for project updates','when you are stuck'];
+const COMM = [
+ {brief:['Lead with the headline','Hearing the main point first lets you act on feedback without sorting through context.','the main point first','Feedback that opens with a long story before the point may be hard to act on.','The main thing on the draft: the intro needs a clearer ask. Two small notes after that, if useful.'],
+  talk:['Talk feedback through','A two-way conversation lets you ask questions and check you understood it.','talking it through','Feedback sent only as a written note, with no chance to discuss it, may leave questions open.','I have some thoughts on the draft. Do you have ten minutes to go through them together?'],
+  time:['Give a heads-up first','Advance notice gives you time to reflect before you respond.','a heads-up beforehand','Feedback delivered on the spot may arrive before you have had time to consider it.','I would like to share some feedback on the proposal tomorrow. Would the afternoon suit you?'],
+  detail:['Back feedback with examples','Specific, written examples show exactly what to keep and what to change.','specific examples in writing','General comments without concrete examples may leave it unclear what to change.','I wrote up my feedback with two examples from the report, so you can read it first.']},
+ {talk:['Work through differences together','Open discussion helps you find common ground rather than only hearing a position.','discussing it openly','A disagreement settled by message or by decision, without discussion, may feel unresolved.','We see this differently. Can we talk it through and look for common ground?'],
+  time:['Allow time to prepare','Preparing first lets you bring your own reasoning to the conversation.','time to prepare','Being asked to defend a position on the spot may leave no time to prepare.','I think we see the schedule differently. Can we talk on Thursday, so we both have time to prepare?'],
+  detail:['Bring the reasoning','Seeing the evidence behind a view lets you assess it on its merits.','seeing the reasoning and evidence','A disagreement stated as an opinion, without reasons, may be hard to weigh.','I disagree with the vendor choice. I listed my reasons and the cost data so you can compare.'],
+  brief:['Say plainly where you differ','A plain statement of the disagreement keeps the conversation focused.','a plain statement of the disagreement','Hinting at a disagreement instead of stating it may leave you unsure where you stand.','I disagree with the launch date. I would move it by two weeks. What is your view?']},
+ {time:['Set expectations early','Advance notice of what is coming lets you plan before you start.','advance notice','Tasks handed over suddenly, with little notice, may be hard to plan around.','Heads-up: next week I will ask you to take over the client report. Here is what to expect.'],
+  detail:['Write out the steps','Written steps and examples give you something to check your work against.','written steps and examples','Verbal-only instructions, without steps or examples, may be hard to follow up on.','I wrote down the steps and attached an example of a finished report.'],
+  brief:['State the goal and deadline','A sentence or two on the goal leaves you room to choose how to do it.','a short goal and deadline','Instructions that start with long background before the goal may bury what is needed.','Goal: a one-page summary for the client. Due Friday at noon.'],
+  talk:['Walk through new tasks','A walk-through with room for questions closes gaps early.','a walk-through with questions','Instructions sent only in writing, with no chance to ask questions, may leave gaps.','Can we walk through the new task together? Bring any questions you have.']},
+ {detail:['Share the analysis','Seeing the options and analysis beforehand lets you weigh in on substance.','the analysis beforehand','A decision announced without the analysis behind it may be hard to evaluate.','Before we decide on the tool, here is a comparison of the three options for you to review.'],
+  brief:['Offer a recommendation','A recommendation with the key trade-off gives you something clear to respond to.','a clear recommendation','A long list of open options with no recommendation may slow your response.','I recommend option B. The trade-off is a higher cost for faster delivery.'],
+  talk:['Include you before it is final','Joining the discussion lets your input shape the outcome.','joining the discussion','A decision presented as final, after the discussion closed, may leave your input out.','We are leaning toward the new schedule. Can we hear your view before we finalize it?'],
+  time:['Allow time to decide','Time to think lets you commit to a decision you have considered.','time to think','Being asked to commit in the meeting may leave no time to think it through.','We need a decision by Friday. Take the week to think it over and tell me then.']},
+ {brief:['Keep messages short','A short message with the main point is quick to read and answer.','a short, direct message','Long messages with the point at the end may be skimmed or delayed.','Quick one: can you approve the budget by Wednesday?'],
+  talk:['Start with a quick chat','A quick chat lets you clarify things as you go.','a quick informal chat','Formal written requests for things a quick chat could settle may feel slow.','Do you have two minutes for a quick chat about the schedule?'],
+  time:['Reach out at agreed times','Predictable contact lets you plan your attention in advance.','predictable timing','Unscheduled requests that arrive unexpectedly may interrupt your planning.','Can we agree on a time each day for quick questions? I will save mine for then.'],
+  detail:['Include context and details','A complete message lets you act without asking follow-up questions.','a message with full context','A brief message that leaves out the context may need several follow-ups.','Here is the request, the background, the deadline and the files you will need.']},
+ {talk:['Keep updates conversational','Informal chats let you ask questions while things develop.','informal chats','Updates delivered only as written reports may leave your questions unasked.','I will stop by after the review to talk through where the project stands.'],
+  time:['Fix a regular check-in','A predictable rhythm means you know when to expect news.','set check-ins','Ad-hoc updates at irregular times may be hard to plan around.','Let us do a check-in every Tuesday at 10, so you know when to expect updates.'],
+  detail:['Include the data','Thorough updates with supporting data let you check progress yourself.','thorough updates with data','Updates that give only conclusions, with no data, may leave you unable to verify progress.','The status report is attached, with the numbers behind each milestone.'],
+  brief:['Share only what changed','Short updates point you straight to what needs your attention.','short updates on what changed','Long recaps of things that have not changed may bury the news.','Update: the launch date is unchanged. Design is finished and testing starts Monday.']},
+ {time:['Leave room to think first','Space to think it over lets you work through it before anyone steps in.','time to think it over','Someone stepping in right away may interrupt thinking you are already doing.','Tell me if you want input. I will check back this afternoon, not before.'],
+  detail:['Help find what is missing','Supplying the missing piece lets you continue without starting over.','help finding the missing information','General encouragement without the missing information may not unblock the work.','I found the pricing document you were looking for. Does that fill the gap?'],
+  brief:['Give a clear next step','Straight advice on the next step gets the work moving again.','straight advice on the next step','Open-ended brainstorming when you want a next step may feel slow.','My advice: confirm the scope with the client first, then rebuild the timeline.'],
+  talk:['Talk the problem through','Talking it through with someone can show the problem from a new angle.','someone to talk it through with','Being left to work it out alone may help less than a conversation.','Want to talk it through? I have ten minutes now.']}
 ];
 
 const PROFILES = {
@@ -1021,6 +1056,50 @@ function presentPrefs(p3){
   }
   return {final:true, kind:p3.kind, top:p3.top, next:p3.next, lines:[line]};
 }
+/* ---- Part 2 insights: built from the individual answers, never from Part 1 colors. ---- */
+const COMM_APPROACH_PRI = [4,2,0,5,3,1,6];   /* situations that start with a colleague approaching you, used for the example line */
+const COMM_SIT_PRI = [0,1,3,2,6,5,4];   /* which situation to show first when several qualify: feedback, disagreement, decisions, instructions, stuck, updates, reaching out */
+const COMM_STYLE = {brief:'You mostly prefer short, direct communication', talk:'You mostly prefer talking things through', time:'You mostly prefer notice and time to think', detail:'You mostly prefer specifics and evidence in writing'};
+const COMM_NOUN = {brief:'short, direct messages', talk:'conversation', time:'notice and time to think', detail:'detail and evidence'};
+const COMM_OFFER = {brief:'send a short summary with the main point', talk:'set up a quick conversation', time:'give you a heads-up and some time', detail:'share the details in writing'};
+const wordCount = t => String(t).trim().split(/\s+/).filter(Boolean).length;
+const capFirst = t => t.charAt(0).toUpperCase() + t.slice(1);
+function communicationInsights(answers, items=PREFS){
+  const p = scorePrefs(answers, items); if (!p.final) return null;
+  const th = i => items[i].o[answers[i]][1], A = i => COMM[i][th(i)], cx = i => COMM_CTX[i], want = i => A(i)[2];
+  const sits = {brief:[], talk:[], time:[], detail:[]}; COMM_SIT_PRI.forEach(i => sits[th(i)].push(i));
+  const pri = k => COMM_SIT_PRI.indexOf(sits[k][0]);
+  const rank = THEME_KEYS.filter(k => p.counts[k] > 0).sort((a,b) => p.counts[b]-p.counts[a] || pri(a)-pri(b));
+  const reps = rank.map(k => sits[k][0]);
+  const top = rank[0], used = [];
+  const take = k => { const i = sits[k].find(x => !used.includes(x)); if (i !== undefined) used.push(i); return i; };
+  const excReps = rank.slice(1).map(k => sits[k][0]).sort((a,b) => COMM_SIT_PRI.indexOf(a)-COMM_SIT_PRI.indexOf(b));
+  let works = [], style, fricSrc, fric, say, saySrc;
+  if (p.kind === 'clear'){ works = [take(top), take(top), excReps.length ? (used.push(excReps[0]), excReps[0]) : take(top)]; }
+  else { while (works.length < 3) rank.forEach(k => { if (works.length < 3){ const i = take(k); if (i !== undefined) works.push(i); } }); }
+  const unusedOf = k => { const i = sits[k].find(x => !works.includes(x)); return i === undefined ? sits[k][0] : i; };
+  const say0 = k => COMM_APPROACH_PRI.find(i => th(i) === k);
+  const lean = (e0, e1, v='lean toward') => `${cx(e0)}, you ${v} ${want(e0)}` + (e1 !== undefined ? `, and ${cx(e1)}, ${v === 'lean toward' ? 'toward' : v === 'prefer' ? 'you prefer' : v} ${want(e1)}` : '');
+  if (p.kind === 'clear' || p.kind === 'lean'){
+    const mk = n => (p.kind === 'clear' ? COMM_STYLE[top] + (excReps.length ? ', though ' + lean(excReps[0], n > 1 ? excReps[1] : undefined) : ' in all seven situations') : `You lean toward ${COMM_NOUN[top]}, but it varies: ${lean(excReps[0], n > 1 ? excReps[1] : undefined, 'prefer')}`) + '.';
+    style = mk(2); if (wordCount(style) > 35) style = mk(1);
+    fricSrc = [unusedOf(top)]; fric = COMM[fricSrc[0]][top][3]; saySrc = [say0(top)]; say = COMM[saySrc[0]][top][4];
+  } else if (p.kind === 'tied'){
+    const [a, b] = rank.slice(0, 2), sa = reps[0], sb = reps[1];
+    const mk = n => `Two preferences carry equal weight: ${COMM_NOUN[a]} and ${COMM_NOUN[b]}. ${capFirst(lean(sa, n > 1 ? sb : undefined))}.`;
+    style = mk(2); if (wordCount(style) > 35) style = mk(1);
+    fricSrc = [unusedOf(a)]; fric = COMM[fricSrc[0]][a][3]; saySrc = [sa, sb]; say = `I can ${COMM_OFFER[a]} or ${COMM_OFFER[b]}. Which works better for this?`;
+  } else {
+    const s0 = reps[0], s1 = reps[1], s2 = reps[2], s3 = reps[3];
+    const mk = n => `Your preferences shift by situation, not one pattern. For example, ${lean(s0, n > 1 ? s1 : undefined)}.`;
+    style = mk(2); if (wordCount(style) > 35) style = mk(1);
+    fricSrc = [s2, s3]; fric = `A colleague who always uses one format may miss that you want ${want(s2)} ${cx(s2)}, but ${want(s3)} ${cx(s3)}.`;
+    saySrc = [s0, s1]; say = `I can ${COMM_OFFER[rank[0]]} or ${COMM_OFFER[rank[1]]}. Which works better for this?`;
+  }
+  return {kind: p.kind, style,
+    works: works.map(i => ({h: A(i)[0], why: A(i)[1], src: i})),
+    friction: {text: fric, src: fricSrc}, approach: {text: say, src: saySrc}};
+}
 /*SCORING-END*/
 
 const names = listNames;
@@ -1221,7 +1300,7 @@ function finishReveal(){
 }
 
 /* ---------- Results (5 focused steps) ---------- */
-const STEPS = [['dna','Your Color DNA'],['self','Understand yourself'],['prefs','Your Communication Preferences'],['guide','Working with the four colors'],['card','My profile']];
+const STEPS = [['dna','Your Color DNA'],['self','Understand yourself'],['prefs','How to Communicate With You'],['guide','Working with the four colors'],['card','My profile']];
 function enterResults(){
   if (!S.res || !S.res.final || !S.resP || !S.resP.final){ notify(S.res && S.res.errors && S.res.errors.length ? 'Your answers could not be scored. Please retake the quiz.' : NOT_FINAL); show('quiz'); return; }
   show('results'); goStep(S.step||0);
@@ -1309,29 +1388,21 @@ function stepSelf(){
 /* ---------- Results: Parts 2 and 3 and the collaboration guide (separate from the Color DNA) ---------- */
 const lowerFirst = t => t.charAt(0).toLowerCase() + t.slice(1);
 const stripDot = t => t.replace(/\.$/,'');
-const cntRow = (name, color, n, of, top) => `<div class="pr cnt${top?' top':''}" role="listitem"><span class="sw" style="background:${color}"></span><span>${esc(name)}</span><span class="t"><i style="width:${of?n/of*100:0}%;background:${color}"></i></span><b>${n} of ${of}</b></div>`;
-const PREF_GROUPS = [
-  {title:'How you prefer to receive feedback', idx:[0]},
-  {title:'How you like to discuss disagreements', idx:[1]},
-  {title:'How you prefer to receive instructions', idx:[2]},
-  {title:'What helps you collaborate effectively', idx:[3,4,5,6]}
-];
+const prefSrc = i => `From: ${[].concat(i).map(x => PREFS[x].theme).join(' and ')}`;
 function stepPrefs(){
-  const p = S.resP, pp = presentPrefs(p);
-  const focus = [...p.top, ...p.next];
-  const TC = {brief:'#3A3F58', talk:'#3A3F58', time:'#3A3F58', detail:'#3A3F58'}; /* neutral: preference themes are not colors */
-  return `${head('Your Communication Preferences','What you said you appreciate from colleagues, in your own answers first. This describes how you like to connect, not your personality, and it is shown separately from your Color DNA.')}
+  const p = S.resP, ins = p && p.final ? communicationInsights(S.prefs) : null;
+  if (!ins) return `${head('How to Communicate With You','Answer the seven Part 2 questions to see this guide.')}`;
+  return `${head('How to Communicate With You','A short guide for colleagues, based on your seven answers in Part 2.')}
   <div class="pane" style="margin-top:22px;border-top:3px solid var(--ink)">
-    <h3>What you chose most often</h3>
-    <div role="list" aria-label="Communication preferences chosen in Part 2" style="margin-top:8px">${THEME_KEYS.map(k=>cntRow(THEMES[k].name, TC[k], p.counts[k], p.expected, p.top.includes(k))).join('')}</div>
-    <p class="fine" style="margin-top:8px">Counts, not percentages. Each situation offered one option of each kind, so the four counts add up to ${p.expected}.</p>
-    ${pp.lines.map(l=>`<p>${esc(l)}</p>`).join('')}
-    ${PREF_GROUPS.map(g=>`<h3>${esc(g.title)}</h3><ul class="checks" style="--k:var(--ink)">${g.idx.map(i=>`<li><span><b>${esc(PREFS[i].theme)}:</b> ${esc(PREFS[i].o[S.prefs[i]][0])}</span></li>`).join('')}</ul>`).join('')}
-    <p class="fine" style="margin-top:8px">These are your own answers. They can coexist: you may want direct feedback, detailed instructions and advance notice of changes all at once, so no single style applies to every situation.</p>
-    ${focus.length?`<h3>Things you could ask colleagues for</h3><ul class="checks" style="--k:var(--ink)">${focus.map(k=>`<li>${esc(THEMES[k].ask)}</li>`).join('')}</ul>`:'<p>Because your preferences varied, it may help to tell colleagues what you need in each situation.</p>'}
-    <div class="callout" style="--k:var(--ink)"><b>How to read this</b>Preferences can change with the topic, the stakes and who you are talking to. Wanting a short, direct message does not mean you do not care about people, and wanting time or detail does not mean you are slow or rigid. These are things to ask for, not labels.</div>
+    <h3>Your communication style</h3><p>${esc(ins.style)}</p>
+    <h3>What works best for you</h3>
+    ${ins.works.map((w,n)=>`<div class="tipn"><b class="n">${n+1}</b><div><b>${esc(w.h)}.</b> ${esc(w.why)} <span class="fine src">${esc(prefSrc(w.src))}</span></div></div>`).join('')}
+    <div class="callout" style="--k:#C9625F"><b>A possible friction point</b>${esc(ins.friction.text)} <span class="fine src">${esc(prefSrc(ins.friction.src))}</span></div>
+    <div class="callout" style="--k:var(--ink)"><b>A helpful way to approach you</b>“${esc(ins.approach.text)}”</div>
+    <details class="raw"><summary>View your responses</summary>
+      <ul class="checks" style="--k:var(--ink);margin-top:10px">${PREFS.map((q,i)=>`<li><span><b>${esc(q.theme)}:</b> ${esc(q.o[S.prefs[i]][0])}</span></li>`).join('')}</ul></details>
   </div>
-  <p class="fine" style="margin-top:12px">${p.expected} situations are a small sample, and each option was written to be equally reasonable. Not a validated measure.</p>`;
+  <p class="fine" style="margin-top:12px">Starting points from seven answers, not a label or a validated measure.</p>`;
 }
 function stepGuide(){ return stepConnect(); }
 function prefNote(){
@@ -1594,7 +1665,7 @@ function mascotJpeg(d){
   return new Promise((res, rej) => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; const x = c.getContext('2d'); x.fillStyle = META[d].soft; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0); res({bytes: jpegBytes(c), w: c.width, h: c.height}); }; im.onerror = () => rej(new Error('mascot image')); im.src = p.src; });
 }
 async function buildProfilePdf(snap){
-  const r = snap.res, m = snap.model, p = S.resP, pp = presentPrefs(p), doc = pdfDoc();
+  const r = snap.res, m = snap.model, doc = pdfDoc();
   const card = await getCard(snap), cardIdx = doc.addImage(jpegBytes(card), card.width, card.height);
   const styles = r.pick && r.pick.length ? r.pick : [S.focus], mj = {};
   for (const d of styles){ const j = await mascotJpeg(d); mj[d] = {i: doc.addImage(j.bytes, j.w, j.h), w: j.w, h: j.h}; }
@@ -1620,12 +1691,24 @@ async function buildProfilePdf(snap){
     doc.sub('Growth opportunities', M.text); P.growth.forEach(s => doc.para(s, {bullet: true, gap: 2})); doc.y += 12;
   });
   doc.para('Tendencies, not rules. Most people flex across all four colors.', {size: 9.5, color: PGREY});
+  /* working with the four colors: the leading style only */
+  const lead = [S.focus];
+  doc.newPage(); doc.title('Working with the four colors', META[lead[0]].base);
+  doc.para(styles.length > 1 ? `Shown for ${META[lead[0]].name}, one of your closely matched or tied styles. Your results do not rank it above the others, and the app lets you explore every pairing.` : 'How your leading style may connect with each of the four colors. Ideas to try, not predictions about any one person.', {size: 10, color: PGREY, gap: 6});
+  lead.forEach(sd => {
+    DIMS.forEach(t => {
+      const [, first, , differ, , , say] = PAIRS[sd + t]; doc.room(120);
+      doc.sub(`${META[sd].name} with ${META[t].name}${sd === t ? ' (the same color)' : ''}`, META[t].text);
+      doc.para(`Your first move: ${first}`, {gap: 2, size: 10}); doc.para(`Where you may differ: ${differ}`, {gap: 2, size: 10}); doc.para(`Try saying: \u201C${say}\u201D`, {gap: 6, size: 10});
+    });
+  });
   /* part 2 */
-  doc.y += 12; doc.room(150); doc.title('Part 2 · How you like to connect', '#3A3F58');
-  THEME_KEYS.forEach(k => doc.bar(THEMES[k].name, p.counts[k], p.expected, '#3A3F58', `${p.counts[k]} of ${p.expected}`));
-  doc.y += 4; pp.lines.forEach(l => doc.para(l));
-  PREF_GROUPS.forEach(g => { doc.sub(g.title); g.idx.forEach(i => doc.para(`${PREFS[i].theme}: ${PREFS[i].o[S.prefs[i]][0]}`, {bullet: true, gap: 2, size: 10})); });
-  const ask = [...p.top, ...p.next]; if (ask.length){ doc.sub('Things you could ask colleagues for'); ask.forEach(k => doc.para(THEMES[k].ask, {bullet: true, gap: 2})); doc.y += 4; }
+  doc.y += 12; doc.room(220); doc.title('How to Communicate With You', '#3A3F58');
+  const ins = communicationInsights(S.prefs);
+  doc.sub('Your communication style'); doc.para(ins.style);
+  doc.sub('What works best for you'); ins.works.forEach((w, n) => { doc.para(`${n + 1}. ${w.h}. ${w.why}`, {gap: 1}); doc.para(prefSrc(w.src), {size: 8.5, color: PGREY, gap: 4}); });
+  doc.sub('A possible friction point', '#C9625F'); doc.para(ins.friction.text, {gap: 1}); doc.para(prefSrc(ins.friction.src), {size: 8.5, color: PGREY, gap: 4});
+  doc.sub('A helpful way to approach you'); doc.para(`\u201C${ins.approach.text}\u201D`);
   doc.y += 14; doc.para('These results come from a short self-report. They describe tendencies and preferences, not fixed traits, and should not be used for hiring or other decisions about people.', {size: 9.5, color: PGREY});
   /* footers */
   const n = doc.pages.length;
